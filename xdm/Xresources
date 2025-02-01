@@ -1,0 +1,66 @@
+Xcursor.theme: Adwaita
+Xft.dpi: 96
+
+xlogin*login.translations: #override \
+	Ctrl<Key>R: abort-display()\n\
+	<Key>F1: set-session-argument(failsafe) finish-field()\n\
+	<Key>Delete: delete-character()\n\
+	<Key>Left: move-backward-character()\n\
+	<Key>Right: move-forward-character()\n\
+	<Key>Home: move-to-begining()\n\
+	<Key>End: move-to-end()\n\
+	Ctrl<Key>KP_Enter: set-session-argument(failsafe) finish-field()\n\
+	<Key>KP_Enter: set-session-argument() finish-field()\n\
+	Ctrl<Key>Return: set-session-argument(failsafe) finish-field()\n\
+	<Key>Return: set-session-argument() finish-field()
+
+xlogin*greeting: Welcome to CLIENTHOST!
+xlogin*namePrompt: Username:\040\040\040\040\040
+xlogin*passwordPrompt: Password:\040\040\040\040\040
+xlogin*fail: Login failed
+xlogin*echoPasswd: true
+*borderWidth: 3
+*frameWidth: 0
+xlogin*innerFramesWidth: 2
+xlogin*sepWidth: 0
+*font: -*-ubuntu-medium-r-normal--10-100-75-75-p-*-iso8859-1
+XClock*face:	Ubuntu Nerd Font
+XClock*geometry:	-12+12
+XClock*padding:		10
+
+#if WIDTH > 800
+xlogin*greetFont: -*-ubuntu-bold-r-normal--20-200-75-75-p-*-iso8859-1
+xlogin*font: -*-ubuntu-medium-r-normal--16-160-75-75-p-*-iso8859-1
+xlogin*promptFont: -*-ubuntu-medium-r-normal--16-160-75-75-p-*-iso8859-1
+xlogin*failFont: -*-ubuntu-bold-r-normal--16-160-75-75-p-*-iso8859-1
+xlogin*greetFace:	Ubuntu Nerd Font-20:bold
+xlogin*face:		Ubuntu Nerd Font-16
+xlogin*promptFace:	Ubuntu Nerd Font-16
+xlogin*failFace:	Ubuntu Nerd Font-16:bold
+#else
+xlogin*greetFont: -*-ubuntu-bold-r-normal--18-180-75-75-p-*-iso8859-1
+xlogin*font: -*-ubuntu-medium-r-normal--14-140-75-75-p-*-iso8859-1
+xlogin*promptFont: -*-ubuntu-medium-r-normal--14-140-75-75-p-*-iso8859-1
+xlogin*failFont: -*-ubuntu-bold-r-normal--14-140-75-75-p-*-iso8859-1
+xlogin*greetFace:	Ubuntu Nerd Font-20:bold
+xlogin*face:		Ubuntu Nerd Font-12
+xlogin*promptFace:	Ubuntu Nerd Font-12
+xlogin*failFace:	Ubuntu Nerd Font-14:bold
+#endif
+
+#ifdef COLOR
+xlogin*shdColor: #BBF1DD
+xlogin*hiColor: #BBF1DD
+xlogin*background: #1B2421
+xlogin*inpColor: #151C19
+xlogin*foreground: #BBF1DD
+xlogin*greetColor: #BBF1DD
+xlogin*failColor: red
+*borderColor: #107C10
+*Foreground: #BBF1DD
+*Background: #1B2421
+
+#else
+xlogin*shdColor: black
+xlogin*hiColor: black
+#endif
