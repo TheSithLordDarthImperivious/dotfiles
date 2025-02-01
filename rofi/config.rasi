@@ -1,0 +1,139 @@
+configuration {
+  modes: "window,drun,run,ssh,combi";
+  font: "Ubuntu Nerd Font 16";
+  display-drun: "Applications";
+  display-window: "All Windows";
+  show-icons: true;
+}
+
+* {
+  // general
+  bg: #1b2421;
+  bgt: #1b2421cc;
+  t: transparent;
+  fg: #BBF1DD;
+  border: #107C10;
+
+  selected-bg: @fg;
+  selected-fg: @bg;
+
+  // for windows
+  active: #4CAF50;
+  urgent: #A00000;
+}
+
+window {
+//  fullscreen: true;
+//  padding: 35% 30%;       // you might want to ajust these to resize rofi.
+  padding: 3%;
+  transparency: "real";
+  background-color: @bg;
+  border-color: @border;
+  border: 6;
+}
+
+listview {
+  border: 0 0 0 0;
+  padding: 2.5% 0 0;
+  scrollbar: false;
+  lines: 10;
+  fixed-height: false;
+}
+
+scrollbar {
+    width:        4px;
+    border:       0;
+    handle-color: @fg;
+    handle-width: 8px;
+    padding:      0 5;
+}
+
+entry {
+    placeholder: "";
+}
+
+// less interesting stuff {{{
+
+// using elements from:
+// https://github.com/bardisty/gruvbox-rofi/blob/master/gruvbox-common.rasi
+
+textbox {
+    text-color: @fg;
+}
+
+element {
+    border:  0;
+    padding: 10px;
+}
+element.normal.normal {
+    background-color: @t;
+    text-color:       @fg;
+}
+element.normal.urgent {
+    background-color: @t;
+    text-color:       @urgent;
+}
+element.normal.active {
+    background-color: @t;
+    text-color:       @active;
+}
+element.selected.normal {
+    background-color: @selected-bg;
+    text-color:       @selected-fg;
+}
+element.selected.urgent {
+    background-color: @selected-bg;
+    text-color:       @urgent;
+}
+element.selected.active {
+    background-color: @selected-bg;
+    text-color:       @selected-fg;
+}
+element.alternate.normal {
+    background-color: @t;
+    text-color:       @fg;
+}
+element.alternate.urgent {
+    background-color: @t;
+    text-color:       @urgent;
+}
+element.alternate.active {
+    background-color: @t;
+    text-color:       @active;
+}
+
+sidebar {
+    border:       2px 0 0;
+    border-color: @fg;
+}
+
+inputbar {
+    spacing:    0;
+    text-color: @fg;
+    padding:    2px;
+    children:   [ prompt, textbox-prompt-sep, entry, case-indicator ];
+}
+
+case-indicator,
+entry,
+prompt,
+button {
+    spacing:    0;
+    text-color: @fg;
+}
+
+button.selected {
+    background-color: @bg;
+    text-color:       @fg;
+}
+
+textbox-prompt-sep {
+    expand:     false;
+    str:        ":";
+    text-color: @fg;
+    margin:     0 0.3em 0 0;
+}
+
+error-message {
+	padding: 0 0 3% 0;
+}
