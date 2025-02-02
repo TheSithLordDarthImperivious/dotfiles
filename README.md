@@ -2,9 +2,12 @@
 
 This repo was made for easy syncing of dotfiles across all of my machines. If you want to look at them, sure. No preview though.
 
-# How to use?
+# How to install?
 
-Who needs install scripts? Just copy/symlink them manually. All of these are meant to be able to be used in all Unix-like OSes.
+Run the script in the base directory of the setup. Make sure that you are in the b
+ase directory of the setup or it won't work.
+
+For macOS, only the generic stuff will work.
 
 # I don't see them. Where are they?
 
