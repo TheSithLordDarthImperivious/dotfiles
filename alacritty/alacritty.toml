@@ -1,0 +1,14 @@
+[window]
+dimensions = { columns = 80, lines = 25 }
+dynamic_title = true
+title =	"Terminal Emulator"
+
+[font]
+normal = { family = "MesloLGS NF" }
+
+[colors.primary]
+background = "#1B2421"
+foreground = "#FFFFFF"
+
+[env]
+TERM = "xterm-256color"
