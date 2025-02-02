@@ -34,7 +34,7 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 # Check if GUI or framebuffer
 # Generally, GUI uses xterm-based ones
-if [[ "$TERM" == xterm* ]] || [[ "$TERM" == uxterm ]]; then
+if [[ "$TERM" == xterm*color ]] || [[ $(tty) != *tty* ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 else
