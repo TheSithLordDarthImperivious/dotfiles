@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Generic install script
 # Installs stuff for things that are not tied to wm
