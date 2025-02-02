@@ -11,3 +11,4 @@ Run the script in the base directory of the setup. Make sure that you are in the
 192 dpi is generally used in stuff like 4K displays.
 
 NOTE: This setup will be the **least** updated since I normally would use Wayland on these machines.
+

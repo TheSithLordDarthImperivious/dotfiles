@@ -4,7 +4,7 @@ This repo was made for easy syncing of dotfiles across all of my machines. If yo
 
 # How to install?
 
-Run the script in the base directory of the setup. Make sure that you are in the b
+Run the script in the base directory of the setup that you want to use. Make sure that you are in the b
 ase directory of the setup or it won't work.
 
 For macOS, only the generic stuff will work.
