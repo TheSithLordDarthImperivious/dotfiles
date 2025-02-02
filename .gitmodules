@@ -1,10 +1,10 @@
-[submodule "powerlevel10k"]
+[submodule "general-setup-files/powerlevel10k"]
 	path = general-setup-files/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
-[submodule "themes/Juno-ocean"]
+[submodule "general-setup-files/themes/Juno-ocean"]
 	path = general-setup-files/themes/Juno-ocean
 	url = https://github.com/EliverLara/Juno.git
 	branch = ocean
-[submodule "themes/ZorinOSThemes"]
+[submodule "general-setup-files/themes/ZorinOSThemes"]
 	path = general-setup-files/themes/ZorinOSThemes
 	url = https://github.com/ZorinOS/zorin-desktop-themes.git
