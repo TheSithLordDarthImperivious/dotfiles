@@ -1,0 +1,57 @@
+Xft.dpi: 96
+*Background: #1B2421
+*Foreground: #BBF1DD
+*face:    Ubuntu Nerd Font
+*cursorTheme: Adwaita
+
+
+! Start XTerm section
+xterm*faceName: MesloLGS NF
+xterm.termName: xterm-256color
+xterm*colorMode: on
+xterm*dynamicColors: on
+xterm.vt100.metaSendsEscape: true
+xterm.vt100.backarrowKey: false
+xterm.ttyModes: erase ^?
+xterm*Foreground: #FFFFFF
+xterm*faceSize: 11.25
+xterm*vt100.translations: #override \
+    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
+
+! Start aterm section
+aterm*background: #1B2421
+aterm*foreground: #FFFFFF
+aterm*scrollBar: false
+
+! Start XScreensaver section
+
+*Dialog.headingFont:    ubuntu nerd font bold 16
+*Dialog.bodyFont:       ubuntu nerd font 14
+*Dialog.errorFont:      ubuntu nerd font bold 14
+*Dialog.labelFont:      ubuntu nerd font bold 14
+*Dialog.unameFont:      ubuntu nerd font 12
+*Dialog.buttonFont:     ubuntu nerd font bold 14
+*Dialog.dateFont:       ubuntu nerd font 9
+
+*default.Dialog.foreground:                     #BBF1DD
+*default.Dialog.background:                     #1B2421
+*default.Dialog.button.foreground:              #BBF1DD
+*default.Dialog.button.background:              #27332F
+*default.Dialog.logo.background:                #1B2421
+*default.Dialog.text.foreground:                #BBF1DD
+*default.Dialog.error.foreground:               #FF0000
+*default.Dialog.text.background:                #151C19
+*default.Dialog.topShadowColor:                 #BBF1DD
+*default.Dialog.bottomShadowColor:              #BBF1DD
+*default.Dialog.shadowWidth:                    0
+*default.Dialog.logo.width:                     0
+*default.Dialog.logo.height:                    0
+*default.Dialog.thermometer.foreground:         #BBF1DD
+*default.Dialog.thermometer.background:         #27332F
+*default.Dialog.thermometer.width:              6
+*default.Dialog.borderColor:                    #107C10
+*default.Dialog.borderWidth:                    3
+*default.Dialog.internalPadding:                24
+
+

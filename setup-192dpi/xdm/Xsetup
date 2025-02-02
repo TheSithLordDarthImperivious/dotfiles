@@ -1,0 +1,6 @@
+#!/bin/sh
+#xconsole -geometry 480x130-0-0 -daemon -notify -verbose -fn fixed -exitOnFail
+xclock -d -strftime "%A, %B %e, %Y | %T" -update 1 &
+xclock -d -strftime "Kernel: `uname -sr` on `uname -m`" -geometry +24+24 &
+feh --bg-fill /usr/share/wallpapers/Hk3ToN-blue-wallpaper.png
+

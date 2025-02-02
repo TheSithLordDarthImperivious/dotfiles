@@ -1,0 +1,315 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	padding-top: 0px;
+       	font-family: "Ubuntu Nerd Font";
+       	font-size: 16px;
+	font-weight: normal;
+	margin-left: 2px;
+	margin-right: 2px;
+	margin-top: 1px;
+	margin-bottom: 0px;
+	padding-bottom: 3px;
+	padding-left: 1px;
+	padding-right: 1px;
+	min-height: 0px;
+	min-width: 0px;
+	outline-width: 0px;
+	border-image-width: 0px;
+	border-radius: 0px;
+}
+
+.horizontal {
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
+.modules-left, .modules-right, .modules-center {
+       	margin-top: 3px;
+       	margin-bottom: 2px;
+       	padding-bottom: 3px;
+}
+
+window#waybar {
+        background: @theme_bg_color;
+        color: @theme_text_color;
+	margin:0px;
+	padding:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
+#custom-rofi {
+	padding-left: 8px;
+	padding-right: 8px;
+	margin-left: 3px;
+	margin-right: 3px;
+	padding-bottom: 0px;
+	margin-top: 1px;
+	margin-bottom: 0px;
+	background-color: #107C10;
+	border-radius: 8px;
+	color: #FFFFFF;
+}
+
+#custom-windowswitcher {
+       	padding-left: 8px;
+       	padding-right: 8px;
+       	margin-left: 3px;
+       	margin-right: 3px;
+       	padding-bottom: 0px;
+       	margin-top: 1px;
+       	margin-bottom: 0px;
+       	background-color: #0276AB;
+       	border-radius: 8px;
+       	color: #FFFFFF;
+}
+
+#workspaces {
+	border: 0px solid @theme_fg_color;
+	padding: 0px;
+	padding-bottom: 0px;
+	padding-left: 2px;
+	padding-right: 2px;
+	margin-top: 1px;
+	margin-bottom: 0px;
+	border-radius: 8px;
+	background-color: @theme_base_color;
+}
+
+#workspaces button {
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding-left: 4px;
+	padding-right: 4px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	border-radius: 8px;
+	min-height: 24px;
+	min-width: 16px;
+}
+
+#workspaces button.focused {
+	background-color: @theme_selected_bg_color;
+	color: @theme_selected_fg_color;
+}
+
+#workspaces button.urgent {
+	color: #FFFFFF;
+	background-color: #FF0000;
+}
+
+#window {
+	color: #00DAE9;
+	border-bottom: 0px solid #00DAE9;
+       	background-color: @theme_base_color;
+       	border-radius: 8px;
+	margin: 0px;
+       	padding: 0px;
+	padding-top: 0px;
+       	padding-left: 7px;
+       	padding-right: 7px;
+       	padding-bottom: 0px;
+       	margin-top: 1px;
+       	margin-bottom: 0px;
+}
+
+#user {
+        color: #00DAE9;
+	background-color: @theme_base_color;
+	border: 0px solid #00DAE9;
+       	border-radius: 8px;
+       	margin: 0px;
+       	padding: 0px;
+       	padding-top: 0px;
+       	padding-left: 7px;
+       	padding-right: 7px;
+       	padding-bottom: 0px;
+       	margin-top: 1px;
+       	margin-bottom: 0px;
+}
+
+#cpu {
+	color: #82B8C8;
+       	border-bottom: 2px solid #82B8C8;
+}
+
+#cpu.warning {
+	background: none;
+       	color: #F4BF75;
+       	border-bottom: 2px solid #F4BF75;
+}
+
+#cpu.critical {
+       	color: #FB7C7C;
+       	border-bottom: 2px solid #FB7C7C;
+}
+
+#memory {
+	color: #AAC474;
+       	border-bottom: 2px solid #AAC474;
+}
+
+#memory.warning {
+	background: none;
+       	color: #F4BF75;
+       	border-bottom: 2px solid #F4BF75;
+}
+
+#memory.critical {
+       	color: #FB7C7C;
+       	border-bottom: 2px solid #FB7C7C;
+}
+
+#backlight {
+	color: #FFEB2A;
+       	border-bottom: 2px solid #FFEB2A;
+}
+
+#battery {
+	color: #FF8C00;
+       	border-bottom: 2px solid #FF8C00;
+}
+
+#battery.warning {
+	background: none;
+	color: #F4BF75;
+       	border-bottom: 2px solid #F4BF75;
+}
+
+#battery.critical {
+	color: #FB7C7C;
+       	border-bottom: 2px solid #FB7C7C;
+}
+
+#battery.full {
+	color: #00FF00;
+	border-bottom: 2px solid #00FF00;
+}
+
+#battery.charging {
+	color: #FFFF33;
+	border-bottom: 2px solid #FFFF33;
+}
+
+#disk {
+	color: #C28CB8;
+       	border-bottom: 2px solid #C28CB8;
+}
+
+#disk.warning {
+	background: none;
+       	color: #F4BF75;
+       	border-bottom: 2px solid #F4BF75;
+}
+
+#disk.critical {
+       	color: #FB7C7C;
+       	border-bottom: 2px solid #FB7C7C;
+}
+
+#pulseaudio {
+	color: #4FC978;
+	border-bottom: 2px solid #4FC978;
+}
+
+#pulseaudio.muted {
+	color: #A6C900;
+	border-bottom: 2px solid #A6C900;
+}
+
+#pulseaudio.source_muted {
+       	color: #A6C900;
+       	border-bottom: 2px solid #A6C900;
+}
+
+#network {
+	color: #45B6FE;
+       	border-bottom: 2px solid #45B6FE;
+}
+
+#network.disabled {
+	color: #F4BF75;
+       	border-bottom: 2px solid #F4BF75;
+}
+
+#network.disconnected {
+	color: #FB7C7C;
+       	border-bottom: 2px solid #FB7C7C;
+}
+
+#clock {
+	color: #75B5AA;
+       	border-bottom: 2px solid #75B5AA;
+}
+
+#custom-power {
+       	padding-left: 7px;
+       	padding-right: 7px;
+       	margin-left: 4px;
+       	margin-right: 3px;
+       	padding-bottom: 0px;
+       	margin-top: 1px;
+       	margin-bottom: 0px;
+       	background-color: #B30000;
+       	border-radius: 8px;
+       	color: #FFFFFF;
+}
+
+window.dock#waybar {
+	border-radius: 8px;
+       	margin-left: 0px;
+       	margin-right: 0px;
+       	margin-top: 0px;
+       	padding-bottom: 0px;
+       	padding-left: 0px;
+       	padding-right: 0px;
+}
+
+#taskbar {
+       	margin-left: 0px;
+       	margin-right: 0px;
+       	margin-top: 0px;
+        padding-top: 3px;
+        padding-bottom :5px;
+        padding-left: 3px;
+        padding-right: 3px;
+}
+
+#taskbar button {
+        margin: 3px;
+	border-radius: 0px;
+	border-bottom: 2px solid #BBF1DD;
+       	padding-bottom: 0px;
+       	padding-left: 0px;
+       	padding-right: 0px;
+}
+
+#taskbar button.active {
+	border-bottom: 2px solid #00FF00;
+}
+
+#taskbar.empty {
+	padding: 10px;
+}
+
+tooltip {
+       	background: transparent;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+tooltip label {
+	background: @theme_bg_color;
+	color: @theme_text_color;
+	padding: 12px;
+	border-radius: 8px;
+	border: 2px solid #107C10;
+}
