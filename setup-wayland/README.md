@@ -10,3 +10,4 @@ ase directory of the setup or it won't work.
 # Why no dpi?
 
 Wayland handles DPI automatically. Xorg usually does not do it well.
+
