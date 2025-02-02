@@ -1,4 +1,0 @@
-[submodule "general-setup-files"]
-	path = general-setup-files
-	url = https://github.com/TheSithLordDarthImperivious/dotfiles
-	branch = general-setup-files
