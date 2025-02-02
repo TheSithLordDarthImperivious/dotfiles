@@ -7,6 +7,7 @@
 ln -sf $PWD/.zshrc $HOME/.zshrc
 ln -sf $PWD/powerlevel10k $HOME/powerlevel10k
 ln -sf $PWD/.p10k.zsh $HOME/.p10k.zsh
+ln -sf $PWD/.p10k-basic.zsh $HOME/.p10k-basic.zsh
 ln -sf $PWD/.vimrc $HOME/.vimrc
 ln -sf $PWD/.nanorc $HOME/.nanorc
 ln -sf $PWD/alacritty $HOME/.config/alacritty
