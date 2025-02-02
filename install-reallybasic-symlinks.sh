@@ -1,8 +1,9 @@
 #!/bin/sh
 
+# Rudimentary Wayland Setup Install Script
 # Does not install themes and fonts yet!
 # Untested, just taken from zsh history!
-# MUST BE IN THE BASE DIRECTORY
+# YOU MUST BE IN THE BASE DIRECTORY OF THE REPO FOR THIS TO WORK!
 
 cd general-setup-files
 ln -sf $PWD/.zshrc ~/.zshrc
