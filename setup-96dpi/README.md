@@ -12,3 +12,4 @@ ase directory of the setup or it won't work.
 96 dpi is essentially what most computers use. If you are not using any scaling by default, chances are you are using 96 dpi.
 
 Common resolutions include: 1024x768, 1366x768, 1600x900.
+
