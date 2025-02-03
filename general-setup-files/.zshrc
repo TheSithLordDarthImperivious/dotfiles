@@ -32,9 +32,10 @@ fi
 
 source ~/powerlevel10k/powerlevel10k.zsh-theme
 
-# Check if GUI or framebuffer
-# Generally, GUI uses xterm-based ones
-if [[ "$TERM" == xterm*color ]] || [[ $(tty) != *tty* ]]; then
+# Check if GUI (full colour) or framebuffer
+# Generally, GUI uses xterm-based ones, and the -color is needed since FreeBSD's framebuffer terminals use xterm
+# Even then, it's probably still better to use the basic prompt for basic xterm (as the fancy prompt looks weird on just xterm vs xterm-256color).
+if [[ "$TERM" == xterm*color ]]; then
     # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
     [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 else
