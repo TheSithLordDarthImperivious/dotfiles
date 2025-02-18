@@ -14,8 +14,8 @@ configuration {
   fg: #BFC3C4;
   border: #107C10;
 
-  selected-bg: @fg;
-  selected-fg: @bg;
+  selected-bg: #00A9A5;
+  selected-fg: #FEFEFE;
 
   // for windows
   active: #4CAF50;
