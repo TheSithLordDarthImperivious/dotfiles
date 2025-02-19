@@ -8,14 +8,14 @@ configuration {
 
 * {
   // general
-  bg: #1b2421;
-  bgt: #1b2421cc;
+  bg: #0F111A;
+  bgt: #0F111Acc;
   t: transparent;
-  fg: #BBF1DD;
+  fg: #BFC3C4;
   border: #107C10;
 
-  selected-bg: @fg;
-  selected-fg: @bg;
+  selected-bg: #00A9A5;
+  selected-fg: #FEFEFE;
 
   // for windows
   active: #4CAF50;
@@ -24,7 +24,7 @@ configuration {
 
 window {
 //  fullscreen: true;
-//  padding: 35% 30%;       // you might want to ajust these to resize rofi.
+//  padding: 35% 30%;       // you might want to adjust these to resize rofi.
   padding: 3%;
   transparency: "real";
   background-color: @bg;

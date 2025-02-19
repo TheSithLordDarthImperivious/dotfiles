@@ -24,7 +24,7 @@ configuration {
 
 window {
 //  fullscreen: true;
-//  padding: 35% 30%;       // you might want to ajust these to resize rofi.
+//  padding: 35% 30%;       // you might want to adjust these to resize rofi.
   padding: 3%;
   transparency: "real";
   background-color: @bg;

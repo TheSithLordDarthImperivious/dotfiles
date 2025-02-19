@@ -12,7 +12,7 @@ font:
 
 colors:
   primary:
-    background: "#1B2421"
+    background: "#0F111A"
     foreground: "#FFFFFF"
 
 env:
