@@ -210,7 +210,7 @@ title_align center
 
 # colors
 # class	border background text indicator child_border
-client.background #1B2421
+client.background #3A6EA5
 client.focused	#107C10 #006400 #FFFFFF #107C10 #107C10
 client.focused_inactive #0077E9 #005EB8 #FFFFFF #0099BC #0077E9 
 client.unfocused #01602C #015025 #AAAAAA #015025 #01602C

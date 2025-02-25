@@ -217,13 +217,13 @@ HideGeometryWindow
 #      13 - FvwmPager Active Page
 #      14 - FvwmIconMan Iconified Button
 ###########
-Colorset 0  fg #BBF1DD, bg #1b2421, hi, sh, Plain, NoShape
-Colorset 1  fg #AAAAAA, bg #1b2421, hi, sh, Plain, NoShape
-Colorset 2  fg #BBF1DD, bg #1b2421, hi, sh, Plain, NoShape
+Colorset 0  fg #BFC3C4, bg #0F111A, hi, sh, Plain, NoShape
+Colorset 1  fg #AAAAAA, bg #0F111A, hi, sh, Plain, NoShape
+Colorset 2  fg #BFC3C4, bg #0F111A, hi, sh, Plain, NoShape
 Colorset 3  fg black, bg #151c19, hi #676767, sh #303030, Plain, NoShape
 Colorset 4  fg black, bg #107C10, hi #474747, sh #101010, Plain, NoShape
-Colorset 5  fg #BBF1DD, bg #151c19, hi, sh, Plain, NoShape
-Colorset 6  fg #BBF1DD, bg #27332F, hi, sh, Plain, NoShape
+Colorset 5  fg #BFC3C4, bg #151c19, hi, sh, Plain, NoShape
+Colorset 6  fg #BFC3C4, bg #27332F, hi, sh, Plain, NoShape
 Colorset 7  fg grey30, bg #ffffff, hi, sh, Plain, NoShape
 Colorset 8  fg #ffffff, bg #107C10, hi, sh, Plain, NoShape
 Colorset 10 fg #ffffff, bg #003c3c, hi #aaaaaa, sh #999999, Plain, NoShape
