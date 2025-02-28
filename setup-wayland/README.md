@@ -4,8 +4,7 @@ This repo was made for easy syncing of dotfiles across all of my machines. If yo
 
 # How to install?
 
-Run the script in the base directory of the setup. Make sure that you are in the b
-ase directory of the setup or it won't work.
+Run the script in the base directory of the setup. Make sure that you are in the base directory of the setup or it won't work.
 
 # Why no dpi?
 
