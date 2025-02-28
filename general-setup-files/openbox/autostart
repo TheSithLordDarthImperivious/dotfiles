@@ -1,0 +1,5 @@
+kanshi &
+swaybg -i /usr/share/wallpapers/firewatchgreen.png -m fill &
+dunst &
+waybar &
+

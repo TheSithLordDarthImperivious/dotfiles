@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Generic install script
-# Installs stuff for things that are not tied to wm
+# Installs stuff for things that are not tied to any specific display protocol
 # YOU MUST BE IN THE SAME DIRECTORY AS THE GENERIC BRANCH FOR THIS SCRIPT TO WORK!
 
 ln -sf $PWD/.zshrc $HOME/.zshrc
@@ -10,6 +10,10 @@ ln -sf $PWD/.p10k.zsh $HOME/.p10k.zsh
 ln -sf $PWD/.p10k-basic.zsh $HOME/.p10k-basic.zsh
 ln -sf $PWD/.vimrc $HOME/.vimrc
 ln -sf $PWD/.nanorc $HOME/.nanorc
+ln -sf $PWD/themes/openbox-theme $HOME/.themes/openbox-theme
 ln -sf $PWD/alacritty $HOME/.config/alacritty
 ln -sf $PWD/kitty $HOME/.config/kitty
 ln -sf $PWD/i3status $HOME/.config/i3status
+ln -sf $PWD/dunst $HOME/.config/dunst
+ln -sf $PWD/openbox $HOME/.config/openbox
+ln -sf $PWD/openbox $HOME/.config/labwc

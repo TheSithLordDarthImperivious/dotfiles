@@ -20,9 +20,9 @@ font pango:Ubuntu Nerd Font 11
 
 # Swayidle
 exec swayidle -w \
-          timeout 300 'swaylock -c 1B2421 --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BBF1DD --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BBF1DD --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000' \
+          timeout 300 'swaylock -c 0F111A --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000' \
           timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-          before-sleep 'swaylock -c 1B2421 --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BBF1DD --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BBF1DD --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000'
+          before-sleep 'swaylock -c 0F111A --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000'
 
 # Use pactl to adjust volume in PulseAudio.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume `pactl get-default-sink` +5%
@@ -188,9 +188,9 @@ bindsym $mod+r mode "resize"
 #	separator_symbol " "
 #	colors {
 #		# class border background text
-#		background #1B2421
-#		statusline #BBF1DD
-#		separator #BBF1DD
+#		background #0F111A
+#		statusline #BFC3C4
+#		separator #BFC3C4
 #		active_workspace #0077E9 #005EB8 #FFFFFF
 #		focused_workspace #107C10 #006400 #FFFFFF
 #		urgent_workspace #FF0000 #900000 #FFFFFF
@@ -201,7 +201,7 @@ bindsym $mod+r mode "resize"
 gaps inner 5px
 gaps outer 0px
 
-bindsym $mod+Shift+w exec swaylock -c 1B2421 --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BBF1DD --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BBF1DD --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000
+bindsym $mod+Shift+w exec swaylock -c 0F111A --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000
 titlebar_padding 7
 titlebar_border_thickness 2
 title_align center
@@ -215,7 +215,7 @@ client.focused	#107C10 #006400 #FFFFFF #107C10 #107C10
 client.focused_inactive #0077E9 #005EB8 #FFFFFF #0099BC #0077E9 
 client.unfocused #01602C #015025 #AAAAAA #015025 #01602C
 client.urgent #FF0000 #900000 #FFFFFF #0000FF #FF0000
-client.placeholder #000000 #1B2421 #BBF1DD #000000 #000000
+client.placeholder #000000 #0F111A #BFC3C4 #000000 #000000
 
 # borders
 default_border normal 2

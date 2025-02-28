@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<labwc_config>
+
+<desktops number="10" />
+
+<theme>
+    <name>openbox-theme</name>
+    <cornerRadius>0</cornerRadius>
+    <keepBorder>yes</keepBorder>
+    <dropShadows>yes</dropShadows>
+    <font place="ActiveWindow">
+      <name>Ubuntu Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="InactiveWindow">
+      <name>Ubuntu Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="MenuHeader">
+      <name>Ubuntu Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="MenuItem">
+      <name>Ubuntu Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+    <font place="OnScreenDisplay">
+      <name>Ubuntu Nerd Font</name>
+      <size>10</size>
+      <slant>normal</slant>
+      <weight>normal</weight>
+    </font>
+</theme>
+
+<keyboard>
+    <keybind key="W-a">
+        <action name="Execute">
+            <command>rofi -show drun</command>
+        </action>
+    </keybind>
+    <keybind key="W-S-w">
+        <action name="Execute">
+            <command>swaylock -c 0F111A --font 'Ubuntu Nerd Font' --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000</command>
+        </action>
+    </keybind>
+    <keybind key="W-w">
+        <action name="Execute">
+            <command>rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons</command>
+        </action>
+    </keybind>
+
+    <keybind key="W-S-c">
+      <action name="Close"></action>
+    </keybind>
+    <keybind key="W-f">
+      <action name="ToggleMaximize"></action>
+    </keybind>
+    <keybind key="W-S-r">
+        <action name="Reconfigure"></action>
+    </keybind>
+    <keybind key="W-Return">
+      <action name="Execute">
+        <command>alacritty</command>
+      </action>
+    </keybind>
+    <keybind key="A-Tab">
+      <action name="NextWindow"></action>
+    </keybind>
+    <keybind key="A-S-Tab">
+      <action name="PreviousWindow"></action>
+    </keybind>
+    <keybind key="A-Left">
+      <action name="MoveToEdge" direction="left"></action>
+    </keybind>
+    <keybind key="A-Right">
+      <action name="MoveToEdge" direction="right"></action>
+    </keybind>
+    <keybind key="A-Up">
+      <action name="MoveToEdge" direction="up"></action>
+    </keybind>
+    <keybind key="A-Down">
+      <action name="MoveToEdge" direction="down"></action>
+    </keybind>
+    <keybind key="W-Left">
+      <action name="SnapToEdge" direction="left"></action>
+    </keybind>
+    <keybind key="W-Right">
+      <action name="SnapToEdge" direction="right"></action>
+    </keybind>
+    <keybind key="W-Up">
+      <action name="SnapToEdge" direction="up"></action>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="SnapToEdge" direction="down"></action>
+    </keybind>
+
+    <keybind key="XF86AudioRaiseVolume">
+        <action name="Execute">
+            <command>sh -c 'pactl set-sink-volume `pactl get-default-sink` +5%'</command>
+        </action>
+    </keybind>
+    <keybind key="XF86AudioLowerVolume">
+        <action name="Execute">
+            <command>sh -c 'pactl set-sink-volume `pactl get-default-sink` -5%'</command>
+        </action>
+    </keybind>
+    <keybind key="S-XF86AudioRaiseVolume">
+        <action name="Execute">
+            <command>sh -c 'pactl set-sink-volume `pactl get-default-sink` +1%'</command>
+        </action>
+    </keybind>
+    <keybind key="S-XF86AudioLowerVolume">
+        <action name="Execute">
+            <command>sh -c 'pactl set-sink-volume `pactl get-default-sink` -1%'</command>
+        </action>
+    </keybind>
+    <keybind key="XF86AudioMute">
+        <action name="Execute">
+            <command>sh -c 'pactl set-sink-mute `pactl get-default-sink` toggle'</command>
+        </action>
+    </keybind>
+    <keybind key="XF86MonBrightnessUp">
+        <action name="Execute">
+            <command>brightnessctl set +5%</command>
+        </action>
+    </keybind>
+    <keybind key="XF86MonBrightnessDown">
+        <action name="Execute">
+            <command>brightnessctl set 5%-</command>
+        </action>
+    </keybind>
+    <keybind key="S-XF86MonBrightnessUp">
+        <action name="Execute">
+            <command>brightnessctl set +1%"</command>
+        </action>
+    </keybind>
+    <keybind key="S-XF86MonBrightnessDown">
+        <action name="Execute">
+            <command>brightnessctl set 1%-</command>
+        </action>
+    </keybind>
+
+    <keybind key="W-Tab">
+        <action name="GoToDesktop">
+            <to>next</to>
+        </action>
+    </keybind>
+
+    <keybind key="W-1">
+        <action name="GoToDesktop">
+            <to>1</to>
+        </action>
+    </keybind>
+    <keybind key="W-2">
+        <action name="GoToDesktop">
+            <to>2</to>
+        </action>
+    </keybind>
+    <keybind key="W-3">
+        <action name="GoToDesktop">
+            <to>3</to>
+        </action>
+    </keybind>
+    <keybind key="W-4">
+        <action name="GoToDesktop">
+            <to>4</to>
+        </action>
+    </keybind>
+    <keybind key="W-5">
+        <action name="GoToDesktop">
+            <to>5</to>
+        </action>
+    </keybind>
+    <keybind key="W-6">
+        <action name="GoToDesktop">
+            <to>6</to>
+        </action>
+    </keybind>
+    <keybind key="W-7">
+        <action name="GoToDesktop">
+            <to>7</to>
+        </action>
+    </keybind>
+    <keybind key="W-8">
+        <action name="GoToDesktop">
+            <to>8</to>
+        </action>
+    </keybind>
+    <keybind key="W-9">
+        <action name="GoToDesktop">
+            <to>9</to>
+        </action>
+    </keybind>
+    <keybind key="W-0">
+        <action name="GoToDesktop">
+            <to>10</to>
+        </action>
+    </keybind>
+
+    <keybind key="W-S-1"> <action name="SendToDesktop" to="1" /> </keybind>
+    <keybind key="W-S-2"> <action name="SendToDesktop" to="2" /> </keybind>
+    <keybind key="W-S-3"> <action name="SendToDesktop" to="3" /> </keybind>
+    <keybind key="W-S-4"> <action name="SendToDesktop" to="4" /> </keybind>
+    <keybind key="W-S-5"> <action name="SendToDesktop" to="5" /> </keybind>
+    <keybind key="W-S-6"> <action name="SendToDesktop" to="6" /> </keybind>
+    <keybind key="W-S-7"> <action name="SendToDesktop" to="7" /> </keybind>
+    <keybind key="W-S-8"> <action name="SendToDesktop" to="8" /> </keybind>
+    <keybind key="W-S-9"> <action name="SendToDesktop" to="9" /> </keybind>
+    <keybind key="W-S-0"> <action name="SendToDesktop" to="10" /> </keybind>
+</keyboard>
+</labwc_config>

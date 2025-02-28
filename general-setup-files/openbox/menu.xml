@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<openbox_menu>
+<menu id="root-menu" label="Main Menu">
+  <separator label="Main Menu" />
+  <item label="All Programs"><action name="Execute" command="rofi -show drun" /></item>
+  <item label="All Windows"><action name="Execute" command="rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'" /></item>
+  <separator />
+  <item label="Terminal"><action name="Execute" command="alacritty" /></item>
+  <item label="Web browser"><action name="Execute" command="firefox" /></item>
+  <item label="File Manager"><action name="Execute" command="pcmanfm-qt" /></item>
+  <item label="Text Editor"><action name="Execute" command="featherpad" /></item>
+  <separator />
+  <item label="Lock Screen"><action name="Execute" command="swaylock -c 0F111A --font 'Ubuntu Nerd Font' --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000" /></item>
+  <item label="Power Options"><action name="Execute" command="rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons" /></item>
+  <item label="Reconfigure"><action name="Reconfigure" /></item>
+  <item label="Exit"><action name="Exit" /></item>
+</menu>
+</openbox_menu>

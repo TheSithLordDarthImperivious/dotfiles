@@ -5,6 +5,3 @@
 	path = general-setup-files/themes/Juno-ocean
 	url = https://github.com/EliverLara/Juno.git
 	branch = ocean
-[submodule "general-setup-files/themes/ZorinOSThemes"]
-	path = general-setup-files/themes/ZorinOSThemes
-	url = https://github.com/ZorinOS/zorin-desktop-themes.git
