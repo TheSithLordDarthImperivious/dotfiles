@@ -88,127 +88,50 @@
       <action name="PreviousWindow"></action>
     </keybind>
     <!-- Openbox snapping capability -->
-	<!-- Windows-Left: Left half of screen. -->
+    <!-- SnapToEdge actions are for labwc -->
 	<keybind key="W-Left">
-  	<action name="Raise"/>
-  	<action name="If"><query target="default">
-    	<maximized>no</maximized>
-    	<maximizedvertical>yes</maximizedvertical>
-  	</query><then>
-    	<!-- Only vertically maximized: Maximize completely. -->
-    	<action name="Maximize"/>
-  	</then><else>
-    	<action name="If"><query target="default">
-      	<maximizedhorizontal>no</maximizedhorizontal>
-    	</query><then>
-      	<!-- Not horizontally maximized: Maximize vertically. -->
-      	<action name="Maximize"><direction>vertical</direction></action>
-    	</then></action>
-    	<!-- Halve window width. -->
-    	<action name="Unmaximize"><direction>horizontal</direction></action>
-    	<action name="If">
-      	<query target="default"><name>x-terminal-emulator</name></query>
-      	<then><action name="MoveResizeTo"><width client="yes">101/200</width></action></then>
-      	<else><action name="MoveResizeTo"><width client="yes">1/2</width></action></else>
-    	</action>
-    	<!-- Put on left half of screen. -->
-    	<action name="MoveResizeTo">
-      	<x client="yes">-50%</x>     <!-- right edge at screen midpoint -->
-      	<!--x client="yes">0</x-->   <!-- left  edge at screen edge     -->
-    	</action>
-  	</else></action>
+    	<action name="UnmaximizeFull"/>
+    	<action name="MoveResizeTo"><x>0</x><y>0</y><height>100%</height><width>50%</width></action>
+    	<action name="SnapToEdge" direction="left" />
 	</keybind>
-	<!-- Windows-Right: Right half screen. -->
 	<keybind key="W-Right">
-  	<action name="Raise"/>
-  	<action name="If"><query target="default">
-    	<maximized>no</maximized>
-    	<maximizedvertical>yes</maximizedvertical>
-  	</query><then>
-    	<!-- Only vertically maximized: Maximize completely. -->
-    	<action name="Maximize"/>
-  	</then><else>
-    	<action name="If"><query target="default">
-      	<maximizedhorizontal>no</maximizedhorizontal>
-    	</query><then>
-      	<!-- Not horizontally maximized: Maximize vertically. -->
-      	<action name="Maximize"><direction>vertical</direction></action>
-    	</then></action>
-    	<!-- Halve window width. -->
-    	<action name="Unmaximize"><direction>horizontal</direction></action>
-    	<action name="If">
-      	<query target="default"><name>x-terminal-emulator</name></query>
-      	<then><action name="MoveResizeTo"><width client="yes">101/200</width></action></then>
-      	<else><action name="MoveResizeTo"><width client="yes">1/2</width></action></else>
-    	</action>
-    	<!-- Put on right half of screen. -->
-    	<action name="MoveResizeTo">
-      	<x client="yes">50%</x>      <!-- left  edge at screen midpoint -->
-      	<!--x client="yes">-0</x-->  <!-- right edge at screen edge     -->
-    	</action>
-  	</else></action>
+    	<action name="UnmaximizeFull"/>
+    	<action name="MoveResizeTo"><x>-0</x><y>0</y><height>100%</height><width>50%</width></action>
+    	<action name="SnapToEdge" direction="right" />
 	</keybind>
-	<!-- Windows-Up: Upper half of screen. -->
 	<keybind key="W-Up">
-  	<action name="Raise"/>
-  	<action name="If"><query target="default">
-    	<maximized>no</maximized>
-    	<maximizedhorizontal>yes</maximizedhorizontal>
-  	</query><then>
-    	<!-- Only horizontally maximized: Maximize completely. -->
-    	<action name="Maximize"/>
-  	</then><else>
-    	<action name="If"><query target="default">
-      	<maximizedvertical>no</maximizedvertical>
-    	</query><then>
-      	<!-- Not vertically maximized: Maximize horizontally. -->
-      	<action name="Maximize"><direction>horizontal</direction></action>
-    	</then></action>
-    	<!-- Halve window height. -->
-    	<action name="Unmaximize"><direction>vertical</direction></action>
-    	<action name="If">
-      	<query target="default"><name>x-terminal-emulator</name></query>
-      	<then><action name="MoveResizeTo"><height client="yes">101/200</height></action></then>
-      	<else><action name="MoveResizeTo"><height client="yes">1/2</height></action></else>
-    	</action>
-    	<!-- Put on upper half of screen. -->
-    	<action name="MoveResizeTo">
-      	<y client="yes">-50%</y>     <!-- bottom edge at screen midpoint -->
-      	<!--x client="yes">0</x-->   <!-- top    edge at screen edge     -->
-    	</action>
-  	</else></action>
+    	<action name="UnmaximizeFull"/>
+    	<action name="MoveResizeTo"><x>0</x><y>0</y><width>100%</width><height>50%</height></action>
+    	<action name="SnapToEdge" direction="up" />
 	</keybind>
-	<!-- Windows-Down: Lower half of screen. -->
 	<keybind key="W-Down">
-  	<action name="Raise"/>
-  	<action name="If"><query target="default">
-    	<maximized>no</maximized>
-    	<maximizedhorizontal>yes</maximizedhorizontal>
-  	</query><then>
-    	<!-- Only horizontally maximized: Maximize completely. -->
-    	<action name="Maximize"/>
-  	</then><else>
-    	<action name="If"><query target="default">
-      	<maximizedvertical>no</maximizedvertical>
-    	</query><then>
-      	<!-- Not vertically maximized: Maximize horizontally. -->
-      	<action name="Maximize"><direction>horizontal</direction></action>
-    	</then></action>
-    	<!-- Halve window height. -->
-    	<action name="Unmaximize"><direction>vertical</direction></action>
-    	<action name="If">
-      	<query target="default"><name>x-terminal-emulator</name></query>
-      	<then><action name="MoveResizeTo"><height client="yes">101/200</height></action></then>
-      	<else><action name="MoveResizeTo"><height client="yes">1/2</height></action></else>
-    	</action>
-    	<!-- Put on lower half of screen. -->
+    	<action name="UnmaximizeFull"/>
+    	<action name="MoveResizeTo"><x>0</x><y>-0</y><width>100%</width><height>50%</height></action>
+    	<action name="SnapToEdge" direction="down" />
+	</keybind>
+	<!-- Untiling for openbox only -->
+	<keybind key="W-m">
     	<action name="MoveResizeTo">
-      	<y client="yes">50%</y>      <!-- top    edge at screen midpoint -->
-      	<!--x client="yes">-0</x-->  <!-- bottom edge at screen edge     -->
+			<x>center</x>
+			<y>center</y>
+			<width>640</width>
+			<height>480</height>
     	</action>
-  	</else></action>
-     </keybind>
-
+    </keybind>
+	<keybind key="W-S-m">
+    	<action name="MoveResizeTo">
+			<x>center</x>
+			<y>center</y>
+			<width>800</width>
+			<height>600</height>
+    	</action>
+    </keybind>
+    <!-- Continue normal options -->
+    <keybind key="A-space">
+      <action name="ShowMenu">
+      		<menu>client-menu</menu>
+      </action>
+    </keybind>
     <keybind key="XF86AudioRaiseVolume">
         <action name="Execute">
             <command>sh -c 'pactl set-sink-volume `pactl get-default-sink` +5%'</command>
@@ -257,13 +180,13 @@
 
     <keybind key="W-Tab">
         <action name="GoToDesktop">
-            <to>next</to>
+            <to>right</to>
         </action>
     </keybind>
     
     <keybind key="W-S-Tab">
         <action name="GoToDesktop">
-            <to>previous</to>
+            <to>left</to>
         </action>
     </keybind>
 
@@ -368,7 +291,6 @@
             <to>10</to>
         </action>
     </keybind>
-
 </keyboard>
 
 <mouse>
@@ -438,7 +360,7 @@
     <mousebind button="Left" action="DoubleClick">
       <action name="ToggleMaximize"/>
     </mousebind>
-
+    <!-- openbox -->
     <mousebind button="Up" action="Click">
       <action name="if">
         <shaded>no</shaded>
@@ -459,6 +381,15 @@
         </then>
       </action>
     </mousebind>
+    <!--labwc -->
+      <mousebind direction="Up" action="Scroll">
+        <action name="Unshade" />
+        <action name="Focus" />
+      </mousebind>
+      <mousebind direction="Down" action="Scroll">
+        <action name="Unfocus" />
+        <action name="Shade" />
+      </mousebind>
   </context>
 
   <context name="Titlebar Top Right Bottom Left TLCorner TRCorner BRCorner BLCorner">
@@ -659,6 +590,13 @@
     <mousebind button="Right" action="Press">
       <action name="ShowMenu"><menu>root-menu</menu></action>
     </mousebind>
+    <!-- labwc desktop switching -->
+      <mousebind direction="Up" action="Scroll">
+        <action name="GoToDesktop" to="left" wrap="yes" />
+      </mousebind>
+      <mousebind direction="Down" action="Scroll">
+        <action name="GoToDesktop" to="right" wrap="yes" />
+      </mousebind>
   </context>
 
   <context name="MoveResize">

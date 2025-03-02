@@ -1,11 +1,10 @@
 # Window geometry
-padding.width: 2
+padding.width: 5
 padding.height: 4
 border.width: 2
 window.client.padding.width: 0
 window.client.padding.height: 0
 window.handle.width: 0
-
 
 # Border colors
 window.active.border.color: #107C10
