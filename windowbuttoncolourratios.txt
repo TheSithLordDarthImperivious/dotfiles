@@ -1,0 +1,15 @@
+The ratio of colours for my window buttons in the openbox/labwc config (for the most part):
+
+From normal to hover: 151.8/200.0 = 0.759
+	- From formula Brightness = 0.2126 × R + 0.7152 ×G + 0.0722 × B: 147.7974/204.5936 = 0.7223950309
+From normal to pressed: 104.6/200.0 = 0.523
+	- From formula Brightness = 0.2126 × R + 0.7152 ×G + 0.0722 × B: 96.361/204.5936 = 0.4709873623
+Fron normal to disabled: 135.8/200.0 = 0.679
+	- From formula Brightness = 0.2126 × R + 0.7152 ×G + 0.0722 × B: 128.4184/204.5936 = 0.627675548
+ 
+How to do this yourself:
+
+1. Convert your colour to RGB
+2. Either use http://colour-lightness-calculator.simitchiyski.com/ or Brightness = 0.2126 × R + 0.7152 × G + 0.0722 × B where R,G, and B are the red, green, and blue components of the colour. The latter is recommended.
+3. Find out the ratio between the darker colour and the lighter colour. (darker colour / lighter colour)
+4. If you want to apply, multiply r, g, and b values by the ratio.
