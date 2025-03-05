@@ -78,7 +78,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>alacritty</command>
+        <command>qterminal</command>
       </action>
     </keybind>
     <keybind key="A-Tab">

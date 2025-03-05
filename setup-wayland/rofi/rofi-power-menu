@@ -40,9 +40,9 @@ icons[cancel]="\Uf0156"
 icons[halt]="\uF467"
 
 declare -A actions
-actions[lockscreen]='swaylock -c 1B2421 --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BBF1DD --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BBF1DD --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000'
+actions[lockscreen]='swaylock -c 0F111A --font "Ubuntu Nerd Font" --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000'
 #actions[switchuser]="???"
-actions[logout]="swaymsg exit"
+actions[logout]="ps aux | grep -E -q ' openbox$' && { openbox --exit; pkill openbox; } || { ps aux | grep -E -q ' labwc$' && labwc -e; }"
 #actions[suspend]="xscreensaver-command -suspend"
 #actions[hibernate]="loginctl hibernate"
 actions[reboot]="doas /sbin/reboot"

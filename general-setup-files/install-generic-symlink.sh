@@ -11,6 +11,8 @@ ln -sf $PWD/.p10k-basic.zsh $HOME/.p10k-basic.zsh
 ln -sf $PWD/.vimrc $HOME/.vimrc
 ln -sf $PWD/.nanorc $HOME/.nanorc
 ln -sf $PWD/themes/openbox-theme $HOME/.themes/openbox-theme
+ln -sf $PWD/Kvantum $HOME/.config/Kvantum
+ln -sf $PWD/qterminal.org $HOME/.config/qterminal.org
 ln -sf $PWD/alacritty $HOME/.config/alacritty
 ln -sf $PWD/kitty $HOME/.config/kitty
 ln -sf $PWD/i3status $HOME/.config/i3status

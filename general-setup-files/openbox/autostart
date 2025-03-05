@@ -1,5 +1,15 @@
-kanshi &
-swaybg -i /usr/share/wallpapers/firewatchgreen.png -m fill &
+#!/bin/sh
+
+if ps aux | grep -E ' (openbox|Xorg|^X$)'; then
+    # Commands for Openbox/xorg
+    polybar &
+    feh --bg-fill /usr/share/wallpapers/firewatchgreen.png &
+else
+    # Commands for LabWC/wayland
+    kanshi &
+    waybar & 
+    swaybg -i /usr/share/wallpapers/firewatchgreen.png -m fill &
+fi
+
 dunst &
-waybar &
 
