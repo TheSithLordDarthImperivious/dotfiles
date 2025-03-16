@@ -41,6 +41,7 @@
 </theme>
 
 <keyboard>
+    <numlock>off</numlock>
     <keybind key="W-a">
         <action name="Execute">
             <command>rofi -show drun</command>
