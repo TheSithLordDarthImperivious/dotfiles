@@ -13,7 +13,7 @@
 
 exec dunst
 exec waybar
-output * bg /usr/share/wallpapers/firewatchgreen.png fill
+output * bg ~/.local/share/wallpapers/firewatchgreen.png fill
 set $mod Mod4
 
 font pango:Ubuntu Nerd Font 11
