@@ -16,7 +16,7 @@
   <separator />
   <item label="Terminal">
       <action name="Execute">
-          <command>alacritty</command>
+          <command>qterminal</command>
       </action>
   </item>
   <item label="Web browser">
