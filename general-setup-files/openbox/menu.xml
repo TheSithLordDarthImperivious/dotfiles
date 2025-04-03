@@ -21,7 +21,7 @@
   </item>
   <item label="Web browser">
       <action name="Execute">
-          <command>firefox</command>
+          <command>librewolf</command>
       </action>
   </item>
   <item label="File Manager">
