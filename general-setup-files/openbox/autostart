@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Check if the WM is OpenBox
 if ps aux | grep -E ' (openbox|Xorg|^X$)'; then
     # Commands for Openbox/xorg
     polybar &
@@ -7,9 +8,13 @@ if ps aux | grep -E ' (openbox|Xorg|^X$)'; then
 else
     # Commands for LabWC/wayland
     kanshi &
-    waybar & 
+    waybar &
     swaybg -i ~/.local/share/wallpapers/firewatchgreen.png -m fill &
 fi
 
-dunst &
+# Check for the device-specific startup programs file
+if [ -f ~/.config/wmadditionalstartupprograms-devicespecific ]; then
+    sh -c ~/.config/wmadditionalstartupprograms-devicespecific &
+fi
 
+dunst &
