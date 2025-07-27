@@ -19,3 +19,6 @@ ln -sf $PWD/i3status $HOME/.config/i3status
 ln -sf $PWD/dunst $HOME/.config/dunst
 ln -sf $PWD/openbox $HOME/.config/openbox
 ln -sf $PWD/openbox $HOME/.config/labwc
+ln -sf $PWD/lxqt $HOME/.config/lxqt
+ln -sf $PWD/qt5ct $HOME/.config/qt5ct
+ln -sf $PWD/qt6ct $HOME/.config/qt6ct
