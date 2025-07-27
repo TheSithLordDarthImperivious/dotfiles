@@ -34,6 +34,7 @@
           <command>keepassxc</command>
       </action>
   </item>
+  <separator />
   <item label="Text Editor">
       <action name="Execute">
           <command>qterminal -e nano</command>
