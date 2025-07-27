@@ -22,3 +22,4 @@ ln -sf $PWD/openbox $HOME/.config/labwc
 ln -sf $PWD/lxqt $HOME/.config/lxqt
 ln -sf $PWD/qt5ct $HOME/.config/qt5ct
 ln -sf $PWD/qt6ct $HOME/.config/qt6ct
+ln -sf $PWD/gtk-3.0 $HOME/.config/gtk-3.0
