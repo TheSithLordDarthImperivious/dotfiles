@@ -19,7 +19,7 @@
           <command>qterminal</command>
       </action>
   </item>
-  <item label="Web browser">
+  <item label="Web Browser">
       <action name="Execute">
           <command>librewolf</command>
       </action>
@@ -29,9 +29,19 @@
           <command>pcmanfm-qt</command>
       </action>
   </item>
+  <item label="Password Manager">
+      <action name="Execute">
+          <command>keepassxc</command>
+      </action>
+  </item>
   <item label="Text Editor">
       <action name="Execute">
-          <command>featherpad</command>
+          <command>qterminal -e nano</command>
+      </action>
+  </item>
+  <item label="Process Monitor">
+      <action name="Execute">
+          <command>qterminal -e htop</command>
       </action>
   </item>
   <separator />
