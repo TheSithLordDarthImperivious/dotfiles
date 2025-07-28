@@ -23,3 +23,5 @@ ln -sf $PWD/lxqt $HOME/.config/lxqt
 ln -sf $PWD/qt5ct $HOME/.config/qt5ct
 ln -sf $PWD/qt6ct $HOME/.config/qt6ct
 ln -sf $PWD/gtk-3.0 $HOME/.config/gtk-3.0
+ln -sf $PWD/dconf $HOME/.config/dconf
+ln -sf $PWD/glib-2.0 $HOME/.config/glib-2.0
