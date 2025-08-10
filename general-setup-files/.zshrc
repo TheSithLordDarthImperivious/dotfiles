@@ -23,6 +23,9 @@ bindkey '\e[B' history-search-forward
 # Always build LLVM kernel
 export LLVM=1
 
+# Always have colour in ls
+alias ls="ls --color=always"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
