@@ -1,3 +1,17 @@
 [org/gnome/desktop/interface]
-gtk-theme='Juno-ocean'
+gtk-theme='Arc-Dark-solid'
 icon-theme='Papirus-Dark'
+
+[org/gtk/settings/file-chooser]
+window-position=(4, 4)
+window-size=(1231, 902)
+date-format='regular'
+location-mode='path-bar'
+show-hidden=false
+show-size-column=true
+show-type-column=true
+sidebar-width=185
+sort-column='name'
+sort-directories-first=false
+sort-order='ascending'
+type-format='category'

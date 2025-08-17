@@ -5,3 +5,6 @@
 	path = general-setup-files/themes/Juno-ocean
 	url = https://github.com/EliverLara/Juno.git
 	branch = ocean
+[submodule "general-setup-files/themes/arc-theme-maintained"]
+	path = general-setup-files/themes/arc-theme-maintained
+	url = https://github.com/jnsh/arc-theme

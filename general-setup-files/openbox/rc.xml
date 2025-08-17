@@ -2,7 +2,7 @@
 <openbox_config>
 
 <theme>
-    <name>openbox-theme</name>
+    <name>openbox-theme-arc</name>
     <cornerRadius>0</cornerRadius>
     <keepBorder>yes</keepBorder>
     <dropShadows>yes</dropShadows>

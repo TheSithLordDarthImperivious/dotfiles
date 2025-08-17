@@ -2,8 +2,8 @@
 	margin: 0px;
 	padding: 0px;
 	padding-top: 0px;
-       	font-family: "Ubuntu Nerd Font";
-       	font-size: 16px;
+    font-family: "Ubuntu Nerd Font";
+    font-size: 16px;
 	font-weight: normal;
 	margin-left: 2px;
 	margin-right: 2px;
@@ -27,14 +27,14 @@
 }
 
 .modules-left, .modules-right, .modules-center {
-       	margin-top: 3px;
-       	margin-bottom: 2px;
-       	padding-bottom: 3px;
+    margin-top: 3px;
+    margin-bottom: 2px;
+    padding-bottom: 3px;
 }
 
 window#waybar {
-        background: @theme_bg_color;
-        color: @theme_text_color;
+    background: #000000;
+    color: #FFFFFF;
 	margin:0px;
 	padding:0px;
 	margin-top:0px;

@@ -10,7 +10,8 @@ ln -sf $PWD/.p10k.zsh $HOME/.p10k.zsh
 ln -sf $PWD/.p10k-basic.zsh $HOME/.p10k-basic.zsh
 ln -sf $PWD/.vimrc $HOME/.vimrc
 ln -sf $PWD/.nanorc $HOME/.nanorc
-ln -sf $PWD/themes/openbox-theme $HOME/.themes/openbox-theme
+ln -sf $PWD/themes/openbox-theme-juno $HOME/.themes/openbox-theme-juno
+ln -sf $PWD/themes/openbox-theme-arc $HOME/.themes/openbox-theme-arc
 ln -sf $PWD/Kvantum $HOME/.config/Kvantum
 ln -sf $PWD/qterminal.org $HOME/.config/qterminal.org
 ln -sf $PWD/alacritty $HOME/.config/alacritty

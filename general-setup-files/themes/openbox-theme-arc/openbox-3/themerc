@@ -1,0 +1,116 @@
+# Window geometry
+padding.width: 5
+padding.height: 4
+border.width: 2
+window.client.padding.width: 0
+window.client.padding.height: 0
+window.handle.width: 0
+
+# Border colors
+window.active.border.color: #0078D7
+window.inactive.border.color: #3E424B
+menu.border.color: #0078D7
+osd.border.color: #0078D7
+window.active.client.color: #383c4a
+window.inactive.client.color: #383c4a 
+window.active.title.separator.color: #0F111A
+window.inactive.title.separator.color: #0F111A
+
+# Window title justification
+window.label.text.justify: Center
+
+# Active window
+window.active.title.bg: Flat Solid
+window.active.title.bg.color: #2F343F
+
+window.active.label.bg: Parentrelative
+window.active.label.text.color: #d3dae3
+
+window.active.button.unpressed.bg: parentrelative
+window.active.button.iconify.unpressed.image.color: #f6be50
+window.active.button.max.unpressed.image.color: #61c555
+window.active.button.close.unpressed.image.color: #ed6a5f
+window.active.button.desk.unpressed.image.color: #a3be8c
+window.active.button.shade.unpressed.image.color: #ebcb8b
+window.active.button.menu.unpressed.image.color: #45d1ff
+
+window.active.button.pressed.bg: parentrelative
+window.active.button.iconify.pressed.image.color: #90591d
+window.active.button.max.pressed.image.color: #2a6218
+window.active.button.close.pressed.image.color: #460804
+window.active.button.desk.pressed.image.color: #4D5942
+window.active.button.shade.pressed.image.color: #6F6042
+window.active.button.menu.pressed.image.color: #0260c9
+
+window.active.button.disabled.bg: parentrelative
+window.active.button.iconify.disabled.image.color: #b27a2e
+window.active.button.max.disabled.image.color: #2a6218
+window.active.button.close.disabled.image.color: #460804
+window.active.button.desk.disabled.image.color: #667758
+window.active.button.shade.disabled.image.color: #948057
+window.active.button.menu.disabled.image.color: #178edd
+
+window.active.button.hover.bg: parentrelative
+window.active.button.iconify.hover.image.color: #b8923b
+window.active.button.max.hover.image.color: #4a9741
+window.active.button.close.hover.image.color: #b15048
+window.active.button.desk.hover.image.color: #768965
+window.active.button.shade.hover.image.color: #AA9264
+window.active.button.menu.hover.image.color: #07a5ea
+
+window.active.button.toggled.bg: parentrelative
+window.active.button.toggled.unpressed.image.color: #45d1ff
+window.active.button.toggled.pressed.image.color: #0260c9
+window.active.button.toggled.disabled.image.color: #178edd
+window.active.button.toggled.hover.image.color: #07a5ea
+
+# Inactive windows
+window.inactive.title.bg: parentrelative
+window.inactive.title.bg.color: #2F343F
+
+window.inactive.label.bg: parentrelative
+window.inactive.label.text.color: #676a6f
+
+window.inactive.button.unpressed.bg: parentrelative
+window.inactive.button.unpressed.image.color: #c7c7c7
+
+window.inactive.button.pressed.bg: parentrelative
+window.inactive.button.pressed.image.color: #5E5E5E
+
+window.inactive.button.disabled.bg: parentrelative
+window.inactive.button.disabled.image.color: #7d7d7d
+
+window.inactive.button.hover.image.color: parentrelative
+window.inactive.button.hover.image.color: #8f8f8f
+
+window.inactive.button.toggled.bg: parentrelative
+window.inactive.button.toggled.unpressed.image.color: #F2F2F2
+window.inactive.button.toggled.pressed.image.color: #525252
+window.inactive.button.toggled.disabled.image.color: #343434
+window.inactive.button.toggled.hover.image.color: #AFAFAF
+
+# Menus
+menu.title.bg: Flat Solid
+menu.title.bg.color: #0063B1
+menu.title.text.color: #FFFFFF
+menu.title.text.justify: Left
+
+menu.separator.color: #676a6f
+menu.separator.width: 1
+menu.separator.padding.width: 6
+menu.separator.padding.height: 3
+
+menu.items.bg: Flat Solid
+menu.items.bg.color: #383c4a
+menu.items.text.color: #d3dae3
+menu.items.disabled.text.color: #aaaaaa
+
+menu.items.active.bg: Flat Solid
+menu.items.active.bg.color: #5294e2
+menu.items.active.text.color: #fefefe
+menu.items.active.disabled.text.color: #aaaaaa
+
+# On-Screen Dialogs (Alt-Tab, Desktop Switcher)
+osd.hilight.bg: Flat Solid
+osd.hilight.bg.color: #5294e2
+osd.label.text.color: #d3dae3

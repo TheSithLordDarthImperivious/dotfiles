@@ -1,6 +1,6 @@
 # A Sith Lord's Dotfiles
 
-This repo was made for easy syncing of dotfiles across all of my machines. If you want to look at them, sure. No preview though.
+This repo was made for easy syncing of dotfiles across all of my machines. If you want to look at them, sure. No preview though. Themes are not made by me, and originals are linked via git submodules.
 
 # How to install?
 

@@ -1,3 +1,5 @@
+// based on another rofi theme
+
 configuration {
   modes: "window,drun,run,ssh,combi";
   font: "Ubuntu Nerd Font 16";
@@ -8,13 +10,13 @@ configuration {
 
 * {
   // general
-  bg: #0F111A;
-  bgt: #0F111Acc;
+  bg: #383c4a;
+  bgt: #383c4acc;
   t: transparent;
-  fg: #BFC3C4;
-  border: #107C10;
+  fg: #d3dae3;
+  border: #0078D7;
 
-  selected-bg: #00A9A5;
+  selected-bg: #5294e2;
   selected-fg: #FEFEFE;
 
   // for windows
