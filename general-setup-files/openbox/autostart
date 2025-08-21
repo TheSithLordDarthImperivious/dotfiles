@@ -4,12 +4,12 @@
 if ps aux | grep -E ' (openbox|Xorg|^X$)'; then
     # Commands for Openbox/xorg
     polybar &
-    feh --bg-fill ~/.local/share/wallpapers/firewatchgreen.png &
+    feh --bg-fill ~/.local/share/wallpapers/firewatchblue.png &
 else
     # Commands for LabWC/wayland
     kanshi &
     waybar &
-    swaybg -i ~/.local/share/wallpapers/firewatchgreen.png -m fill &
+    swaybg -i ~/.local/share/wallpapers/firewatchblue.png -m fill &
 fi
 
 # Check for the device-specific startup programs file
