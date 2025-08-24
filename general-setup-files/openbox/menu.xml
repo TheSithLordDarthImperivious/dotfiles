@@ -46,6 +46,14 @@
       </action>
   </item>
   <separator />
+  <item label="Add Virtual Output">
+    <action name="VirtualOutputAdd" output_name="SecondaryDisplay"/>
+    <action name="Execute" command='sh -c "wlr-randr --output SecondaryDisplay --scale 1 --custom-mode 1024x768; wayvnc --output SecondaryDisplay"'/>
+  </item>
+  <item label="Remove Virtual Output">
+    <action name="VirtualOutputRemove"/>
+  </item>
+  <separator />
   <item label="Lock Screen">
       <action name="Execute">
         <command>swaylock -c 0F111A --font 'Ubuntu Nerd Font' --font-size 12 --text-color FFFFFF --text-caps-lock-color FFFFFF --ring-color 107C10 --ring-clear-color 018F91 --ring-ver-color 0886FF --ring-wrong-color FF0000 --separator-color BFC3C4 --text-color FFFFFF --text-clear-color FFFFFF --text-ver-color FFFFFF --text-wrong-color FFFFFF --line-color BFC3C4 --line-clear-color FFFFFF --line-caps-lock-color FFFFFF --line-ver-color FFFFFF --line-wrong-color FFFFFF --inside-color 005000 --inside-clear-color 045D5D --inside-ver-color 005EB8 --inside-wrong-color 900000</command>

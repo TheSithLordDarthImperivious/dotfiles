@@ -9,6 +9,9 @@
 #
 # See README.md for more information.
 
+# Set PATH to normal
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 set -e
 set -u
 

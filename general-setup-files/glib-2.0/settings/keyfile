@@ -15,3 +15,11 @@ sort-column='name'
 sort-directories-first=false
 sort-order='ascending'
 type-format='category'
+
+[org/virt-manager/virt-manager/vmlist-fields]
+disk-usage=false
+network-traffic=false
+
+[org/virt-manager/virt-manager]
+manager-window-width=550
+manager-window-height=550
