@@ -46,12 +46,21 @@
       </action>
   </item>
   <separator />
-  <item label="Add Virtual Output">
+  <item label="Add Virtual Output for iPad">
     <action name="VirtualOutputAdd" output_name="SecondaryDisplay"/>
-    <action name="Execute" command='sh -c "wlr-randr --output SecondaryDisplay --scale 1 --custom-mode 1024x768; wayvnc --output SecondaryDisplay"'/>
+    <action name="Execute" command='sh -c "wlr-randr --output SecondaryDisplay --scale 2 --custom-mode 2048x1536; wayvnc -r -S /tmp/wayvncctl-ipad --output SecondaryDisplay 0.0.0.0 5900"'/>
   </item>
-  <item label="Remove Virtual Output">
+  <item label="Add 3:4 Virtual Output">
+    <action name="VirtualOutputAdd" output_name="Virtual34Display"/>
+    <action name="Execute" command='sh -c "wlr-randr --output Virtual34Display --scale 1 --custom-mode 1024x768; wayvnc -r -S /tmp/wayvncctl-34 --output Virtual34Display 0.0.0.0 5934"'/>
+  </item>
+  <item label="Add 16:9 Virtual Output">
+    <action name="VirtualOutputAdd" output_name="Virtual169Display"/>
+    <action name="Execute" command='sh -c "wlr-randr --output Virtual169Display --scale 1 --custom-mode 1920x1080; wayvnc -r -S /tmp/wayvncctl-169 --output Virtual169Display 0.0.0.0 5916"'/>
+  </item>
+  <item label="Remove Latest Virtual Output">
     <action name="VirtualOutputRemove"/>
+    <action name="Execute" command='sh -c "kill -3 $(pgrep -n wayvnc)"'/>
   </item>
   <separator />
   <item label="Lock Screen">
