@@ -10,6 +10,8 @@ else
     kanshi &
     waybar &
     swaybg -i ~/.local/share/wallpapers/firewatchblue.png -m fill &
+    Xwayland :1 -rootless &
+    export DISPLAY=:1
 fi
 
 # Check for the device-specific startup programs file
