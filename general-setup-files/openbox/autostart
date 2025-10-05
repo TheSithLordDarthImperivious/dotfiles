@@ -16,7 +16,7 @@ fi
 
 # Check for the device-specific startup programs file
 if [ -f ~/.config/wmadditionalstartupprograms-devicespecific ]; then
-    sh -c ~/.config/wmadditionalstartupprograms-devicespecific &
+    sh ~/.config/wmadditionalstartupprograms-devicespecific &
 fi
 
 dunst &
