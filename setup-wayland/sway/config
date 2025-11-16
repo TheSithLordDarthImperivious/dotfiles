@@ -48,9 +48,11 @@ bindsym $mod+Shift+c kill
 
 # rofi binds
 bindsym $mod+a exec --no-startup-id rofi -show drun
+bindsym $mod+e exec --no-startup-id rofi -show filebrowser
 bindsym Mod1+Tab exec --no-startup-id rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'
 bindsym Mod1+Shift+Tab exec --no-startup-id rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'
-bindsym $mod+w exec --no-startup-id rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
+bindsym $mod+w exec --no-startup-id  rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'
+bindsym $mod+q exec --no-startup-id rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
 bindsym XF86Search exec --no-startup-id rofi -show drun
 bindsym XF86LaunchA exec --no-startup-id rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'
 

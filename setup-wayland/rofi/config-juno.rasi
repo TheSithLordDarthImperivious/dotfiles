@@ -1,7 +1,7 @@
 // based on another rofi theme
 
 configuration {
-  modes: "window,drun,run,ssh,combi";
+  modes: "window,drun,run,ssh,filebrowser,combi";
   font: "Ubuntu Nerd Font 16";
   display-drun: "Applications";
   display-window: "All Windows";

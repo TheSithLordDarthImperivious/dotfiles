@@ -51,7 +51,7 @@ window#waybar {
 	padding-bottom: 0px;
 	margin-top: 1px;
 	margin-bottom: 0px;
-	background-color: #107C10;
+	background-color: #0063B1;
 	border-radius: 8px;
 	color: #FFFFFF;
 }
@@ -67,6 +67,19 @@ window#waybar {
        	background-color: #0276AB;
        	border-radius: 8px;
        	color: #FFFFFF;
+}
+
+#custom-filebrowser {
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: 3px;
+        margin-right: 3px;
+        padding-bottom: 0px;
+        margin-top: 1px;
+        margin-bottom: 0px;
+        background-color: #107C10;
+        border-radius: 8px;
+        color: #FFFFFF;
 }
 
 #workspaces {

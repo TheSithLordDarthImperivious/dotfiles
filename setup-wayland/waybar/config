@@ -8,14 +8,14 @@
 	"modules-left": [
 		"custom/rofi",
 		"custom/windowswitcher",
-		"sway/workspaces",
-		"sway/window"
+        "custom/filebrowser",
 	],
 	"modules-right": [
 		"cpu",
 		"memory",
 		"disk",
 		"pulseaudio",
+        "backlight",
 		"battery",
 		"network",
 		"clock",
@@ -24,15 +24,21 @@
 	"custom/rofi": {
 		"format": "󰀻",
 		"on-click": "rofi -show drun",
-		"tooltip": false,
-		"tooltip-format": "Launcher"
+		"tooltip": true,
+		"tooltip-format": "Launcher (Super+A)"
 	},
 	"custom/windowswitcher": {
 		"format": "",
 		"on-click": "rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'",
-		"tooltip": false,
-		"tooltip-format": "Window Switcher"
+		"tooltip": true,
+		"tooltip-format": "Window Switcher (Super+W)"
 	},
+    "custom/filebrowser": {
+        "format": "",
+        "on-click": "rofi -show filebrowser",
+        "tooltip": true,
+        "tooltip-format": "Rofi Filebrowser (Super+E)"
+    },
 	"sway/workspaces": {
 		"persistent-workspaces": {
 			"1": [],
@@ -150,8 +156,8 @@
 	"custom/power": {
 		"format": "",
 		"on-click": "rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons",
-		"tooltip": false,
-		"tooltip-format": "Power Options"
+		"tooltip": true,
+		"tooltip-format": "Power Options (Super+Q)"
 	}
 }]
 [{

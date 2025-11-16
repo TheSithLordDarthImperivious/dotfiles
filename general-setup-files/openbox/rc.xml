@@ -47,6 +47,11 @@
             <command>rofi -show drun</command>
         </action>
     </keybind>
+    <keybind key="W-e">
+        <action name="Execute">
+            <command>rofi -show filebrowser</command>
+        </action>
+    </keybind>
     <keybind key="XF86Search">
         <action name="Execute">
             <command>rofi -show drun</command>
@@ -63,6 +68,11 @@
         </action>
     </keybind>
     <keybind key="W-w">
+        <action name="Execute">
+            <command>rofi -show window -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel 'Alt-Escape,Escape'</command>
+        </action>
+    </keybind>
+    <keybind key="W-q">
         <action name="Execute">
             <command>rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons</command>
         </action>
