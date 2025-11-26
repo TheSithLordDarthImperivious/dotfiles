@@ -14,6 +14,12 @@
     </action>
   </item>
   <separator />
+  <item label="File Browser">
+      <action name="Execute">
+          <command>rofi -show filebrowser</command>
+      </action>
+  </item>
+  <separator />
   <item label="Terminal">
       <action name="Execute">
           <command>qterminal</command>
@@ -24,7 +30,7 @@
           <command>librewolf</command>
       </action>
   </item>
-  <item label="File Manager">
+  <item label="Full File Manager">
       <action name="Execute">
           <command>pcmanfm-qt</command>
       </action>
