@@ -4,12 +4,12 @@
 if ps aux | grep -E ' (openbox|Xorg|^X$)'; then
     # Commands for Openbox/xorg
     polybar &
-    feh --bg-fill ~/.local/share/wallpapers/firewatchblue.png &
+    feh --bg-fit ~/.local/share/wallpapers/atlas-ark-linux-wallpaper.png &
 else
     # Commands for LabWC/wayland
     kanshi &
     waybar &
-    swaybg -i ~/.local/share/wallpapers/firewatchblue.png -m fill &
+    swaybg -i ~/.local/share/wallpapers/atlas-ark-linux-wallpaper.png -m fit &
     Xwayland :1 -rootless &
     export DISPLAY=:1
 fi
