@@ -26,3 +26,5 @@ ln -sf $PWD/qt6ct $HOME/.config/qt6ct
 ln -sf $PWD/gtk-3.0 $HOME/.config/gtk-3.0
 ln -sf $PWD/dconf $HOME/.config/dconf
 ln -sf $PWD/glib-2.0 $HOME/.config/glib-2.0
+mkdir -p $HOME/.local/share
+ln -sf $PWD/wallpapers $HOME/.local/share/wallpapers
