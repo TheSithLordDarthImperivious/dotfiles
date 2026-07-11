@@ -1,4 +1,4 @@
-;==========================================================
+    ;==========================================================
 ;
 ;
 ;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
@@ -90,9 +90,6 @@ label-underline = #107C10
 
 [module/xworkspaces]
 type = internal/xworkspaces
-
-enable-click = true
-enable-scroll = true
 
 label-active = %name%
 label-active-background = ${colors.background-hover}
@@ -232,25 +229,17 @@ format-discharging = %{T2}<ramp-capacity>%{T-}  <label-discharging>
 format-charging-underline = #FFFF33
 format-discharging-underline = #ED7014
 
-ramp-capacity-0 = 󰁺
-ramp-capacity-1 = 󰁻
-ramp-capacity-2 = 󰁼
-ramp-capacity-3 = 󰁽
-ramp-capacity-4 = 󰁾
-ramp-capacity-5 = 󰂀
-ramp-capacity-6 = 󰂁
-ramp-capacity-7 = 󰂂
-ramp-capacity-8 = 󰁹
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 
-animation-charging-0 = 󰁺
-animation-charging-1 = 󰁻
-animation-charging-2 = 󰁼
-animation-charging-3 = 󰁽
-animation-charging-4 = 󰁾
-animation-charging-5 = 󰂀
-animation-charging-6 = 󰂁
-animation-charging-7 = 󰂂
-animation-charging-8 = 󰁹
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-framerate = 750
 
 animation-discharging-0 = 
@@ -260,11 +249,11 @@ animation-discharging-3 = 
 animation-discharging-4 = 
 animation-discharging-framerate = 500
 
-label-full = %{T2}󰁹%{T-} 100%
+label-full = %{T2}%{T-}  100%
 label-full-underline = #1FFF0F
 
 [module/power]
-type = custom/text
+type1 = custom/text
 click-left = rofi -show power-menu -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
 content = ""
 content-padding = 2

@@ -6,6 +6,6 @@
 cd ../general-setup-files
 . $PWD/install-generic-symlink.sh
 cd ../setup-wayland
-ln -sf $PWD/sway $HOME/.config/sway
-ln -sf $PWD/rofi $HOME/.config/rofi
-ln -sf $PWD/waybar $HOME/.config/waybar
+ln -sfT $PWD/sway $HOME/.config/sway
+ln -sfT $PWD/rofi $HOME/.config/rofi
+ln -sfT $PWD/waybar $HOME/.config/waybar

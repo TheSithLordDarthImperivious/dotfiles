@@ -1,0 +1,612 @@
+##################################
+#  ____________________________
+# (   _________________________)
+#  ) (__  _  _  _    _
+# (   __)( \/ )( \/\/ )/\/\
+#  ) (    \  /  \    //    \
+# (___)    \/    \/\/(_/\/\_) 2.6/3.x (not compatible with older, as only FP styles are used)
+#
+#
+#  This is a modified configuration file for fvwm.
+#
+#  This config file is organized as follows:
+#
+#    1: Functions
+#    2: Styles
+#    3: Colorsets
+#    4: Menus
+#    5: Bindings
+#    6: Decor
+#    7: Modules
+#    8: Custom
+#
+#################################
+
+# InfoStoreAdd can be used to store variable data internal to fvwm.
+# The variable can then be used in the configuration as $[infostore.name].
+#
+# You can also use environment variables but for data internal to fvwm
+# use InfoStore variables instead.
+#
+# The following is used in various menus and also sets the terminal
+# that FvwmConsole uses. Change this to your terminal of choice
+InfoStoreAdd terminal alacritty
+
+#PipeRead "echo SetEnv DPI `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'`"
+
+# Icon path (window button graphics)
+ImagePath $HOME/.fvwm/square-icons/
+
+# DesktopConfiguration sets how fvwm handles desktops:
+#
+# * global -- the default. This means all screens show the same desktops/pages.
+# * per-monitor -- every monitor has its own virtual desktop/pages.
+#     For this mode it's recommended that FvwmPager is configured to
+#     use the monitor configuration option, so that only windows on that
+#     specific monitor are shown.
+# * shared -- the virtual desktops are shared across all monitors and each
+#     monitor shows a single desktop at a time. If one monitor switches to a
+#     desktop currently being viewed by another, the two monitors swap which
+#     desktop they are viewing.  This is similar to how Xmonad or Herbsflutwm
+#     handle desks.  This mode only works with two or more monitors.
+#
+DesktopConfiguration shared
+
+###########
+# 1: Functions
+#
+# Fvwm can use custom functions for various tasks.
+# The syntax for defining a function named FunctionName is:
+#
+#   DestroyFunc FunctionName
+#   AddToFunc FunctionName
+#   + I [Action to do Immediately]
+#   + C [Action to do on a Mouse Click]
+#   + D [Action to do on a Mouse Double Click]
+#   + H [Action to do on a Mouse Hold]
+#   + M [Action to do on a Mouse Motion]
+###########
+
+# Start Function
+#
+# The start function is run right after fvwm is done reading
+# the config file. This function run after each restart
+# so using Test (Init) or Test (Restart) can further control
+# actions that are run during the first time run (Init) or
+# actions that are run after a restart.
+DestroyFunc StartFunction
+AddToFunc   StartFunction
++ I Test (init) Exec exec polybar -r
++ I Test (init) Exec if [ -f ~/.config/wmadditionalstartupprograms-devicespecific ]; then sh ~/.config/wmadditionalstartupprograms-devicespecific; fi
++ I Test (init) Exec exec dunst
++ I Test (Init) Exec exec feh --bg-fill $HOME/.local/share/wallpapers/atlas-ark-linux-wallpaper.png
+
+# Mouse Bindings Functions
+DestroyFunc RaiseMoveX
+AddToFunc RaiseMoveX
++ I Raise
++ M $0
++ D $1
+
+DestroyFunc RaiseMove
+AddToFunc RaiseMove
++ I Raise
++ M $0
+
+DestroyFunc MoveToCurrent
+AddToFunc MoveToCurrent
+#+ I ThisWindow MoveToPage
++ I ThisWindow MoveToDesk
+
+# Function: ToggleTitle
+#
+# This function will toggle if fvwm shows the TitleBar.
+DestroyFunc ToggleTitle
+AddToFunc   ToggleTitle
++ I ThisWindow (State 1) WindowStyle Title
++ I TestRc (Match) State 1 False
++ I TestRc (Match) Break
++ I WindowStyle !Title
++ I State 1 True
+
+# Function: ChangeDesk
+#
+# This function is called by FvwmEvent every time the Desk is changed.
+#DestroyFunc ChangeDesk
+#AddToFunc   ChangeDesk
+
+#############
+# 2: Styles #
+#############
+
+# Desktops and Pages
+#
+# Fvwm has both Virtual Desktops and Pages. Each Desktop is built from
+# a grid of Pages. The following sets the name of four Desktops and then
+# divides each Desktop into a 2x2 grid of Pages that are positioned as
+#
+#   +---+---+
+#   |   |   |
+#   +---+---+
+#   |   |   |
+#   +---+---+
+#
+DesktopName 0 1
+DesktopName 1 2
+DesktopName 2 3
+DesktopName 3 4
+DesktopName 4 5
+DesktopName 5 6
+DesktopName 6 7
+DesktopName 7 8
+DesktopName 8 9
+DesktopName 9 10
+
+#DesktopSize 2x2
+DesktopSize 10x1
+
+# EdgeScroll will move the view port between the Pages when the mouse
+# moves to the edge of the screen. This set the amount of distance to
+# scroll at 100% (full page) and the EdgeResistance which is a timer
+# for how long the mouse as at the edge before it scrolls.
+#
+# Set EdgeScroll 0 0 and/or EdgeResistance -1 to disable.
+EdgeScroll 0 0
+EdgeThickness 2
+
+# Disable moving windows to different page via dragging
+Style * EdgeMoveDelay 0
+
+# EwmhBaseStruts [left] [right] [top] [bottom]
+# Reserves space along the edge(s) of the Screen that will not
+# be covered when maximizing or placing windows.
+EwmhBaseStruts 0 0 37 0
+
+# This sets the ClickTime and MoveThreshold used to determine
+# Double Clicks, Hold and Move for the mouse.
+ClickTime 250
+MoveThreshold 3
+
+# Sets the focus style to Click to Focus (and also raise unfocused windows via click)
+Style * FPClickToFocus, FPClickDecorToFocus, FPClickRaisesUnfocused, FPClickDecorRaisesFocused
+# But we also need to disable enter and leave via mouse
+Style * !FPEnterToFocus, !FPLeaveToUnfocus
+
+# Also focus new windows automatically by grabfocus
+Style * FPLenient, FPGrabFocus, FPReleaseFocus
+
+# Default Font
+DefaultFont "xft:Ubuntu Nerd Font:Bold:size=11:antialias=True"
+
+# Window Placement
+Style * MinOverlapPlacement, !UsePPosition
+
+# Sets all windows to OpaqueMove (vs a wired frame) and  windows will
+# snap to each other and the edge of the screen.
+OpaqueMoveSize unlimited
+Style * ResizeOpaque, SnapAttraction 15 SameType ScreenAll, SnapGrid
+
+# Transient Windows (such as open file windows)
+Style * DecorateTransient, StackTransientParent
+
+# WindowShade
+Style * WindowShadeScrolls, WindowShadeSteps 10
+
+# Ignore Numlock and other modifiers for bindings
+# See http://fvwm.org/documentation/faq/#why-do-numlock-capslock-and-scrolllock-interfere-with-clicktofocus-andor-my-mouse-bindings
+IgnoreModifiers L25
+
+# Decor Styles
+Style * BorderWidth 3, HandleWidth 3, FvwmBorder, FirmBorder, MwmBorder
+Style * Colorset 1, HilightColorset 2
+Style * BorderColorset 3, HilightBorderColorset 4
+Style * MwmFunctions
+
+# Border Style
+BorderStyle -- HiddenHandles NoInset Flat
+
+# Disable Icons from appearing on desktop.
+# Comment this out or use Style * Icon to get the icons back.
+#Style * !Icon
+
+# Position the geometry window in the center of the screen
+GeometryWindow Position 50 50
+
+# IconBox styles
+# IconBox has: left limit of box, top limit of box, right limit of box, bottom limit of box, (each from left and top, negative is from right and bottom)
+# Make an iconbox that has bounds: 16 pixels from left, 53 pixels from top, 16 pixels from right, and 24 pixels from bottom (each corresponding to above order), and then have 96x96 icon sizes, and then separate each icon by 16 pixels from top and bottom, and then fill from left and bottom (ie. go from right to top)2
+Style * IconBox 16 53 -16 -24, IconSize 84 84 84 84, IconGrid 16 16, IconFill left bottom
+
+#######
+# 3: Colorsets
+#
+# Colorsets can be used to configure the color of the various
+# parts of fvwm such as window decor, menus, modules, etc.
+#
+#  Colorset Convention
+#
+#   0 - Default
+#   1 - Inactive Windows
+#   2 - Active Window
+#   3 - Inactive Windows Borders
+#   4 - Active Windows Borders
+#   5 - Menu - Inactive Item
+#   6 - Menu - Active Item
+#   7 - Menu - Grayed Item
+#   8 - Menu - Title
+#   9 - Reserved
+#  10+ Modules
+#      10 - Module Default
+#      11 - Module Hilight
+#      12 - Module ActiveButton (Mouse Hover)
+#      13 - FvwmPager Active Page
+#      14 - FvwmIconMan Iconified Button
+###########
+Colorset 0  fg #BDE6FB, bg #222B30, hi, sh, Plain, NoShape
+Colorset 1  fg #AAAAAA, bg #222B30, hi, sh, Plain, NoShape
+Colorset 2  fg #BDE6FB, bg #222B30, hi, sh, Plain, NoShape
+Colorset 3  fg black, bg #3E424B, hi #676767, sh #303030, Plain, NoShape
+Colorset 4  fg black, bg #0078D7, hi #474747, sh #101010, Plain, NoShape
+Colorset 5  fg #BDE6FB, bg #222B30, hi, sh, Plain, NoShape
+Colorset 6  fg #BDE6FB, bg #51636D, hi, sh, Plain, NoShape
+Colorset 7  fg #AAAAAA, bg #222B30, hi, sh, Plain, NoShape
+Colorset 8  fg #FFFFFF, bg #0063B1, hi, sh, Plain, NoShape
+Colorset 10 fg #BDE6FB, bg #222B30, hi, sh, Plain, NoShape
+Colorset 11 fg #BDE6FB, bg #51636D, hi, sh, Plain, NoShape
+Colorset 12 fg #BDE6FB, bg #51636D, hi, sh, Plain, NoShape
+
+#######
+# 4: Menus
+###########
+MenuStyle * MenuColorset 5, ActiveColorset 6, GreyedColorset 7, TitleColorset 8
+MenuStyle * Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsShort, BorderWidth 1, FvwmBorder, FirmBorder, MwmBorder
+MenuStyle * TrianglesSolid, TrianglesUseFore
+MenuStyle * ItemFormat "%|%3.1i%5.3l%5.3>%|", VerticalItemSpacing 5 5
+MenuStyle * Font "xft:Ubuntu Nerd Font:size=10:antialias=True"
+MenuStyle * Animation, TitleUnderlines0
+
+# Root Menu
+#
+# The root menu will PopUp with a click in the root
+# window or using alt-f1 (or menu).
+DestroyMenu MenuFvwmRoot
+AddToMenu   MenuFvwmRoot "Main Menu" Title
++ "   All &Programs" Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show drun -show-icons -display-drun "Applications "
++ "   All &Windows " Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
++ "   &File Browser" Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show filebrowser
++ "" Nop
++ "   &Terminal " Exec exec lxterminal
++ " 󰪶  Full File &Manager " Exec exec pcmanfm
++ " 󰖟  &Web Browser " Exec exec librewolf
++ " 󰌆  Pa&ssword Manager " Exec exec keepassxc
++ "" Nop
++ "   Text &Editor " Exec exec lxterminal -e nano
++ "   Process &Monitor " Exec exec lxterminal -e htop
++ "" Nop
++ "   F&VWM " Popup FVWMMenu
++ "" Nop
++ "   Power &Options " Exec exec rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
+
+DestroyMenu FVWMMenu
+AddToMenu FVWMMenu
++ "   &Identify "            Module FvwmIdent
++ ""  Nop
++ "   Re&fresh " Refresh
++ "   &Restart " Restart
++ " 󰿅  &Quit " Quit
+
+DestroyMenu PowerOptions
+AddToMenu PowerOptions
++ "   &Shut Down " Exec exec doas /sbin/halt -p
++ "   &Reboot " Exec exec doas /sbin/reboot
++ " 󰤁 Hal&t " Exec exec doas /sbin/halt
++ "   Log &Out " Quit
++ "  &Lock Screen " Exec exec sh $HOME/.config/systemlockscript
+
+# Window Operations Menus
+DestroyMenu MenuWindowOps
+AddToMenu   MenuWindowOps "  Window Options  " Title
++ " 󰆾  Move "      Move
++ " 󰩨  Resize "    Resize
++ "   Minimize "   Iconify
++ " 󰖲  Maximize "  Maximize
++ " 󱨫  Shade "     WindowShade
++ "   Stick "     Stick
++ "" Nop
++ " 󰖭  Close "     Close
++ " 󰇘  More..."   Popup MenuWindowOpsLong
+
+DestroyMenu MenuWindowOpsLong
+AddToMenu   MenuWindowOpsLong
++ " 󰆾  Move (Super + Alt + Arrow Key)"                Move
++ " 󰩨  Resize (Super + Shift + Arrow Key)"              Resize
++ "   (Un)Minimize (Super + M)"        Iconify
++ " 󰖲  (Un)Maximize (Super + F)"        Maximize
++ " 󱩬  (Un)Shade (Super + S)"           WindowShade
++ "   (Un)Sticky (Super + P)"		Stick
++ "   (No)TitleBar"	Pick (CirculateHit) ToggleTitle
++ "" Nop
++ " 󰖭  Close (Super + Shift + C)"               Close
++ " 󰚑  Destroy (Super + Shift + D)"             Destroy
++ "" Nop
++ "   Raise (Super + U)"		Raise
++ "   Lower (Super + D)"		Lower
++ "" Nop
++ "   Identify (Super + I)"            Module FvwmIdent
+
+DestroyMenu MenuIconOps
+AddToMenu   MenuIconOps
++ "(De)Iconify"         Iconify
++ "(Un)Maximize"        Maximize
++ "(Un)Shade"           WindowShade
++ "(Un)Sticky"		Stick
++ "(No)TitleBar"	Pick (CirculateHit) ToggleTitle
++ "Send To"             Popup MenuSendTo
++ "" Nop
++ "Close"               Close
++ "Destroy"             Destroy
++ "" Nop
++ "Raise"		Raise
++ "Lower"		Lower
++ "" Nop
++ "StaysOnTop"          Pick (CirculateHit) Layer 0 6
++ "StaysPut"            Pick (CirculateHit) Layer 0 4
++ "StaysOnBottom"       Pick (CirculateHit) Layer 0 2
++ "" Nop
++ "Identify"            Module FvwmIdent
+
+#######
+# 5: Mouse and Key bindings
+#
+# Contexts:
+#     R = Root Window                 rrrrrrrrrrrrrrrrrrrrrr
+#     W = Application Window          rIrrrr<---------^rrrrr
+#     F = Frame Corners               rrrrrr[13TTTT642]rrrrr
+#     S = Frame Sides                 rIrrrr[wwwwwwwww]rrrrr
+#     T = Title Bar                   rrrrrr[wwwwwwwww]rrrrr
+#     I = Icon                        rIrrrrv_________>rrrrr
+#     A = Any                         rrrrrrrrrrrrrrrrrrrrrr
+#
+#     Numbers are buttons: [1 3 5 7 9  TTTTT  0 8 6 4 2]
+#
+# Modifiers: (A)ny, (C)ontrol, (S)hift, (M)eta, (N)othing
+#
+# Format: Key <X>  <Context> <Modifier> <Action>
+#         Mouse <X> <Context> <Modifier> <Action>
+####################
+
+# Alt-F1 or Menu to load the root menu and Alt-Tab for a WindowList.
+# Super-1/2/3/4+... will switch between the Virtual Desktops.
+# Super_R (windows key) will launch a terminal.
+# "4" is the modifier for Super/Windows key. "M" (Meta) is alt.
+
+# Silent supresses any errors (such as keyboards with no Menu key).
+
+# General Bindings
+# Root Menu
+Silent Key F1 A M Menu MenuFvwmRoot
+Silent Key Menu A A Menu MenuFvwmRoot
+
+# Rofi
+Silent Key a A 4 Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show drun -show-icons -display-drun "Applications"
+Silent Key w A 4 Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
+Silent Key e A 4 Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show filebrowser 
+Silent Key q A 4 Exec exec rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
+Silent Key Tab A M WindowList Root c c CurrentAtEnd, CurrentDesk, NoDeskNum, SelectOnRelease Alt_L
+Silent Key Tab A MS WindowList Root c c CurrentAtEnd, CurrentDesk, NoDeskNum, SelectOnRelease Alt_L
+Silent Key Return A 4 Exec exec $[infostore.terminal]
+Silent Key XF86Search	A A	Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show drun -show-icons -display-drun "Applications"
+
+# FVWM stuff
+Silent Key i A 4 Module FvwmIdent
+Silent Key r A 4 Refresh
+Silent Key r A 4S Restart
+Silent Key q A 4S Quit
+
+# Lock screen: Device-dependent
+Silent Key l A 4 Exec exec sh $HOME/.config/systemlockscript
+
+# Raise/Lower (up/down)
+Silent Key u A 4 Raise
+Silent Key d A 4 Lower
+
+# Window Actions
+Silent Key f A 4 Maximize 100 100
+Silent Key c A 4S Close
+Silent Key Space A M Menu MenuWindowOps Delete
+Silent Key F10 A S Menu MenuWindowOps Delete
+Silent Key D A 4S Destroy
+Silent Key m A 4 Iconify
+Silent Key s A 4 WindowShade
+Silent Key p A 4 Stick
+
+# Focus next and previous windows
+Silent Key z A 4 Prev Focus
+Silent Key x A 4 Next Focus
+
+# Tiling (basic)
+Silent Key Left A 4 TileLeft
+Silent Key Right A 4 TileRight
+Silent Key Up A 4 TileTop
+Silent Key Down A 4 TileBottom
+
+# Corner Tiling (; ' . /)
+Silent Key semicolon A 4 TileTopLeft
+Silent Key apostrophe A 4 TileTopRight
+Silent Key period A 4 TileBottomLeft
+Silent Key slash A 4 TileBottomRight
+
+# Moving Windows (position)
+Silent Key Left A 4M Move w-1 keep
+Silent Key Right A 4M Move w+1 keep
+Silent Key Up A 4M Move keep w-1
+Silent Key Down A 4M Move keep w+1
+
+# Moving Windows (snap until next window)
+Silent Key Left A 4C Move shuffle Left
+Silent Key Right A 4C Move shuffle Right
+Silent Key Up A 4C Move shuffle Up
+Silent Key Down A 4C Move shuffle Down
+
+# Resizing Windows
+Silent Key Left A 4S Resize w-1 keep
+Silent Key Right A 4S Resize w+1 keep
+Silent Key Up A 4S Resize keep w-1
+Silent Key Down A 4S Resize keep w+1
+
+# Virtual desktops
+# Go to
+Silent Key Tab A 4 GoToDesk 1 0 10
+Silent Key Tab A 4S GoToDesk -1 0 10
+Silent Key 1 A 4 GotoDesk 0 0
+Silent Key 2 A 4 GotoDesk 0 1
+Silent Key 3 A 4 GotoDesk 0 2
+Silent Key 4 A 4 GotoDesk 0 3
+Silent Key 5 A 4 GotoDesk 0 4
+Silent Key 6 A 4 GotoDesk 0 5
+Silent Key 7 A 4 GotoDesk 0 6
+Silent Key 8 A 4 GotoDesk 0 7
+Silent Key 9 A 4 GotoDesk 0 8
+Silent Key 0 A 4 GotoDesk 0 9
+# Move to other desktop
+Silent Key 1 A 4S MoveToDesk 0 0
+Silent Key 2 A 4S MoveToDesk 0 1
+Silent Key 3 A 4S MoveToDesk 0 2
+Silent Key 4 A 4S MoveToDesk 0 3
+Silent Key 5 A 4S MoveToDesk 0 4
+Silent Key 6 A 4S MoveToDesk 0 5
+Silent Key 7 A 4S MoveToDesk 0 6
+Silent Key 8 A 4S MoveToDesk 0 7
+Silent Key 9 A 4S MoveToDesk 0 8
+Silent Key 0 A 4S MoveToDesk 0 9
+
+# Window Buttons: [1 3 5 7 9  TTTTT  0 8 6 4 2]
+#   1 - Open the WindowOps menu.
+#   2 - Close on single click, Destroy on double click.
+#   4 - Maximize (right/middle button will only maximize vertical/horizontal)
+#   6 - Iconify (minimize)
+Mouse 1 1 A Menu MenuWindowOps Delete
+#Mouse 1 3 A Stick
+#Mouse 1 5 A WindowShade
+Mouse 1 2 A Close
+Mouse 1 4 A Maximize 100 100
+Mouse 2 4 A Maximize 0 100
+Mouse 3 4 A Maximize 100 0
+Mouse 1 6 A Iconify
+
+#   TitleBar: Click to Raise, Move, Double Click to Maximize
+#             Mouse Wheel Up/Down to WindowShade On/Off
+#   Borders: Click to raise, Move to Resize
+#   Root Window: Left Click - Main Menu
+#                Right Click - WindowOps Menu
+#                Middle Click - Window List Menu
+#   Right click TitleBar/Borders for WindowOps Menu
+Mouse 1	T    A RaiseMoveX Move Maximize
+Mouse 1	FS   A RaiseMove Resize
+Mouse 4	T    A WindowShade True
+Mouse 5	T    A WindowShade False
+Mouse 1	R    A Menu MenuFvwmRoot
+Mouse 2	R    A WindowList
+Mouse 3	R    A Menu MenuWindowOpsLong
+Mouse 1	I    A RaiseMoveX Move "Iconify off"
+Mouse 3	T    A Menu MenuWindowOps
+Mouse 3 I    A Menu MenuIconOps
+
+#######
+# 6: Window Decor
+#
+# Buttons Locations: [1 3 5 7 9  TTTTT  0 8 6 4 2]
+#
+#   1 - WindowOps Menu
+#   2 - Close
+#   4 - Maximize
+#   6 - Minimize
+###########
+TitleStyle Centered Height 30 -- Flat
+ButtonStyle All Inactive (Pixmap inactive.xpm -- Flat)
+ButtonStyle 1 ActiveUp (Pixmap menu.xpm -- Flat)
+ButtonStyle 1 ActiveDown (Pixmap menu_pressed.xpm -- Flat)
+ButtonStyle 3 ActiveUp (Pixmap desk.xpm -- Flat)
+ButtonStyle 3 ActiveDown (Pixmap desk_toggled.xpm -- Flat)
+ButtonStyle 3 ToggledActiveUp (Pixmap desk_toggled.xpm -- Flat)
+ButtonStyle 5 ActiveUp (Pixmap shade.xpm -- Flat)
+ButtonStyle 5 ActiveDown (Pixmap shade_toggled.xpm -- Flat)
+ButtonStyle 5 ToggledActiveDown (Pixmap shade_toggled.xpm -- Flat)
+ButtonStyle 2 ActiveUp (Pixmap close.xpm -- Flat)
+ButtonStyle 2 ActiveDown (Pixmap close_pressed.xpm -- Flat)
+ButtonStyle 4 ActiveUp (Pixmap max.xpm -- Flat)
+ButtonStyle 4 ActiveDown (Pixmap max_pressed.xpm -- Flat)
+ButtonStyle 4 ToggledActiveUp (Pixmap max_toggled.xpm -- Flat)
+ButtonStyle 6 ActiveUp (Pixmap iconify.xpm -- Flat)
+ButtonStyle 6 ActiveDown (Pixmap iconify_pressed.xpm -- Flat)
+ButtonStyle All - Clear
+ButtonStyle 4 - MwmDecorMax
+ButtonStyle 3 - MwmDecorStick
+ButtonStyle 5 - MwmDecorShade
+
+############
+# 7: Modules
+#############
+
+# FvwmIdent
+#
+# FvwmIdent is a module that can be used to get the various info about
+# a window. One use is getting the class/resource/name of a window.
+DestroyModuleConfig FvwmIdent:*
+*FvwmIdent: Colorset 0
+*FvwmIdent: Font "xft:Ubuntu Nerd Font:size=12:antialias=True"
+
+# EdgeCommand for tiling (this is aero snap style)
+# NOTE: This doesn't actually work, this is for reference
+#EdgeCommand Top Maximize 100 100
+#EdgeCommand Bottom
+#EdgeCommand Left TileLeft
+#EdgeCommand Right TileRight
+
+# Basic tiling functions
+DestroyFunc TileLeft
+AddToFunc TileLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 100
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
+
+DestroyFunc TileRight
+AddToFunc TileRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 100
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 +0
+
+DestroyFunc TileTop
+AddToFunc TileTop
++ I ThisWindow (!Shaded, !Iconic) Maximize 100 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
+
+DestroyFunc TileBottom
+AddToFunc TileBottom
++ I ThisWindow (!Shaded, !Iconic) Maximize 100 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 -0
+
+DestroyFunc TileTopLeft
+AddToFunc TileTopLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 +0
+
+DestroyFunc TileTopRight
+AddToFunc TileTopRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 +0
+
+DestroyFunc TileBottomLeft
+AddToFunc TileBottomLeft
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move +0 -0
+
+DestroyFunc TileBottomRight
+AddToFunc TileBottomRight
++ I ThisWindow (!Shaded, !Iconic) Maximize 50 50
++ I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 -0
+
+# 8. Custom
+
+# Do not manage polybar
+Style polybar		Unmanaged
+BugOpts RaiseOverUnmanaged
+

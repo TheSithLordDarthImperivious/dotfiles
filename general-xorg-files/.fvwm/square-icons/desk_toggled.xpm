@@ -1,0 +1,17 @@
+/* XPM */
+static char *desk_toggled[] = {
+/* columns rows colors chars-per-pixel */
+"10 10 1 1 ",
+"  c #4D5942",
+/* pixels */
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          "
+};

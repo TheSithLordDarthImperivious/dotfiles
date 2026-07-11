@@ -1,0 +1,17 @@
+/* XPM */
+static char *shade[] = {
+/* columns rows colors chars-per-pixel */
+"10 10 1 1 ",
+"  c #EBCB8B",
+/* pixels */
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          ",
+"          "
+};

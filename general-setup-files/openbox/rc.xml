@@ -89,7 +89,7 @@
     </keybind>
     <keybind key="W-Return">
       <action name="Execute">
-        <command>qterminal</command>
+        <command>lxterminal</command>
       </action>
     </keybind>
     <keybind key="A-Tab">

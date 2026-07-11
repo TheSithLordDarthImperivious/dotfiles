@@ -22,7 +22,7 @@
   <separator />
   <item label="Terminal">
       <action name="Execute">
-          <command>qterminal</command>
+          <command>lxterminal</command>
       </action>
   </item>
   <item label="Web Browser">
@@ -32,7 +32,7 @@
   </item>
   <item label="Full File Manager">
       <action name="Execute">
-          <command>pcmanfm-qt</command>
+          <command>pcmanfm</command>
       </action>
   </item>
   <item label="Password Manager">
@@ -43,12 +43,12 @@
   <separator />
   <item label="Text Editor">
       <action name="Execute">
-          <command>qterminal -e nano</command>
+          <command>mousepad</command>
       </action>
   </item>
   <item label="Process Monitor">
       <action name="Execute">
-          <command>qterminal -e htop</command>
+          <command>lxterminal -e htop</command>
       </action>
   </item>
   <separator />
