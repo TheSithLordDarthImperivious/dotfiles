@@ -4,7 +4,7 @@
 #  ) (__  _  _  _    _
 # (   __)( \/ )( \/\/ )/\/\
 #  ) (    \  /  \    //    \
-# (___)    \/    \/\/(_/\/\_) 2.6/3.x (not compatible with older, as only FP styles are used)
+# (___)    \/    \/\/(_/\/\_) 2.6/3.x (probably not compatible with older versions; FP styles are used)
 #
 #
 #  This is a modified configuration file for fvwm.
@@ -167,8 +167,10 @@ EwmhBaseStruts 0 0 37 0
 ClickTime 250
 MoveThreshold 3
 
-# Sets the focus style to Click to Focus (and also raise unfocused windows via click)
-Style * FPClickToFocus, FPClickDecorToFocus, FPClickRaisesUnfocused, FPClickDecorRaisesFocused
+# Sets the focus style to Click to Focus (which raises the window upon click too!)
+Style * ClickToFocusRaises
+Style * FPClickToFocus, FPClickDecorToFocus, FPClickRaisesFocused, FPClickDecorRaisesFocused, FPClickDecorRaisesUnfocused, FPClickDecorRaisesUnfocused
+
 # But we also need to disable enter and leave via mouse
 Style * !FPEnterToFocus, !FPLeaveToUnfocus
 
