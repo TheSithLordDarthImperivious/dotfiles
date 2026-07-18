@@ -2,6 +2,7 @@ Xft.dpi: 96
 *Background: #222B30
 *Foreground: #BDE6FB
 *face:    Ubuntu Nerd Font
+*font:    Ubuntu Nerd Font
 *cursorTheme: Adwaita
 
 

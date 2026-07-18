@@ -7,7 +7,7 @@
 # (___)    \/    \/\/(_/\/\_) 2.6/3.x (probably not compatible with older versions; FP styles are used)
 #
 #
-#  This is a modified configuration file for fvwm.
+#  This is a modified configuration file for fvwm (TheSithLordDarthImperivious config).
 #
 #  This config file is organized as follows:
 #
@@ -79,7 +79,8 @@ AddToFunc   StartFunction
 + I Test (init) Exec exec polybar -r
 + I Test (init) Exec if [ -f ~/.config/wmadditionalstartupprograms-devicespecific ]; then sh ~/.config/wmadditionalstartupprograms-devicespecific; fi
 + I Test (init) Exec exec dunst
-+ I Test (Init) Exec exec feh --bg-fill $HOME/.local/share/wallpapers/atlas-ark-linux-wallpaper.png
++ I Test (Init) Exec exec fvwm-root --retain-pixmap $HOME/.local/share/wallpapers/atlas-ark-linux-wallpaper.png
++ I Exec exec xrdb $HOME/.Xresources
 
 # Mouse Bindings Functions
 DestroyFunc RaiseMoveX
@@ -212,7 +213,11 @@ BorderStyle -- HiddenHandles NoInset Flat
 #Style * !Icon
 
 # Position the geometry window in the center of the screen
-GeometryWindow Position 50 50
+#GeometryWindow Position 50 50
+
+# Hide the GeometryWindow (fvwm2 and 3)
+Test (Version < 3.0.0) HideGeometryWindow
+Test (Version >= 3.0.0) GeometryWindow Hide
 
 # IconBox styles
 # IconBox has: left limit of box, top limit of box, right limit of box, bottom limit of box, (each from left and top, negative is from right and bottom)
@@ -277,10 +282,10 @@ AddToMenu   MenuFvwmRoot "Main Menu" Title
 + "   All &Windows " Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
 + "   &File Browser" Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show filebrowser
 + "" Nop
-+ "   &Terminal " Exec exec lxterminal
-+ " 󰪶  Full File &Manager " Exec exec pcmanfm
-+ " 󰖟  &Web Browser " Exec exec librewolf
-+ " 󰌆  Pa&ssword Manager " Exec exec keepassxc
++ "   &Terminal " Exec exec alacritty
++ "   Full File &Manager " Exec exec pcmanfm
++ "   &Web Browser " Exec exec firefox
++ "   Pa&ssword Manager " Exec exec keepassxc
 + "" Nop
 + "   Text &Editor " Exec exec lxterminal -e nano
 + "   Process &Monitor " Exec exec lxterminal -e htop
@@ -295,7 +300,7 @@ AddToMenu FVWMMenu
 + ""  Nop
 + "   Re&fresh " Refresh
 + "   &Restart " Restart
-+ " 󰿅  &Quit " Quit
++ " ⏼  &Quit " Quit
 
 DestroyMenu PowerOptions
 AddToMenu PowerOptions
@@ -308,54 +313,47 @@ AddToMenu PowerOptions
 # Window Operations Menus
 DestroyMenu MenuWindowOps
 AddToMenu   MenuWindowOps "  Window Options  " Title
-+ " 󰆾  Move "      Move
-+ " 󰩨  Resize "    Resize
++ "   Move "      Move
++ "   Resize "    Resize
 + "   Minimize "   Iconify
-+ " 󰖲  Maximize "  Maximize
-+ " 󱨫  Shade "     WindowShade
++ "   Maximize "  Maximize
++ "   Shade "     WindowShade
 + "   Stick "     Stick
 + "" Nop
-+ " 󰖭  Close "     Close
-+ " 󰇘  More..."   Popup MenuWindowOpsLong
++ "   Close "     Close
++ "" Nop
++ "   Window Tiling " Popup MenuSnapOptions
++ "   More..."   Popup MenuWindowOpsLong
 
 DestroyMenu MenuWindowOpsLong
 AddToMenu   MenuWindowOpsLong
-+ " 󰆾  Move (Super + Alt + Arrow Key)"                Move
-+ " 󰩨  Resize (Super + Shift + Arrow Key)"              Resize
++ "   Move (Super + Alt + Arrow Key)"                Move
++ "   Resize (Super + Shift + Arrow Key)"              Resize
 + "   (Un)Minimize (Super + M)"        Iconify
-+ " 󰖲  (Un)Maximize (Super + F)"        Maximize
-+ " 󱩬  (Un)Shade (Super + S)"           WindowShade
++ "   (Un)Maximize (Super + F)"        Maximize
++ "   (Un)Shade (Super + S)"           WindowShade
 + "   (Un)Sticky (Super + P)"		Stick
-+ "   (No)TitleBar"	Pick (CirculateHit) ToggleTitle
++ "   (No)TitleBar (Super + T)"	Pick (CirculateHit) ToggleTitle
 + "" Nop
-+ " 󰖭  Close (Super + Shift + C)"               Close
-+ " 󰚑  Destroy (Super + Shift + D)"             Destroy
++ "   Close (Super + Shift + C)"               Close
++ "   Destroy (Super + Shift + D)"             Destroy
 + "" Nop
 + "   Raise (Super + U)"		Raise
 + "   Lower (Super + D)"		Lower
 + "" Nop
 + "   Identify (Super + I)"            Module FvwmIdent
 
-DestroyMenu MenuIconOps
-AddToMenu   MenuIconOps
-+ "(De)Iconify"         Iconify
-+ "(Un)Maximize"        Maximize
-+ "(Un)Shade"           WindowShade
-+ "(Un)Sticky"		Stick
-+ "(No)TitleBar"	Pick (CirculateHit) ToggleTitle
-+ "Send To"             Popup MenuSendTo
+DestroyMenu MenuSnapOptions
+AddToMenu MenuSnapOptions
++ "   Left (Super + Left Arrow)"                TileLeft
++ "   Right (Super + Right Arrow)"              TileRight
++ "   Top (Super + Up Arrow)"        TileTop
++ "   Bottom (Super + Down Arrow)"        TileBottom
 + "" Nop
-+ "Close"               Close
-+ "Destroy"             Destroy
-+ "" Nop
-+ "Raise"		Raise
-+ "Lower"		Lower
-+ "" Nop
-+ "StaysOnTop"          Pick (CirculateHit) Layer 0 6
-+ "StaysPut"            Pick (CirculateHit) Layer 0 4
-+ "StaysOnBottom"       Pick (CirculateHit) Layer 0 2
-+ "" Nop
-+ "Identify"            Module FvwmIdent
++ "   Top Left (Super + ;)"                TileTopLeft
++ "   Top Right (Super + ')"              TileTopRight
++ "   Bottom Left (Super + .)"        TileBottomLeft
++ "   Bottom Right (Super + /)"        TileBottomRight
 
 #######
 # 5: Mouse and Key bindings
@@ -421,7 +419,7 @@ Silent Key D A 4S Destroy
 Silent Key m A 4 Iconify
 Silent Key s A 4 WindowShade
 Silent Key p A 4 Stick
-
+Silent Key t A 4 Pick (CirculateHit) ToggleTitle
 # Focus next and previous windows
 Silent Key z A 4 Prev Focus
 Silent Key x A 4 Next Focus
@@ -512,7 +510,7 @@ Mouse 2	R    A WindowList
 Mouse 3	R    A Menu MenuWindowOpsLong
 Mouse 1	I    A RaiseMoveX Move "Iconify off"
 Mouse 3	T    A Menu MenuWindowOps
-Mouse 3 I    A Menu MenuIconOps
+Mouse 3 I    A Menu MenuWindowOps
 
 #######
 # 6: Window Decor
@@ -557,6 +555,12 @@ ButtonStyle 5 - MwmDecorShade
 DestroyModuleConfig FvwmIdent:*
 *FvwmIdent: Colorset 0
 *FvwmIdent: Font "xft:Ubuntu Nerd Font:size=12:antialias=True"
+
+# FvwmCommandS
+# FvwmCommand backend (fvwm2 ONLY)
+Test (Version < 3.0.0) Module FvwmCommandS
+
+# 8. Custom
 
 # EdgeCommand for tiling (this is aero snap style)
 # NOTE: This doesn't actually work, this is for reference
@@ -606,9 +610,9 @@ AddToFunc TileBottomRight
 + I ThisWindow (!Shaded, !Iconic) Maximize 50 50
 + I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 -0
 
-# 8. Custom
-
 # Do not manage polybar
 Style polybar		Unmanaged
+# Make on-screen keyboard never recieve focus
+Style "Keyboard"    !FPLenient
 BugOpts RaiseOverUnmanaged
 

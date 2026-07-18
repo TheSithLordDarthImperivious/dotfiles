@@ -8,3 +8,6 @@
 [submodule "general-setup-files/themes/arc-theme-maintained"]
 	path = general-setup-files/themes/arc-theme-maintained
 	url = https://github.com/jnsh/arc-theme
+[submodule "general-setup-files/themes/zorin-desktop-themes"]
+	path = general-setup-files/themes/zorin-desktop-themes
+	url = https://github.com/ZorinOS/zorin-desktop-themes
