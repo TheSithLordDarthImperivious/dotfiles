@@ -15,8 +15,8 @@
 # Source fvwmcommand file
 . $HOME/.fvwm/fvwmcommand.sh
 
-# Source xscreenstuff file with argument
-. $HOME/.fvwm/xscreenstuff.sh "$1"
+# Source xscreenstuff file
+. $HOME/.fvwm/xscreenstuff.sh
 
 # Get the screen resolution
 screenRes
@@ -27,6 +27,7 @@ panel_button=`dpiScaler $bpanel_button`
 panel_cpuramdisk=`dpiScaler $bpanel_cpuramdisk`
 panel_net=`dpiScaler $bpanel_net`
 panel_clock=`dpiScaler $bpanel_clock`
+panel_xclock_padding=`dpiScaler $bpanel_xclock_padding`
 
 # Also scale the norfont (via fontScaler)
 norfontsize=`fontScaler $bnorfontsize`
@@ -41,7 +42,7 @@ actionButton() {
     # Use POSIX sh integer arithmetic to subtract the button width from the spacer width, and set it to the new value
     curspacerwidth=$(($curspacerwidth - $2))
     # Construct String, append to curpanelitems
-    curpanelitems="$curpanelitems*$1: ($2x$3, Id '$4', Title '$5', Colorset $6, ActiveColorset $7, PressColorset $8, Action $9)\n"
+    curpanelitems="$curpanelitems*$1: ($2x$3, Id '$4', Title '$5', Colorset $6, ActiveColorset $7, PressColorset $8, ActionOnPress, Action $9)\n"
 }
 
 # "Class" for swallowed window
@@ -86,8 +87,9 @@ barGen() {
 
     # Use heredoc
 cat <<EOF
+EwmhBaseStruts 0 0 $panel 0
 Style $1 ${11}
-DestroyModuleConfig $1:*
+DestroyModuleConfig $1: *
 *$1: Geometry $2x$3$geomxoff$geomyoff
 *$1: Colorset $6
 *$1: Frame $7
@@ -99,10 +101,11 @@ EOF
 
 # The Panel Itself
 # Add xft: prefix manually
-barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" '!Borders, !Title, WindowListSkip, StaysOnTop, Sticky, FixedPosition, FixedSize, !Maximizable, !Iconifiable, !Closable'
+#barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" '!Borders, !Title, WindowListSkip, StaysOnTop, Sticky, FixedPosition, FixedSize, !Maximizable, !Iconifiable, !Closable'
+barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" 'Unmanaged'
 
 # Spacer
-# First Argument: Panel Name, Second Argument: Amount of Spacers
+# First Argument: Panel Name, Second Argument: Amount of Spacers, Third Argument: Special Params
 spacerGen() {
     # Get the remaining space and divide it by the amount of spacers
     spaceremain=$(($curspacerwidth / $2))
@@ -121,13 +124,16 @@ actionButton FvwmBar $panel_button 1 'launcher' '' 18 6 17 'Exec exec rofi -n
 actionButton FvwmBar $panel_button 1 'wswitcher' '' 0 6 17 'WindowList Root c c'
 
 # File Browser
-actionButton FvwmBar $panel_button 1 'fileman' '' 0 6 17 'Exec exec rofi -normal-window -dpi 0 -show filebrowser'
+#actionButton FvwmBar $panel_button 1 'fileman' '' 0 6 17 'Exec exec rofi -normal-window -dpi 0 -show filebrowser'
+
+# Virtual Desktop Switcher
+actionButton FvwmBar $panel_button 1 'deskswitch' "$[FVWM_CURRENT_DESK]" 17 6 0 'Menu DeskMenu Root c c'
 
 # Add Spacer
 addSpacer
 
 # Keyboard
-actionButton FvwmBar $panel_button 1 'keyboard' '' 0 6 17 'Exec sh $[FVWM_USERDIR]/matchbox-desktop.sh'
+actionButton FvwmBar $panel_button 1 'keyboard' '' 0 6 17 'PipeRead "sh $[FVWM_USERDIR]/matchbox-desktop.sh"'
 
 # Mode Switcher
 actionButton FvwmBar $panel_button 1 'modeswitch' '' 0 6 17 'Menu ModeSwitcher Delete'
@@ -148,7 +154,7 @@ if [ $fvwmcommandworks = 0 ] && python3 -c "import importlib.util; exit(importli
 fi
 
 # xclock swallow
-swallowedWin FvwmBar $panel_clock 1 'xclock' xclock "Exec exec xclock -d -face \"$norfont\" -fg \"#75B5AA\" -update 1 -strftime \" %H:%M:%S\""
+swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -face \"$norfont\" -fg \"#75B5AA\" -update 1 -strftime \" %H:%M:%S\" -padding $panel_xclock_padding -title 'FvwmBarClock'"
 
 # Power Button
 actionButton FvwmBar $panel_button 1 'poweropts' '' 27 28 29 "Menu PowerOptions Root c c"
@@ -161,6 +167,11 @@ spacerGen FvwmBar 1
 # Use "%b" as format string so that printf doesn't treat the % as a format string and %b processes escapes like \n (newline)
 printf '%b\n' "$curpanelitems"
 
-# Echo EwmhBaseStruts and the module start command
-echo "EwmhBaseStruts 0 0 $panel 0"
+# Only restart the panel if it's in "modify" mode (if panel_modify is set to a non-empty value)
+if ! [ -z $panel_modify ]; then
+    # Echo the killmodule command
+    echo "KillModule FvwmButtons FvwmBar"
+fi
+
+# Echo the module start command
 echo "Module FvwmButtons FvwmBar"

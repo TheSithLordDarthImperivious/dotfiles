@@ -8,6 +8,7 @@ bpanel_button=44
 bpanel_cpuramdisk=84
 bpanel_net=0
 bpanel_clock=96
+bpanel_xclock_padding=8
 
 # Fonts
 bnorfontsize=12
@@ -22,12 +23,12 @@ btitleheight=32
 bborderwidth=3
 
 # Menu Stuff
-bnormalspacing=5
+bnormalspacing=8
 bnormaltitlespacing=$bnormalspacing
 bbigspacing=10
 bbigmargin=14
 btitlespacing1=7
-btitlespacing2=27
+btitlespacing2=22
 
 
 

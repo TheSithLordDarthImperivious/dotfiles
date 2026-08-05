@@ -5,23 +5,24 @@
 # Just gets DPI and screen resolution, and handles phone/tablet mode switching.
 
 # Additional scaling based on mode (tablet, desktop, etc.)
-# This script only checks if $1 is either tablet or phone. Phone will also have some additional echo commands to set "always maximize".# It is "desktop" by default and if the argument is invalid.
+# This script only handles the resizing, not the state changes.
 
-if [ "$1" = "tablet" ]; then
-    morescale=1.5
-    setmode="tablet"
-elif [ "$1" = "phone" ]; then
-    morescale=1.5
-    setmode="phone"
+if [ "$mode" = "touch" ]; then
+    morescale=1.3
 else
     morescale=1
-    setmode="desktop"
 fi
 
+# Check if $FVWM_DPISCALE is set
+if ! [ -z $FVWM_DPISCALE ]; then
+    # Just set it to the values
+    dpi=$FVWM_DPI
+    dpiscale=$FVWM_DPISCALE
 # Check if $DISPLAY is non-empty
-if [ -z $DISPLAY ]; then
+elif [ -z $DISPLAY ]; then
     # Unset implies dpi=96
     dpi=96
+    dpiscale=1
 else
     # It is of format 'Xft.dpi: X', so we use awk to get X
     dpi=`xrdb -q | grep Xft.dpi | awk '{print $2}'`
@@ -38,18 +39,29 @@ else
         # Just set it to 96
         dpi=96
     fi
-fi
 
-# Get scale factor
-dpiscale=`echo $dpi | awk '{print $1 / 96}'`
+    # Get scale factor
+    dpiscale=`echo $dpi | awk '{print $1 / 96}'`
+    # Make FVWM export both
+    echo "SetEnv FVWM_DPI $dpi"
+    echo "SetEnv FVWM_DPISCALE $dpiscale"
+fi
 
 # Function for screen resolution
 # This is separate for performance reasons
 screenRes() {
+    # Check if $FVWM_SCREENRES is set
+    if ! [ -z $FVWM_SCREENRES ]; then
+        # Just set it to the values
+        wholeres=$FVWM_SCREENRES
+        width=$FVWM_SCREENWIDTH
+        height=$FVWM_SCREENHEIGHT
     # Check if $DISPLAY is non-empty
-    if [ -z $DISPLAY ]; then
+    elif [ -z $DISPLAY ]; then
         # Unset implies resolution is 1024x768
         wholeres="1024x768"
+        width=1024
+        height=768
     else
         # Basically we use xdpyinfo, get the dimension, but only the first one, and then the second is the WxH we need.
         wholeres=`xdpyinfo | grep -i dimension | head -n 1 | awk '{print $2}'`
@@ -66,11 +78,14 @@ screenRes() {
             # Just set it to 1024x768
             wholeres="1024x768"
         fi
+        # Use x as separator: Format is WxH
+        width=`echo $wholeres | awk -F 'x' '{print $1}'`
+        height=`echo $wholeres | awk -F 'x' '{print $2}'`
+        # Make FVWM export
+        echo "SetEnv FVWM_SCREENRES $wholeres"
+        echo "SetEnv FVWM_SCREENWIDTH $width"
+        echo "SetEnv FVWM_SCREENHEIGHT $height"
     fi
-
-    # Use x as separator: Format is WxH
-    width=`echo $wholeres | awk -F 'x' '{print $1}'`
-    height=`echo $wholeres | awk -F 'x' '{print $2}'`
 }
 
 # dpi scaler function using awk

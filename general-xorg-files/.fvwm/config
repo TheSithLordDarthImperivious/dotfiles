@@ -77,13 +77,14 @@ DesktopConfiguration shared
 DestroyFunc StartFunction
 AddToFunc   StartFunction
 + I Exec exec xrdb $HOME/.Xresources
++ I Test (init) SetEnv FVWM_CURRENT_DESK 1
++ I Test (init) SetEnv FVWM_CURRENTMODE desktop
 + I Test (init) Exec if [ -f ~/.config/wmadditionalstartupprograms-devicespecific ]; then sh ~/.config/wmadditionalstartupprograms-devicespecific; fi
 + I Test (init) Exec exec dunst
 + I Test (init) Exec exec feh --bg-fill /data/Wallpapers/'Windows 8.0 (including betas)'/Milestone/M3.jpg
 + I Test (init) Exec exec python3 $[FVWM_USERDIR]/stats.py
-+ I PipeRead "sh $[FVWM_USERDIR]/dpigen.sh"
-+ I PipeRead "sh $[FVWM_USERDIR]/panel-generator.sh"
-+ I Module FvwmEvent EventNewDesk
++ I PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh init"
++ I Module FvwmEvent BarEvents
 
 # Mouse Bindings Functions
 DestroyFunc RaiseMoveX
@@ -99,7 +100,6 @@ AddToFunc RaiseMove
 
 DestroyFunc MoveToCurrent
 AddToFunc MoveToCurrent
-#+ I ThisWindow MoveToPage
 + I ThisWindow MoveToDesk
 
 # Function: ToggleTitle
@@ -116,9 +116,20 @@ AddToFunc   ToggleTitle
 # Function: ChangeDesk
 #
 # This function is called by FvwmEvent every time the Desk is changed.
+# All this does is change the panel name and set an environment variable.
 DestroyFunc ChangeDesk
 AddToFunc   ChangeDesk
-+ I Echo $[desk.name]
++ I SetEnv FVWM_CURRENT_DESK $$[desk.name $[desk.n]]
++ I SendToModule FvwmButtons ChangeButton deskswitch Title $$[desk.name $[desk.n]]
+
+# Function: ClearCache
+#
+# Clears DPI and screen res cache.
+# NOTE: I only clear the ones that the scripts check.
+DestroyFunc ClearCache
+AddToFunc ClearCache
++ I SetEnv FVWM_DPISCALE
++ I SetEnv FVWM_SCREENRES
 
 #############
 # 2: Styles #
@@ -127,7 +138,7 @@ AddToFunc   ChangeDesk
 # Desktops and Pages
 #
 # Fvwm has both Virtual Desktops and Pages. Each Desktop is built from
-# a grid of Pages. The following sets the name of four Desktops and then
+# a grid of Pages. The following sets the name of ten Desktops and then
 # divides each Desktop into a 2x2 grid of Pages that are positioned as
 #
 #   +---+---+
@@ -136,6 +147,8 @@ AddToFunc   ChangeDesk
 #   |   |   |
 #   +---+---+
 #
+# -> DesktopSize 2x2
+
 DesktopName 0 1
 DesktopName 1 2
 DesktopName 2 3
@@ -147,10 +160,8 @@ DesktopName 7 8
 DesktopName 8 9
 DesktopName 9 10
 
-#DesktopSize 2x2
-#DesktopSize 10x1
 
-# Disables pages. Modern machines generally don't have these.
+# Disables pages. Modern machines generally don't have or need these.
 DesktopSize 1x1
 
 # EdgeScroll will move the view port between the Pages when the mouse
@@ -168,7 +179,6 @@ Style * EdgeMoveDelay 0
 # EwmhBaseStruts [left] [right] [top] [bottom]
 # Reserves space along the edge(s) of the Screen that will not
 # be covered when maximizing or placing windows.
-#EwmhBaseStruts 0 0 37 0
 # This is now defined in the python script for the panel
 
 # This sets the ClickTime and MoveThreshold used to determine
@@ -205,7 +215,7 @@ Style * WindowShadeScrolls, WindowShadeSteps 10
 
 # Ignore Numlock and other modifiers for bindings
 # See http://fvwm.org/documentation/faq/#why-do-numlock-capslock-and-scrolllock-interfere-with-clicktofocus-andor-my-mouse-bindings
-IgnoreModifiers L25
+IgnoreModifiers L2
 
 # Decor Styles
 # Borderwidth is generated from dpigen script
@@ -231,9 +241,10 @@ Test (Version >= 3.0.0) GeometryWindow Hide
 # IconBox styles
 # IconBox has: left limit of box, top limit of box, right limit of box, bottom limit of box, (each from left and top, negative is from right and bottom)
 # Make an iconbox that has bounds: 16 pixels from left, 53 pixels from top, 16 pixels from right, and 24 pixels from bottom (each corresponding to above order), and then have 96x96 icon sizes, and then separate each icon by 16 pixels from top and bottom, and then fill from left and bottom (ie. go from right to top)2
-Style * IconBox 16 53 -16 -24, IconSize 84 84 84 84, IconGrid 16 16, IconFill left bottom
+#Style * IconBox 16 53 -16 -24, IconSize 84 84 84 84, IconGrid 16 16, IconFill left bottom
 
 # Default Font is generated from dpiscaler
+# DefaultFont (font)
 
 #######
 # 3: Colorsets
@@ -325,15 +336,13 @@ AddToMenu   MenuFvwmRoot "Main Menu" Title
 + "   &File Browser" Exec exec rofi -normal-window -dpi 0 -show filebrowser
 + "" Nop
 + "   &Terminal " Exec exec $[infostore.terminal]
-+ "   Full File &Manager " Exec exec pcmanfm
-+ "   &Web Browser " Exec exec firefox
-+ "   Pa&ssword Manager " Exec exec keepassxc
-+ "" Nop
 + "   Text &Editor " Exec exec $[infostore.terminal] -e nano
 + "   Process &Monitor " Exec exec $[infostore.terminal] -e htop
 + "" Nop
 + "   F&VWM " Popup FVWMMenu
++ "   La&yout Switcher" Popup ModeSwitcher
 + "" Nop
++ "   &Clear Cache " ClearCache
 + "   Power &Options " Menu PowerOptions Root c c
 
 DestroyMenu FVWMMenu
@@ -352,20 +361,37 @@ AddToMenu PowerOptions "Power Options" Title
 + "   Log &Out " Quit
 + "  &Lock Screen " Exec exec sh $HOME/.config/systemlockscript
 
-# Use the "WindowList" style
+# Use the "WindowList" style for poweroptions
 ChangeMenuStyle WindowList PowerOptions
 
 DestroyMenu ModeSwitcher
 AddToMenu ModeSwitcher "  Layout Switcher  " Title
-+ "   &Desktop " Echo ToDo
-+ "   &Tablet " Echo ToDo
-+ "   &Phone " Echo ToDo
++ "   &Desktop " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh desktop | tee ~/log.zip"
++ "   &Tablet " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh tablet | tee ~/log.zip"
++ "   &Phone " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh phone | tee ~/log.zip"
+
+DestroyMenu DeskMenu
+AddToMenu DeskMenu "  Desktop List  " Title
++ " Desktop 1 " GotoDesk 0 0
++ " Desktop 2 " GotoDesk 0 1
++ " Desktop 3 " GotoDesk 0 2
++ " Desktop 4 " GotoDesk 0 3
++ " Desktop 5 " GotoDesk 0 4
++ " Desktop 6 " GotoDesk 0 5
++ " Desktop 7 " GotoDesk 0 6
++ " Desktop 8 " GotoDesk 0 7
++ " Desktop 9 " GotoDesk 0 8
++ " Desktop 10 " GotoDesk 0 9
+
+# Use the "WindowList" style for poweroptions
+ChangeMenuStyle WindowList DeskMenu
 
 # Window Operations Menus
+# We do not want ro Resize/Move if the window is maximized, so we will use ThisWindow (!Maximized) to only allow when window is unmaximized.
 DestroyMenu MenuWindowOps
 AddToMenu   MenuWindowOps "  Window Options  " Title
-+ "   Move "      Move
-+ "   Resize "    Resize
++ "   Move "      ThisWindow (!Maximized) Move
++ "   Resize "    ThisWindow (!Maximized) Resize
 + "   Minimize "   Iconify
 + "   Maximize "  Maximize
 + "   Shade "     WindowShade
@@ -378,8 +404,8 @@ AddToMenu   MenuWindowOps "  Window Options  " Title
 
 DestroyMenu MenuWindowOpsLong
 AddToMenu   MenuWindowOpsLong
-+ "   Move (Super + Alt + Arrow Key)"                Move
-+ "   Resize (Super + Shift + Arrow Key)"              Resize
++ "   Move (Super + Alt + Arrow Key)"                ThisWindow (!Maximized) Move
++ "   Resize (Super + Shift + Arrow Key)"              ThisWindow (!Maximized) Resize
 + "   (Un)Minimize (Super + M)"        Iconify
 + "   (Un)Maximize (Super + F)"        Maximize
 + "   (Un)Shade (Super + S)"           WindowShade
@@ -440,7 +466,6 @@ Silent Key Menu A A Menu MenuFvwmRoot
 
 # Rofi
 Silent Key a A 4 Exec exec rofi -normal-window -dpi 0 -show drun -show-icons -display-drun "Applications"
-#Silent Key w A 4 Exec exec rofi -normal-window -dpi 0 -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
 Silent Key w A 4 WindowList Root c c
 Silent Key e A 4 Exec exec rofi -normal-window -dpi 0 -show filebrowser 
 Silent Key q A 4 Menu PowerOptions Root c c
@@ -471,7 +496,7 @@ Silent Key D A 4S Destroy
 Silent Key m A 4 Iconify
 Silent Key s A 4 WindowShade
 Silent Key p A 4 Stick
-Silent Key t A 4 Pick (CirculateHit) ToggleTitle
+Silent Key t A 4 Pick (CirculateHit) ThisWindow (!State 2) ToggleTitle
 # Focus next and previous windows
 Silent Key z A 4 Prev Focus
 Silent Key x A 4 Next Focus
@@ -489,25 +514,25 @@ Silent Key period A 4 TileBottomLeft
 Silent Key slash A 4 TileBottomRight
 
 # Moving Windows (position)
-Silent Key Left A 4M Move w-1 keep
-Silent Key Right A 4M Move w+1 keep
-Silent Key Up A 4M Move keep w-1
-Silent Key Down A 4M Move keep w+1
+Silent Key Left A 4M ThisWindow (!Maximized) Move w-1 keep
+Silent Key Right A 4M ThisWindow (!Maximized) Move w+1 keep
+Silent Key Up A 4M ThisWindow (!Maximized) Move keep w-1
+Silent Key Down A 4M ThisWindow (!Maximized) Move keep w+1
 
 # Moving Windows (snap until next window)
-Silent Key Left A 4C Move shuffle Left
-Silent Key Right A 4C Move shuffle Right
-Silent Key Up A 4C Move shuffle Up
-Silent Key Down A 4C Move shuffle Down
+Silent Key Left A 4C ThisWindow (!Maximized) Move shuffle Left
+Silent Key Right A 4C ThisWindow (!Maximized) Move shuffle Right
+Silent Key Up A 4C ThisWindow (!Maximized) Move shuffle Up
+Silent Key Down A 4C ThisWindow (!Maximized) Move shuffle Down
 
 # Resizing Windows
-Silent Key Left A 4S Resize w-1 keep
-Silent Key Right A 4S Resize w+1 keep
-Silent Key Up A 4S Resize keep w-1
-Silent Key Down A 4S Resize keep w+1
+Silent Key Left A 4S ThisWindow (!Maximized) Resize w-1 keep
+Silent Key Right A 4S ThisWindow (!Maximized) Resize w+1 keep
+Silent Key Up A 4S ThisWindow (!Maximized) Resize keep w-1
+Silent Key Down A 4S ThisWindow (!Maximized) Resize keep w+1
 
 # Virtual desktops
-# Go to
+#
 Silent Key Tab A 4 GoToDesk 1 0 10
 Silent Key Tab A 4S GoToDesk -1 0 10
 Silent Key 1 A 4 GotoDesk 0 0
@@ -553,19 +578,19 @@ Mouse 1 6 A Iconify
 #                Right Click - WindowOps Menu
 #                Middle Click - Window List Menu
 #   Right click TitleBar/Borders for WindowOps Menu
-Mouse 1	T    A RaiseMoveX Move Maximize
-Mouse 1	FS   A RaiseMove Resize
+Mouse 1	T    A RaiseMoveX "ThisWindow (!Maximized) Move" Maximize
+Mouse 1	FS   A RaiseMove ThisWindow (!Maximized) Resize
 Mouse 4	T    A WindowShade True
 Mouse 5	T    A WindowShade False
 Mouse 1	R    A Menu MenuFvwmRoot
 Mouse 2	R    A WindowList
 Mouse 3	R    A Menu MenuWindowOpsLong
-Mouse 1	I    A RaiseMoveX Move "Iconify off"
+Mouse 1	I    A RaiseMoveX "ThisWindow (!Maximized) Move" "Iconify off"
 Mouse 3	T    A Menu MenuWindowOps
 Mouse 3 I    A Menu MenuWindowOps
 
-# Drag Windows using ctrl + left click
-Mouse 1 W C RaiseMove
+# Drag Windows using alt + left click
+Mouse 1 W M ThisWindow (!Maximized) Move
 
 #######
 # 6: Window Decor
@@ -578,22 +603,22 @@ Mouse 1 W C RaiseMove
 #   6 - Minimize
 ###########
 #TitleStyle Centered Height 32 -- Flat
-ButtonStyle All Inactive (Pixmap inactive.xpm -- Flat)
-ButtonStyle 1 ActiveUp (Pixmap menu.xpm -- Flat)
-ButtonStyle 1 ActiveDown (Pixmap menu_pressed.xpm -- Flat)
-ButtonStyle 3 ActiveUp (Pixmap desk.xpm -- Flat)
-ButtonStyle 3 ActiveDown (Pixmap desk_toggled.xpm -- Flat)
-ButtonStyle 3 ToggledActiveUp (Pixmap desk_toggled.xpm -- Flat)
-ButtonStyle 5 ActiveUp (Pixmap shade.xpm -- Flat)
-ButtonStyle 5 ActiveDown (Pixmap shade_toggled.xpm -- Flat)
-ButtonStyle 5 ToggledActiveDown (Pixmap shade_toggled.xpm -- Flat)
-ButtonStyle 2 ActiveUp (Pixmap close.xpm -- Flat)
-ButtonStyle 2 ActiveDown (Pixmap close_pressed.xpm -- Flat)
-ButtonStyle 4 ActiveUp (Pixmap max.xpm -- Flat)
-ButtonStyle 4 ActiveDown (Pixmap max_pressed.xpm -- Flat)
-ButtonStyle 4 ToggledActiveUp (Pixmap max_toggled.xpm -- Flat)
-ButtonStyle 6 ActiveUp (Pixmap iconify.xpm -- Flat)
-ButtonStyle 6 ActiveDown (Pixmap iconify_pressed.xpm -- Flat)
+ButtonStyle All Inactive (AdjustedPixmap inactive-scalable.xpm -- Flat)
+ButtonStyle 1 ActiveUp (AdjustedPixmap menu-scalable.xpm -- Flat)
+ButtonStyle 1 ActiveDown (AdjustedPixmap menu_pressed-scalable.xpm -- Flat)
+ButtonStyle 3 ActiveUp (AdjustedPixmap desk-scalable.xpm -- Flat)
+ButtonStyle 3 ActiveDown (AdjustedPixmap desk_toggled-scalable.xpm -- Flat)
+ButtonStyle 3 ToggledActiveUp (AdjustedPixmap desk_toggled-scalable.xpm -- Flat)
+ButtonStyle 5 ActiveUp (AdjustedPixmap shade-scalable.xpm -- Flat)
+ButtonStyle 5 ActiveDown (AdjustedPixmap shade_toggled-scalable.xpm -- Flat)
+ButtonStyle 5 ToggledActiveDown (AdjustedPixmap shade_toggled-scalable.xpm -- Flat)
+ButtonStyle 2 ActiveUp (AdjustedPixmap close-scalable.xpm -- Flat)
+ButtonStyle 2 ActiveDown (AdjustedPixmap close_pressed-scalable.xpm -- Flat)
+ButtonStyle 4 ActiveUp (AdjustedPixmap max-scalable.xpm -- Flat)
+ButtonStyle 4 ActiveDown (AdjustedPixmap max_pressed-scalable.xpm -- Flat)
+ButtonStyle 4 ToggledActiveUp (AdjustedPixmap max_toggled-scalable.xpm -- Flat)
+ButtonStyle 6 ActiveUp (AdjustedPixmap iconify-scalable.xpm -- Flat)
+ButtonStyle 6 ActiveDown (AdjustedPixmap iconify_pressed-scalable.xpm -- Flat)
 ButtonStyle All - Clear
 ButtonStyle 4 - MwmDecorMax
 ButtonStyle 3 - MwmDecorStick
@@ -640,6 +665,10 @@ DestroyModuleConfig FvwmBarPager:*
 *FvwmBarPager: BalloonYOffset +2
 *FvwmBarPager: BalloonBorderWidth 0
 *FvwmBarPager: UseSkipList
+*FvwmBarPager: Columns 1
+
+# Corresponding Style
+Style FvwmBarPager !Borders, !Title, WindowListSkip, StaysOnTop, Sticky, FixedPosition, FixedSize, !Maximizable, !Iconifiable, !Closable
 
 # FvwmIconMan
 #
@@ -671,15 +700,16 @@ DestroyModuleConfig FvwmIconMan:*
 # FvwmEvent is a module that can run an action or function
 # on specific events. This instance changes which desk number
 # is highlighted when the desk is changed.
-DestroyModuleConfig EventNewDesk:*
-*EventNewDesk: PassID
-*EventNewDesk: new_desk ChangeDesk
+DestroyModuleConfig BarEvents:*
+*BarEvents: PassID
+*BarEvents: new_desk ChangeDesk
+*BarEvents: focus_change Echo "$0"
 
 # 8. Custom
 
 # EdgeCommand for tiling (this is aero snap style)
 # NOTE: This doesn't actually work, this is for reference
-EdgeCommand Top ThisWindow Maximize 100 100
+#EdgeCommand Top ThisWindow Maximize 100 100
 #EdgeCommand Bottom
 #EdgeCommand Left TileLeft
 #EdgeCommand Right TileRight
@@ -729,6 +759,6 @@ AddToFunc TileBottomRight
 Style Rofi StaysOnTop, PositionPlacement Center, FixedPosition, FixedSize, !Maximizable, !Iconifiable, Sticky
 
 # Make on-screen keyboard (matchbox) never have ClickToFocus
-Style "Keyboard"    !ClickToFocusRaises, !FPClickToFocus
-BugOpts RaiseOverUnmanaged
+Style "Keyboard"    !ClickToFocusRaises, !FPClickToFocus, !FPAllowRaiseClickFunction, !Maximizable, StaysOnTop
 
+#BugOpts RaiseOverUnmanaged

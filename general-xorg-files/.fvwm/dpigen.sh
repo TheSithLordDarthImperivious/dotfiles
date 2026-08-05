@@ -5,8 +5,14 @@
 
 # Source the dimensions base and xscreenstuff, and fonts
 . $HOME/.fvwm/dimensbase.sh
-. $HOME/.fvwm/xscreenstuff.sh $1
+. $HOME/.fvwm/xscreenstuff.sh
 . $HOME/.fvwm/font.sh
+
+# Check if mode is empty
+if [ -z $mode ]; then
+    # Assume desktop
+    mode='desktop'
+fi
 
 # Use the dpiScaler function on all non-panel items
 # Font (uses fontScaler)
@@ -60,6 +66,3 @@ echo "TitleStyle Centered Height $titleheight -- Flat"
 # Now, we will generate the two menus: The normal one and the "big" (WindowList) menu
 menuGen \* "$normalspacing" "$normalspacing" "$normaltitlespacing" "$normaltitlespacing" "$normalmarginspacing" "$normalmarginspacing" "$menfont" "$mentfont" "1"
 menuGen WindowList "$bigspacing" "$bigspacing" "$titlespacing1" "$titlespacing2" "$bigmargin" "$bigmargin" "$bigfont" "$bigtitlefont" "$borderwidth"
-
-# And Finally, add the mode
-echo "InfoStoreAdd currentmode $setmode"
