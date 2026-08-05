@@ -175,3 +175,5 @@ fi
 
 # Echo the module start command
 echo "Module FvwmButtons FvwmBar"
+# Set some ENV vars
+echo "SetEnv FVWM_PANHEIGHT $panel"

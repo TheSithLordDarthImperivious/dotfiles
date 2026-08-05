@@ -35,13 +35,14 @@ sleep 1
 cat<<EOF
 DestroyFunc TestMax
 AddToFunc TestMax
-+ I WindowStyle !Title
++ I WindowStyle !Title, !Borders
++ I UpdateStyles
 + I Maximize 100 100
 + I State 2 True
 + I WindowStyle !Maximizable
 
 # Make all maximizable windows have no titlebar
-All (Maximizable) WindowStyle !Title
+All (Maximizable) WindowStyle !Title, !Borders
 UpdateStyles
 # Enable State 2 (managed fully by phone mode flag) on maximizable, but not maximized windows
 All (Maximizable, !Maximized) State 2 True
@@ -56,15 +57,15 @@ EOF
 # Disable Phone Mode
 disablePhone(){
 cat<<EOF
-# Make all maximized windows (except state 1) maximizable and have titlebar
-All (Maximized, !State 1) WindowStyle Maximizable, Title
+# Make all maximized windows (except state 1) maximizable and have titlebar and border
+All (Maximized, !State 1) WindowStyle Maximizable, Title, Borders
 # Update the styles so that maximize false (restore) can take effect
 UpdateStyles
 All (State 2) Maximize False
 # Still-maximized windows get maximized again so that it can update with ewmhbaemsestructs
 All (Maximized) Maximize True 100 100
-# Set all previously !Title windows to Maximizable (previousky we excluded)
-All (State 1) WindowStyle Maximizable
+# Set all previously !Title windows to Maximizable and border (previousky we excluded)
+All (State 1) WindowStyle Maximizable, Borders
 # Disable all State 2
 All State 2 False
 Style * InitialMapCommand Nop
@@ -86,6 +87,7 @@ UpdateStyles
 All (Keyboard) ResizeMove 100 35 0 -0
 All (Keyboard) Move 0 -0
 All (Keyboard) WindowStyle FixedPosition, FixedSize
+All (Keyboard) Iconify
 # We will add a InitialMapCommand Close to prevent any new keyboard windows from being opened
 Style Keyboard InitialMapCommand Close
 EOF
