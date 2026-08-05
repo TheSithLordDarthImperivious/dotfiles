@@ -10,6 +10,7 @@ ln -sfT $PWD/.p10k.zsh $HOME/.p10k.zsh
 ln -sfT $PWD/.p10k-basic.zsh $HOME/.p10k-basic.zsh
 ln -sfT $PWD/.vimrc $HOME/.vimrc
 ln -sfT $PWD/.nanorc $HOME/.nanorc
+ln -sfT $PWD/.tmux.conf $HOME/.tmux.conf
 ln -sfT $PWD/themes/openbox-theme-juno $HOME/.themes/openbox-theme-juno
 ln -sfT $PWD/themes/openbox-theme-arc $HOME/.themes/openbox-theme-arc
 ln -sfT $PWD/Kvantum $HOME/.config/Kvantum

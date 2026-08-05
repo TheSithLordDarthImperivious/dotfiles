@@ -9,3 +9,7 @@ Run the script in the base directory of the setup that you want to use. Make sur
 # I don't see them. Where are they?
 
 They are generally located in different folders so that I can organize them. setup-96dpi is xorg 96dpi, setup-192dpi is xorg 192dpi, and setup-wayland is wayland. general-setup-files is any dotfiles that are agonistic across all three setups. general-xorg-files is any xorg stuff that are dpi-agonistic.
+
+# NOTE
+
+FVWM is undergoing a major revamp.

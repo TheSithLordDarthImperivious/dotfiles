@@ -30,12 +30,12 @@
 #
 # The following is used in various menus and also sets the terminal
 # that FvwmConsole uses. Change this to your terminal of choice
-InfoStoreAdd terminal alacritty
+InfoStoreAdd terminal xterm
 
 #PipeRead "echo SetEnv DPI `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'`"
 
 # Icon path (window button graphics)
-ImagePath $HOME/.fvwm/square-icons/
+ImagePath $[FVWM_USERDIR]/square-icons/
 
 # DesktopConfiguration sets how fvwm handles desktops:
 #
@@ -76,11 +76,14 @@ DesktopConfiguration shared
 # actions that are run after a restart.
 DestroyFunc StartFunction
 AddToFunc   StartFunction
-+ I Test (init) Exec exec polybar -r
++ I Exec exec xrdb $HOME/.Xresources
 + I Test (init) Exec if [ -f ~/.config/wmadditionalstartupprograms-devicespecific ]; then sh ~/.config/wmadditionalstartupprograms-devicespecific; fi
 + I Test (init) Exec exec dunst
-+ I Test (Init) Exec exec fvwm-root --retain-pixmap $HOME/.local/share/wallpapers/atlas-ark-linux-wallpaper.png
-+ I Exec exec xrdb $HOME/.Xresources
++ I Test (init) Exec exec feh --bg-fill /data/Wallpapers/'Windows 8.0 (including betas)'/Milestone/M3.jpg
++ I Test (init) Exec exec python3 $[FVWM_USERDIR]/stats.py
++ I PipeRead "sh $[FVWM_USERDIR]/dpigen.sh"
++ I PipeRead "sh $[FVWM_USERDIR]/panel-generator.sh"
++ I Module FvwmEvent EventNewDesk
 
 # Mouse Bindings Functions
 DestroyFunc RaiseMoveX
@@ -113,8 +116,9 @@ AddToFunc   ToggleTitle
 # Function: ChangeDesk
 #
 # This function is called by FvwmEvent every time the Desk is changed.
-#DestroyFunc ChangeDesk
-#AddToFunc   ChangeDesk
+DestroyFunc ChangeDesk
+AddToFunc   ChangeDesk
++ I Echo $[desk.name]
 
 #############
 # 2: Styles #
@@ -144,7 +148,10 @@ DesktopName 8 9
 DesktopName 9 10
 
 #DesktopSize 2x2
-DesktopSize 10x1
+#DesktopSize 10x1
+
+# Disables pages. Modern machines generally don't have these.
+DesktopSize 1x1
 
 # EdgeScroll will move the view port between the Pages when the mouse
 # moves to the edge of the screen. This set the amount of distance to
@@ -161,7 +168,8 @@ Style * EdgeMoveDelay 0
 # EwmhBaseStruts [left] [right] [top] [bottom]
 # Reserves space along the edge(s) of the Screen that will not
 # be covered when maximizing or placing windows.
-EwmhBaseStruts 0 0 37 0
+#EwmhBaseStruts 0 0 37 0
+# This is now defined in the python script for the panel
 
 # This sets the ClickTime and MoveThreshold used to determine
 # Double Clicks, Hold and Move for the mouse.
@@ -170,16 +178,16 @@ MoveThreshold 3
 
 # Sets the focus style to Click to Focus (which raises the window upon click too!)
 Style * ClickToFocusRaises
-Style * FPClickToFocus, FPClickDecorToFocus, FPClickRaisesFocused, FPClickDecorRaisesFocused, FPClickDecorRaisesUnfocused, FPClickDecorRaisesUnfocused
+Style * FPClickToFocus, FPClickDecorToFocus, FPClickIconToFocus, FPClickRaisesFocused, FPClickDecorRaisesFocused, FPClickRaisesUnfocused, FPClickDecorRaisesUnfocused
+
+# Also allow the raise click to trigger mouse actions
+Style * FPAllowRaiseClickFunction
 
 # But we also need to disable enter and leave via mouse
 Style * !FPEnterToFocus, !FPLeaveToUnfocus
 
 # Also focus new windows automatically by grabfocus
 Style * FPLenient, FPGrabFocus, FPReleaseFocus
-
-# Default Font
-DefaultFont "xft:Ubuntu Nerd Font:Bold:size=11:antialias=True"
 
 # Window Placement
 Style * MinOverlapPlacement, !UsePPosition
@@ -200,7 +208,8 @@ Style * WindowShadeScrolls, WindowShadeSteps 10
 IgnoreModifiers L25
 
 # Decor Styles
-Style * BorderWidth 3, HandleWidth 3, FvwmBorder, FirmBorder, MwmBorder
+# Borderwidth is generated from dpigen script
+Style * FvwmBorder, FirmBorder, MwmBorder
 Style * Colorset 1, HilightColorset 2
 Style * BorderColorset 3, HilightBorderColorset 4
 Style * MwmFunctions
@@ -210,10 +219,10 @@ BorderStyle -- HiddenHandles NoInset Flat
 
 # Disable Icons from appearing on desktop.
 # Comment this out or use Style * Icon to get the icons back.
-#Style * !Icon
+Style * !Icon
 
 # Position the geometry window in the center of the screen
-#GeometryWindow Position 50 50
+GeometryWindow Position 50 50
 
 # Hide the GeometryWindow (fvwm2 and 3)
 Test (Version < 3.0.0) HideGeometryWindow
@@ -223,6 +232,8 @@ Test (Version >= 3.0.0) GeometryWindow Hide
 # IconBox has: left limit of box, top limit of box, right limit of box, bottom limit of box, (each from left and top, negative is from right and bottom)
 # Make an iconbox that has bounds: 16 pixels from left, 53 pixels from top, 16 pixels from right, and 24 pixels from bottom (each corresponding to above order), and then have 96x96 icon sizes, and then separate each icon by 16 pixels from top and bottom, and then fill from left and bottom (ie. go from right to top)2
 Style * IconBox 16 53 -16 -24, IconSize 84 84 84 84, IconGrid 16 16, IconFill left bottom
+
+# Default Font is generated from dpiscaler
 
 #######
 # 3: Colorsets
@@ -238,7 +249,7 @@ Style * IconBox 16 53 -16 -24, IconSize 84 84 84 84, IconGrid 16 16, IconFill le
 #   3 - Inactive Windows Borders
 #   4 - Active Windows Borders
 #   5 - Menu - Inactive Item
-#   6 - Menu - Active Item
+#   6 - Menu - Active Item / FvwmBar Hover
 #   7 - Menu - Grayed Item
 #   8 - Menu - Title
 #   9 - Reserved
@@ -248,6 +259,21 @@ Style * IconBox 16 53 -16 -24, IconSize 84 84 84 84, IconGrid 16 16, IconFill le
 #      12 - Module ActiveButton (Mouse Hover)
 #      13 - FvwmPager Active Page
 #      14 - FvwmIconMan Iconified Button
+#      15 - FvwmPager Window (Inactive)
+#      17 - FvwmBar Clicked / FvwmIconMan Active Window
+#      18 - FvwmBar Start Button
+#      19 - FvwmBar CPU
+#      20 - FvwmBar RAM
+#      21 - FvwmBar Disk
+#      22 - FvwmBar 90-100% battery
+#      23 - FvwmBar Normal Battery
+#      24 - FvwmBar LOW battery
+#      25 - FvwmBar Connected Network
+#      26 - FvwmBar Disconnected Network
+#      27 - FvwmBar Power Button
+#      28 - FvwmBar Power Button Hover
+#      29 - FvwmBar Power Button Press
+#      30 - Rofi Replacement Menu Scheme
 ###########
 Colorset 0  fg #BDE6FB, bg #222B30, hi, sh, Plain, NoShape
 Colorset 1  fg #AAAAAA, bg #222B30, hi, sh, Plain, NoShape
@@ -261,16 +287,32 @@ Colorset 8  fg #FFFFFF, bg #0063B1, hi, sh, Plain, NoShape
 Colorset 10 fg #BDE6FB, bg #222B30, hi, sh, Plain, NoShape
 Colorset 11 fg #BDE6FB, bg #51636D, hi, sh, Plain, NoShape
 Colorset 12 fg #BDE6FB, bg #51636D, hi, sh, Plain, NoShape
+Colorset 13 fg #0078D7, bg #222B30, hi, sh, Plain, NoShape
+Colorset 16 fg #777777, bg #222B30, hi, sh, Plain, NoShape
+Colorset 17 fg #222B30, bg #BDE6FB, hi, sh, Plain, NoShape
+Colorset 18 fg #222B30, bg #0078D7, hi, sh, Plain, NoShape
+Colorset 19 fg #FFFF00, bg #222B30, hi, sh, Plain, NoShape
+Colorset 20 fg #01AF95, bg #222B30, hi, sh, Plain, NoShape
+Colorset 21 fg #FF00FF, bg #222B30, hi, sh, Plain, NoShape
+Colorset 27 fg #B30000, bg #222B30, hi, sh, Plain, NoShape
+Colorset 28 fg #222B30, bg #B30000, hi, sh, Plain, NoShape
+Colorset 29 fg #222B30, bg #FF0000, hi, sh, Plain, NoShape
+Colorset 30 fg #BDE6FB, bg #222B30, hi #0078D7, sh #0078D7, Plain, NoShape
 
 #######
 # 4: Menus
 ###########
 MenuStyle * MenuColorset 5, ActiveColorset 6, GreyedColorset 7, TitleColorset 8
-MenuStyle * Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsShort, BorderWidth 1, FvwmBorder, FirmBorder, MwmBorder
+MenuStyle * Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsShort, Animation
 MenuStyle * TrianglesSolid, TrianglesUseFore
-MenuStyle * ItemFormat "%|%3.1i%5.3l%5.3>%|", VerticalItemSpacing 5 5
-MenuStyle * Font "xft:Ubuntu Nerd Font:size=10:antialias=True"
-MenuStyle * Animation, TitleUnderlines0
+MenuStyle * ItemFormat "%|%3.1i%5.3l%5.3>%|", TItleUnderlines0
+
+MenuStyle WindowList ItemFormat "     %|  %3.1i%5.3l%5.3>  %|     "
+MenuStyle WindowList MenuColorset 30, ActiveColorset 17, GreyedColorset 7, TitleColorset 5
+MenuStyle WindowList Hilight3DOff, HilightBack, HilightTitleBack, SeparatorsShort
+MenuStyle WindowList TrianglesSolid, TrianglesUseFore, TitleUnderlines0
+
+# Rest is generated from dpiscaler script
 
 # Root Menu
 #
@@ -278,21 +320,21 @@ MenuStyle * Animation, TitleUnderlines0
 # window or using alt-f1 (or menu).
 DestroyMenu MenuFvwmRoot
 AddToMenu   MenuFvwmRoot "Main Menu" Title
-+ "   All &Programs" Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show drun -show-icons -display-drun "Applications "
-+ "   All &Windows " Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
-+ "   &File Browser" Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show filebrowser
++ "   All &Programs" Exec exec rofi -normal-window -dpi 0 -show drun -show-icons -display-drun "Applications "
++ "   All &Windows " Exec exec rofi -normal-window -dpi 0 -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
++ "   &File Browser" Exec exec rofi -normal-window -dpi 0 -show filebrowser
 + "" Nop
-+ "   &Terminal " Exec exec alacritty
++ "   &Terminal " Exec exec $[infostore.terminal]
 + "   Full File &Manager " Exec exec pcmanfm
 + "   &Web Browser " Exec exec firefox
 + "   Pa&ssword Manager " Exec exec keepassxc
 + "" Nop
-+ "   Text &Editor " Exec exec lxterminal -e nano
-+ "   Process &Monitor " Exec exec lxterminal -e htop
++ "   Text &Editor " Exec exec $[infostore.terminal] -e nano
++ "   Process &Monitor " Exec exec $[infostore.terminal] -e htop
 + "" Nop
 + "   F&VWM " Popup FVWMMenu
 + "" Nop
-+ "   Power &Options " Exec exec rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
++ "   Power &Options " Menu PowerOptions Root c c
 
 DestroyMenu FVWMMenu
 AddToMenu FVWMMenu
@@ -303,12 +345,21 @@ AddToMenu FVWMMenu
 + " ⏼  &Quit " Quit
 
 DestroyMenu PowerOptions
-AddToMenu PowerOptions
+AddToMenu PowerOptions "Power Options" Title
 + "   &Shut Down " Exec exec doas /sbin/halt -p
 + "   &Reboot " Exec exec doas /sbin/reboot
-+ " 󰤁 Hal&t " Exec exec doas /sbin/halt
++ "   Hal&t " Exec exec doas /sbin/halt
 + "   Log &Out " Quit
 + "  &Lock Screen " Exec exec sh $HOME/.config/systemlockscript
+
+# Use the "WindowList" style
+ChangeMenuStyle WindowList PowerOptions
+
+DestroyMenu ModeSwitcher
+AddToMenu ModeSwitcher "  Layout Switcher  " Title
++ "   &Desktop " Echo ToDo
++ "   &Tablet " Echo ToDo
++ "   &Phone " Echo ToDo
 
 # Window Operations Menus
 DestroyMenu MenuWindowOps
@@ -388,14 +439,15 @@ Silent Key F1 A M Menu MenuFvwmRoot
 Silent Key Menu A A Menu MenuFvwmRoot
 
 # Rofi
-Silent Key a A 4 Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show drun -show-icons -display-drun "Applications"
-Silent Key w A 4 Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
-Silent Key e A 4 Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show filebrowser 
-Silent Key q A 4 Exec exec rofi -show power-menu -modi power-menu:'~/.config/rofi/rofi-power-menu' -no-show-icons
-Silent Key Tab A M WindowList Root c c CurrentAtEnd, CurrentDesk, NoDeskNum, SelectOnRelease Alt_L
-Silent Key Tab A MS WindowList Root c c CurrentAtEnd, CurrentDesk, NoDeskNum, SelectOnRelease Alt_L
+Silent Key a A 4 Exec exec rofi -normal-window -dpi 0 -show drun -show-icons -display-drun "Applications"
+#Silent Key w A 4 Exec exec rofi -normal-window -dpi 0 -show window -show-icons -kb-accept-entry '!Alt-Tab,!Alt-ISO_Left_Tab,Return' -kb-row-down 'Alt-Tab,Alt-Down,Down' -kb-row-up 'Alt-ISO_Left_Tab,Alt-Up,Up' -kb-cancel "Alt-Escape,Escape" -display-window "All Windows"
+Silent Key w A 4 WindowList Root c c
+Silent Key e A 4 Exec exec rofi -normal-window -dpi 0 -show filebrowser 
+Silent Key q A 4 Menu PowerOptions Root c c
+Silent Key Tab A M WindowList Root c c CurrentAtEnd, CurrentDesk, SelectOnRelease Alt_L
+Silent Key Tab A MS WindowList Root c c CurrentAtEnd, CurrentDesk, SelectOnRelease Alt_L
 Silent Key Return A 4 Exec exec $[infostore.terminal]
-Silent Key XF86Search	A A	Exec exec rofi -dpi `xrdb -q | grep Xft.dpi | sed --expression='s/Xft.dpi://'` -show drun -show-icons -display-drun "Applications"
+Silent Key XF86Search	A A	Exec exec rofi -normal-window -dpi 0 -show drun -show-icons -display-drun "Applications"
 
 # FVWM stuff
 Silent Key i A 4 Module FvwmIdent
@@ -512,6 +564,9 @@ Mouse 1	I    A RaiseMoveX Move "Iconify off"
 Mouse 3	T    A Menu MenuWindowOps
 Mouse 3 I    A Menu MenuWindowOps
 
+# Drag Windows using ctrl + left click
+Mouse 1 W C RaiseMove
+
 #######
 # 6: Window Decor
 #
@@ -522,7 +577,7 @@ Mouse 3 I    A Menu MenuWindowOps
 #   4 - Maximize
 #   6 - Minimize
 ###########
-TitleStyle Centered Height 30 -- Flat
+#TitleStyle Centered Height 32 -- Flat
 ButtonStyle All Inactive (Pixmap inactive.xpm -- Flat)
 ButtonStyle 1 ActiveUp (Pixmap menu.xpm -- Flat)
 ButtonStyle 1 ActiveDown (Pixmap menu_pressed.xpm -- Flat)
@@ -560,11 +615,71 @@ DestroyModuleConfig FvwmIdent:*
 # FvwmCommand backend (fvwm2 ONLY)
 Test (Version < 3.0.0) Module FvwmCommandS
 
+# FvwmButtons - FvwmBar (polybar replacement)
+#
+# FvwmButtons is a powerful module that can be used to build custom
+# panels and docks.
+#
+# Based on FvwmTaskbar panel from FVWM wiki
+
+# This is generated from Python nowadays, so we will just use piperead
+# This is now located in FVWM's init function.
+
+# FvwmPager
+#
+# This module displays the location of the windows on the various Pages
+# and Desks. This is setup to show only the Pages on the current Desk.
+DestroyModuleConfig FvwmBarPager:*
+*FvwmBarPager: Colorset * 10
+*FvwmBarPager: HilightColorset * 6
+*FvwmBarPager: BalloonColorset * 10
+*FvwmBarPager: WindowColorsets 16 13
+*FvwmBarPager: Font None
+*FvwmBarPager: Balloons All
+*FvwmBarPager: BalloonFont "xft:Ubuntu Nerd Font:size=12:antialias=True"
+*FvwmBarPager: BalloonYOffset +2
+*FvwmBarPager: BalloonBorderWidth 0
+*FvwmBarPager: UseSkipList
+
+# FvwmIconMan
+#
+# FvwmIconMan is a powerful tool to list and manage windows. This
+# is used as the window list in the panel or taskbar.
+DestroyModuleConfig FvwmIconMan:*
+*FvwmIconMan: UseWinList true
+*FvwmIconMan: ButtonGeometry 120x20
+*FvwmIconMan: ManagerGeometry 1x1
+*FvwmIconMan: Colorset 10
+*FvwmIconMan: FocusColorset 11
+*FvwmIconMan: IconColorset 14
+*FvwmIconMan: FocusAndSelectColorset 12
+*FvwmIconMan: SelectColorset 12
+*FvwmIconMan: IconAndSelectColorset 12
+*FvwmIconMan: DrawIcons always
+*FvwmIconMan: ReliefThickness 0
+*FvwmIconMan: Format "%t"
+*FvwmIconMan: Font "xft:Sans:Bold:size=8:antialias=True"
+*FvwmIconMan: Action Mouse 0 A ret
+*FvwmIconMan: Action Mouse 1 A sendcommand IconManClick
+*FvwmIconMan: Action Mouse 3 A sendcommand "Menu MenuIconOps"
+*FvwmIconMan: Resolution global
+*FvwmIconMan: Tips needed
+*FvwmIconMan: Sort id
+
+# FvwmEvent
+#
+# FvwmEvent is a module that can run an action or function
+# on specific events. This instance changes which desk number
+# is highlighted when the desk is changed.
+DestroyModuleConfig EventNewDesk:*
+*EventNewDesk: PassID
+*EventNewDesk: new_desk ChangeDesk
+
 # 8. Custom
 
 # EdgeCommand for tiling (this is aero snap style)
 # NOTE: This doesn't actually work, this is for reference
-#EdgeCommand Top Maximize 100 100
+EdgeCommand Top ThisWindow Maximize 100 100
 #EdgeCommand Bottom
 #EdgeCommand Left TileLeft
 #EdgeCommand Right TileRight
@@ -610,9 +725,10 @@ AddToFunc TileBottomRight
 + I ThisWindow (!Shaded, !Iconic) Maximize 50 50
 + I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 -0
 
-# Do not manage polybar
-Style polybar		Unmanaged
-# Make on-screen keyboard never recieve focus
-Style "Keyboard"    !FPLenient
+# Make Rofi always on top, place at center, never move, never resize, never maximize, never iconify, Sticky (show on all desktops)
+Style Rofi StaysOnTop, PositionPlacement Center, FixedPosition, FixedSize, !Maximizable, !Iconifiable, Sticky
+
+# Make on-screen keyboard (matchbox) never have ClickToFocus
+Style "Keyboard"    !ClickToFocusRaises, !FPClickToFocus
 BugOpts RaiseOverUnmanaged
 

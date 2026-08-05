@@ -1,4 +1,4 @@
-# waybar-like system stats for lxqt-panel, a platform-agonistic panel that isn't hard-to-configure
+# waybar/polybar-like system stats for fvwmbuttons bar
 
 import psutil
 import argparse
