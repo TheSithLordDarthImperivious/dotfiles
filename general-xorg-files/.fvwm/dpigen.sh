@@ -4,9 +4,9 @@
 # This will not include the panel stuff
 
 # Source the dimensions base and xscreenstuff, and fonts
-. $HOME/.fvwm/dimensbase.sh
-. $HOME/.fvwm/xscreenstuff.sh
-. $HOME/.fvwm/font.sh
+. $FVWM_USERDIR/dimensbase.sh
+. $FVWM_USERDIR/xscreenstuff.sh
+. $FVWM_USERDIR/font.sh
 
 # Check if mode is empty
 if [ -z $mode ]; then

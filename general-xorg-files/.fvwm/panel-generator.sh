@@ -7,16 +7,16 @@
 # This does not actually use X11 libraries, it's just a text processor
 
 # Source dimensbase file
-. $HOME/.fvwm/dimensbase.sh
+. $FVWM_USERDIR/dimensbase.sh
 
 # Source font file
-. $HOME/.fvwm/font.sh
+. $FVWM_USERDIR/font.sh
 
 # Source fvwmcommand file
-. $HOME/.fvwm/fvwmcommand.sh
+. $FVWM_USERDIR/fvwmcommand.sh
 
 # Source xscreenstuff file
-. $HOME/.fvwm/xscreenstuff.sh
+. $FVWM_USERDIR/xscreenstuff.sh
 
 # Get the screen resolution
 screenRes
@@ -208,7 +208,7 @@ if [ $fvwmcommandworks = 0 ] && python3 -c "import importlib.util; exit(importli
 fi
 
 # xclock swallow
-swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -face \"$norfont\" -fg \"#75B5AA\" -update 1 -strftime \" %H:%M:%S\" -padding $panel_xclock_padding -title 'FvwmBarClock'" 0 0 "Exec exec sh $[FVWM_USERDIR]/date.sh"
+swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -face \"$norfont\" -fg \"#75B5AA\" -update 1 -strftime \" %H:%M:%S\" -padding $panel_xclock_padding -title 'FvwmBarClock'" 0 0 "Exec exec sh \$[FVWM_USERDIR]/date.sh"
 
 # Power Button
 actionButton FvwmBar $panel_button 1 'poweropts' '' 27 28 29 "Menu PowerOptions Root c c"

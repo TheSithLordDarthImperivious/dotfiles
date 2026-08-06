@@ -1,20 +1,23 @@
 # Long stats via psutil
 
+import subprocess
 # Argument parsing
 import argparse
+import os
 
 from time import sleep
 
 # Custom library
 import statslib
 
-# Notify-send
-from notifysender import notifySenderTuple
-
 # Simple print function
 def printer(tuple):
     print(tuple[0])
     print(tuple[1])
+
+# Notify Sender Tuple (uses shell script)
+def notifySenderTuple(tuple):
+    subprocess.run(["sh", fvwmdir + "/notifysender.sh", tuple[0] ,tuple[1]])
 
 # Argument parsing
 argparser = argparse.ArgumentParser()
@@ -28,6 +31,13 @@ argparser.add_argument('--mountpoint', default='/', help='Print Disk Info (needs
 argparser.add_argument('--notifysend', action='store_true', help='Use notify-send to send the stuff')
 # Get arguments (dict)
 args = argparser.parse_args().__dict__
+
+# Get fvwm userdir
+fvwmdir = os.getenv("FVWM_USERDIR")
+# Check if it is none
+if fvwmdir == None:
+    # Set it to "~/.fvwm"
+    fvwmdir="~/.fvwm"
 
 # This is cursed. Set a variable to a function
 if args['notifysend']:

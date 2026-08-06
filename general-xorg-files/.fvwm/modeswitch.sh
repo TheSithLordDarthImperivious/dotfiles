@@ -130,8 +130,8 @@ elif [ $next = "phone" ]; then
     # Enable touch UI and "panel modify" mode
     mode='touch'
     panel_modify='set'
-    . $HOME/.fvwm/dpigen.sh
-    . $HOME/.fvwm/panel-generator.sh
+    . $FVWM_USERDIR/dpigen.sh
+    . $FVWM_USERDIR/panel-generator.sh
     enablePhone
     enableTouchKBD
     echo "SetEnv FVWM_CURRENTMODE phone"
@@ -140,14 +140,14 @@ elif [ $next = "tablet" ]; then
     # It's just touch UI abnd setting panel modify though
     mode='touch'
     panel_modify='set'
-    . $HOME/.fvwm/dpigen.sh
-    . $HOME/.fvwm/panel-generator.sh
+    . $FVWM_USERDIR/dpigen.sh
+    . $FVWM_USERDIR/panel-generator.sh
     echo "SetEnv FVWM_CURRENTMODE tablet"
 else
     # Assume next is desktop, just run both scripts and set panel_modify
     panel_modify='set'
-    . $HOME/.fvwm/dpigen.sh 'modify'
-    . $HOME/.fvwm/panel-generator.sh 'modify'
+    . $FVWM_USERDIR/dpigen.sh 'modify'
+    . $FVWM_USERDIR/panel-generator.sh 'modify'
     # Check if current was phone
     if [ $current = phone ]; then
         # Additionally disable phone
