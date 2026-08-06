@@ -28,6 +28,7 @@ panel_cpuramdisk=`dpiScaler $bpanel_cpuramdisk`
 panel_net=`dpiScaler $bpanel_net`
 panel_clock=`dpiScaler $bpanel_clock`
 panel_xclock_padding=`dpiScaler $bpanel_xclock_padding`
+panel_wintitle_padding=`dpiScaler $bpanel_wintitle_padding`
 
 # Also scale the norfont (via fontScaler)
 norfontsize=`fontScaler $bnorfontsize`
@@ -76,7 +77,7 @@ actionButtonSpacer(){
         vpad=$8
     fi
     # Just Echo
-    echo ", Id '$1', Title '$2', Colorset $3, ActiveColorset $4, PressColorset $5, ActionOnPress, Action $6, Padding $hpad $vpad"
+    echo ", Id '$1', Title (Left) '$2', Colorset $3, ActiveColorset $4, PressColorset $5, ActionOnPress, Action $6, Padding $hpad $vpad"
 }
 
 
@@ -195,7 +196,7 @@ swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -
 actionButton FvwmBar $panel_button 1 'poweropts' '' 27 28 29 "Menu PowerOptions Root c c"
 
 # Generate spacer
-spacerGen FvwmBar 1 "`actionButtonSpacer 'wintitle' ' Desktop' 0 0 0 'Current Menu MenuWindowOps Delete' 24 0`"
+spacerGen FvwmBar 1 "`actionButtonSpacer 'wintitle' ' Desktop' 0 0 0 'Current Menu MenuWindowOps Delete' $panel_wintitle_padding 0`"
 
 # "Echo" all elements
 # Use printf as dash does not support echo -e (echo -e is just echo in dash) and normal echo does not support newline

@@ -9,6 +9,7 @@ bpanel_cpuramdisk=84
 bpanel_net=0
 bpanel_clock=96
 bpanel_xclock_padding=8
+bpanel_wintitle_padding=16
 
 # Fonts
 bnorfontsize=12

@@ -95,6 +95,13 @@ dpiScaler() {
     echo "$1 $dpiscale $morescale" | awk '{val = $1 * $2 * $3; printf("%d\n", val + 0.5);}'
 }
 
+# dpi scaler function using awk
+# Same as before but no touch mode stuff
+dpiScalerNoTouch() {
+    # Multiply the three together using awk and round to integer
+    echo "$1 $dpiscale" | awk '{val = $1 * $2; printf("%d\n", val + 0.5);}'
+}
+
 # Font scaler
 # Takes points (pt) and then awk does the math and rounds it
 # Formula: pixels = points * dpi / 72, or: points * dpi scale factor * 96 / 72
