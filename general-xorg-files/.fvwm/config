@@ -379,9 +379,9 @@ ChangeMenuStyle WindowList PowerOptions
 
 DestroyMenu ModeSwitcher
 AddToMenu ModeSwitcher "  Layout Switcher  " Title
-+ "   &Desktop " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh desktop | tee ~/log.zip"
-+ "   &Tablet " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh tablet | tee ~/log.zip"
-+ "   &Phone " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh phone | tee ~/log.zip"
++ "   &Desktop " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh desktop"
++ "   &Tablet " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh tablet"
++ "   &Phone " PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh phone"
 
 DestroyMenu DeskMenu
 AddToMenu DeskMenu "  Desktop List  " Title

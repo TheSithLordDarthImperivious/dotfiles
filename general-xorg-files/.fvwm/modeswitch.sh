@@ -40,26 +40,26 @@ AddToFunc TestMax
 + I State 2 True
 + I WindowStyle !Maximizable
 
-# Make all maximizable windows have no titlebar or borders
-All (Maximizable) WindowStyle !Title, !Borders
+# Make all maximizable, non-transient windows have no titlebar or borders
+All (Maximizable, !Transient) WindowStyle !Title, !Borders
 # Update styles so that the title and borders can take effect before maximizing
 UpdateStyles
-# Enable State 2 (maximized by phone mode flag) on maximizable, but not maximized windows
-All (Maximizable, !Maximized) State 2 True
+# Enable State 2 (maximized by phone mode flag) on maximizable, but not maximized windows, and non-transient windows
+All (Maximizable, !Maximized, !Transient) State 2 True
 # Force re-maximization of previously maximized windows
-All (Maximizable) Maximize True 100 100
+All (Maximizable, !Transient) Maximize True 100 100
 # Make all current maximized windows (including State 2 ones) not be maximizable (restorable)
 All (Maximized) WindowStyle !Maximizable
-# Make it so that the function is run when any window is opened
-Style * InitialMapCommand TestMax
+# Make it so that the function is run when any window is opened, except transient ones.
+Style * InitialMapCommand ThisWindow (!Transient) TestMax
 EOF
 }
 
 # Disable Phone Mode
 disablePhone(){
 cat<<EOF
-# Make all maximized windows (except state 1) maximizable and have titlebar and border
-All (Maximized, !State 1) WindowStyle Maximizable, Title, Borders
+# Make all maximized windows (except state 1 and transient) maximizable and have titlebar and border
+All (Maximized, !State 1, !Transient) WindowStyle Maximizable, Title, Borders
 # Update the styles so that maximize false (restore) can take effect
 UpdateStyles
 # Unmaximize ecery window that was maximized by phone mode.
@@ -85,7 +85,7 @@ Exec exec matchbox-keyboard
 # Wait for matchbox
 Wait Keyboard
 # Set the style of the keyboard
-All (Keyboard) WindowStyle StaysOnTop, Sticky, BorderWidth 0, !Borders, !Closable, !Title
+All (Keyboard) WindowStyle StaysOnTop, Sticky, BorderWidth 0, !Borders, !Closable, !Title, NeverFocus
 UpdateStyles
 All (Keyboard) ResizeMove 100 35 0 -0
 All (Keyboard) Move 0 -0

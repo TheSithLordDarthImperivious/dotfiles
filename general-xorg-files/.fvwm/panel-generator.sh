@@ -82,12 +82,30 @@ actionButtonSpacer(){
 
 
 # "Class" for swallowed window
-# First Arg: Panel Name, Second Arg: Length, Third Arg: Width, Fourth Arg: ID, Fifth Arg: Window Class to Swallow, Sixth Arg: Command
+# First Arg: Panel Name, Second Arg: Length, Third Arg: Width, Fourth Arg: ID, Fifth Arg: Window Class to Swallow, Sixth Arg: Command, Seventh Arg: Horizontal Padding, Eighth Arg: Vertical Padding, Ninth Arg: Command to execute when clicked
 swallowedWin() {
+    # Check if horizontal padding arg is empty
+    # If so, set it to 0, and if not, set it to the given value
+    if [ -z $7 ]; then
+        hpad=0
+    else
+        hpad=$7
+    fi
+    # Same with vertical padding
+    if [ -z $8 ]; then
+        vpad=0
+    else
+        vpad=$8
+    fi
+    # Check if ninth arg (command string) is non-empty
+    if ! [ -z $9 ]; then
+        # Set it to ", Action $9"
+        extrastr=", Action $9"
+    fi
     # Use POSIX sh integer arithmetic to subtract the button width from the sapcer width, and set it to the new value
     curspacerwidth=$(($curspacerwidth - $2))
     # Construct String, append to curpanelitems
-    curpanelitems="$curpanelitems*$1: ($2x$3, Id '$4', Swallow '$5' '$6')\n"
+    curpanelitems="$curpanelitems*$1: ($2x$3, Id '$4', Swallow '$5' '$6', Padding $hpad $vpad$extrastr)\n"
 }
 
 # Add spacer function
@@ -190,13 +208,13 @@ if [ $fvwmcommandworks = 0 ] && python3 -c "import importlib.util; exit(importli
 fi
 
 # xclock swallow
-swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -face \"$norfont\" -fg \"#75B5AA\" -update 1 -strftime \" %H:%M:%S\" -padding $panel_xclock_padding -title 'FvwmBarClock'"
+swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -face \"$norfont\" -fg \"#75B5AA\" -update 1 -strftime \" %H:%M:%S\" -padding $panel_xclock_padding -title 'FvwmBarClock'" 0 0 "Exec exec sh $[FVWM_USERDIR]/date.sh"
 
 # Power Button
 actionButton FvwmBar $panel_button 1 'poweropts' '' 27 28 29 "Menu PowerOptions Root c c"
 
 # Generate spacer
-spacerGen FvwmBar 1 "`actionButtonSpacer 'wintitle' ' Desktop' 0 0 0 'Current Menu MenuWindowOps Delete' $panel_wintitle_padding 0`"
+spacerGen FvwmBar 1 "`actionButtonSpacer 'wintitle' 'Desktop' 0 0 0 'Current Menu MenuWindowOps Delete' $panel_wintitle_padding 0`"
 
 # "Echo" all elements
 # Use printf as dash does not support echo -e (echo -e is just echo in dash) and normal echo does not support newline
