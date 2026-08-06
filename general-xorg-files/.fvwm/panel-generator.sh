@@ -39,11 +39,46 @@ norfont=`fontGen "$fontname" "$norfontsize" 'True' 'False'`
 # "Class" for action button
 # First Arg: Panel Name, Second arg: Length, Third Arg: Width, Fourth Arg: ID, Fifth Arg: Title, Sixth Arg: Normal Colorset, Seventh Arg: Active Colorset, Eighth Arg: Press Colorset, Ninth Arg: Action (FVWM)
 actionButton() {
+    # Check if horizontal padding arg is empty
+    # If so, set it to 0, and if not, set it to the given value
+    if [ -z ${10} ]; then
+        hpad=0
+    else
+        hpad=${10}
+    fi
+    # Same with vertical padding
+    if [ -z ${11} ]; then
+        vpad=0
+    else
+        vpad=${11}
+    fi
     # Use POSIX sh integer arithmetic to subtract the button width from the spacer width, and set it to the new value
     curspacerwidth=$(($curspacerwidth - $2))
     # Construct String, append to curpanelitems
-    curpanelitems="$curpanelitems*$1: ($2x$3, Id '$4', Title '$5', Colorset $6, ActiveColorset $7, PressColorset $8, ActionOnPress, Action $9)\n"
+    curpanelitems="$curpanelitems*$1: ($2x$3, Id '$4', Title '$5', Colorset $6, ActiveColorset $7, PressColorset $8, ActionOnPress, Action $9, Padding $hpad $vpad)\n"
 }
+
+# Second version of actionbutton
+# This is meant for usage with the spacer
+# Args are the same as normal actionbutton but without the panel name or dimensions
+actionButtonSpacer(){
+    # Check if horizontal padding arg is empty
+    # If so, set it to 0, and if not, set it to the given value
+    if [ -z $7 ]; then
+        hpad=0
+    else
+        hpad=$7
+    fi
+    # Same with vertical padding
+    if [ -z $8 ]; then
+        vpad=0
+    else
+        vpad=$8
+    fi
+    # Just Echo
+    echo ", Id '$1', Title '$2', Colorset $3, ActiveColorset $4, PressColorset $5, ActionOnPress, Action $6, Padding $hpad $vpad"
+}
+
 
 # "Class" for swallowed window
 # First Arg: Panel Name, Second Arg: Length, Third Arg: Width, Fourth Arg: ID, Fifth Arg: Window Class to Swallow, Sixth Arg: Command
@@ -105,12 +140,12 @@ EOF
 barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" 'Unmanaged'
 
 # Spacer
-# First Argument: Panel Name, Second Argument: Amount of Spacers, Third Argument: Special Params
+# First Argument: Panel Name, Second Argument: Amount of Spacers, Third Argument: Special Options
 spacerGen() {
     # Get the remaining space and divide it by the amount of spacers
     spaceremain=$(($curspacerwidth / $2))
     # Store into a variable called spacer
-    spacer="*$1: (${spaceremain}x1)"
+    spacer="*$1: (${spaceremain}x1$3)"
     # Use sed to replace insert_spacer with the real spacer
     curpanelitems=`echo $curpanelitems | sed "s/insert_spacer/${spacer}/g"`
 }
@@ -160,7 +195,7 @@ swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -
 actionButton FvwmBar $panel_button 1 'poweropts' '' 27 28 29 "Menu PowerOptions Root c c"
 
 # Generate spacer
-spacerGen FvwmBar 1
+spacerGen FvwmBar 1 "`actionButtonSpacer 'wintitle' ' Desktop' 0 0 0 'Current Menu MenuWindowOps Delete' 24 0`"
 
 # "Echo" all elements
 # Use printf as dash does not support echo -e (echo -e is just echo in dash) and normal echo does not support newline

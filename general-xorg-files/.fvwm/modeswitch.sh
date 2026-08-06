@@ -27,12 +27,11 @@ fi
 
 # Enable Phone Mode
 enablePhone(){
-sleep 1
-# Maximize all non-maximized windows, set a state for phone-mode maximized windows, disable window maximization, add a "auto-maximize" function.
 # NOTE: ResizeMaximize actually cannot unset maximized state.
 # State 2: Managed via phone mode
 # State 1: Had no titlebar before phone mode
 cat<<EOF
+# Function that is run when any window is opened (auto-maximize and set states)
 DestroyFunc TestMax
 AddToFunc TestMax
 + I WindowStyle !Title, !Borders
@@ -41,15 +40,17 @@ AddToFunc TestMax
 + I State 2 True
 + I WindowStyle !Maximizable
 
-# Make all maximizable windows have no titlebar
+# Make all maximizable windows have no titlebar or borders
 All (Maximizable) WindowStyle !Title, !Borders
+# Update styles so that the title and borders can take effect before maximizing
 UpdateStyles
-# Enable State 2 (managed fully by phone mode flag) on maximizable, but not maximized windows
+# Enable State 2 (maximized by phone mode flag) on maximizable, but not maximized windows
 All (Maximizable, !Maximized) State 2 True
 # Force re-maximization of previously maximized windows
 All (Maximizable) Maximize True 100 100
 # Make all current maximized windows (including State 2 ones) not be maximizable (restorable)
 All (Maximized) WindowStyle !Maximizable
+# Make it so that the function is run when any window is opened
 Style * InitialMapCommand TestMax
 EOF
 }
@@ -61,6 +62,7 @@ cat<<EOF
 All (Maximized, !State 1) WindowStyle Maximizable, Title, Borders
 # Update the styles so that maximize false (restore) can take effect
 UpdateStyles
+# Unmaximize ecery window that was maximized by phone mode.
 All (State 2) Maximize False
 # Still-maximized windows get maximized again so that it can update with ewmhbaemsestructs
 All (Maximized) Maximize True 100 100
@@ -68,6 +70,7 @@ All (Maximized) Maximize True 100 100
 All (State 1) WindowStyle Maximizable, Borders
 # Disable all State 2
 All State 2 False
+# Disable the function that is run when every window is run.
 Style * InitialMapCommand Nop
 EOF
 }

@@ -83,6 +83,7 @@ AddToFunc   StartFunction
 + I Test (init) Exec exec dunst
 + I Test (init) Exec exec feh --bg-fill /data/Wallpapers/'Windows 8.0 (including betas)'/Milestone/M3.jpg
 + I Test (init) Exec exec python3 $[FVWM_USERDIR]/stats.py
++ I Test (init) SetEnv FVWM_WNAME_NAME $$$[w.name]
 + I PipeRead "sh $[FVWM_USERDIR]/modeswitch.sh init"
 + I Module FvwmEvent BarEvents
 
@@ -130,6 +131,18 @@ DestroyFunc ClearCache
 AddToFunc ClearCache
 + I SetEnv FVWM_DPISCALE
 + I SetEnv FVWM_SCREENRES
+
+# Function: TitleChange
+#
+# This function is called by FvwmEvent every time the focus is changed.
+# All this does is check if $[w.name] is literally $[w.name], and if so, then it'll set the namr to "desktop"
+# Otherwise, it sets the title on the button with the id "wintitle" with the window name with a space in front.
+# NOTE: USE TRIPLE $ TO PREVENT VARUABLE EXPANSION! (eg. $$$[w.name] -> $[w.name] literally).
+# Also note: StrMatch does NOT work in fvwm2, so we have to use an envmatch workaround (setenv is done on WM init).
+DestroyFunc TitleChange
+AddToFunc TitleChange
++ I Test (EnvMatch FVWM_WNAME_NAME $[w.name]) SendToModule FvwmButtons ChangeButton wintitle Title Desktop
++ I TestRc (NoMatch) WindowId $0 SendToModule FvwmButtons ChangeButton wintitle Title $[w.name]
 
 #############
 # 2: Styles #
@@ -703,7 +716,8 @@ DestroyModuleConfig FvwmIconMan:*
 DestroyModuleConfig BarEvents:*
 *BarEvents: PassID
 *BarEvents: new_desk ChangeDesk
-*BarEvents: focus_change Echo "$0"
+*BarEvents: enter_window TitleChange
+*BarEvents: window_name TitleChange
 
 # 8. Custom
 
