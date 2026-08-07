@@ -98,7 +98,7 @@ swallowedWin() {
         vpad=$8
     fi
     # Check if ninth arg (command string) is non-empty
-    if ! [ -z $9 ]; then
+    if ! [ -z "$9" ]; then
         # Set it to ", Action $9"
         extrastr=", Action $9"
     fi

@@ -72,11 +72,16 @@ class FvwmCommandAPI():
     def __init__(self):
         # Start up FvwmCommand and have it listen on stdin
         self.proc = subprocess.Popen(["FvwmCommand","-c"],stdin=subprocess.PIPE,stderr=subprocess.PIPE, text=True,bufsize=1)
+        # Get parent process pid
+        self.parent = os.getppid()
     def send(self,value):
-        # First, check if process is gone, and if so, restart it
+        # First, check if the parent PID has changed from what was recorded
+        if self.parent != os.getppid():
+            # Exit
+            exit(0)
+        # Then, check if process is gone, and if so, restart it
         # Anything other than none means process has exited
         if self.proc.poll() != None:
-            # TEMP
             # Restart the process
             self.__init__()
         # Write it to stdin and flush (send) it
