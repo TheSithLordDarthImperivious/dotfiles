@@ -121,7 +121,7 @@ AddToFunc   ToggleTitle
 DestroyFunc ChangeDesk
 AddToFunc   ChangeDesk
 + I SetEnv FVWM_CURRENT_DESK $$[desk.name $[desk.n]]
-+ I SendToModule FvwmButtons ChangeButton deskswitch Title $$[desk.name $[desk.n]]
++ I SendToModule FvwmBar ChangeButton deskswitch Title $$[desk.name $[desk.n]]
 
 # Function: ClearCache
 #
@@ -143,6 +143,22 @@ DestroyFunc TitleChange
 AddToFunc TitleChange
 + I Test (EnvMatch FVWM_WNAME_NAME $[w.name]) SendToModule FvwmButtons ChangeButton wintitle Title Desktop
 + I TestRc (NoMatch) WindowId $0 SendToModule FvwmButtons ChangeButton wintitle Title $[w.name]
+
+
+# Function: ShowDesktop
+#
+# This function will toggle showing desktop.
+# All windows get minimized except for non-iconifiable windows
+DestroyFunc ShowDesktop
+AddToFunc   ShowDesktop
++ I All (State 3) WindowStyle Iconifiable
++ I All (State 3) Iconify
++ I All (State 3) State 3 False
++ I TestRc (NoMatch) All (!Iconic, !Iconifiable) State 3 True
++ I TestRc (Match) All (State 3) Iconify
++ I TestRc (Match)  WindowStyle !Iconifiable
+
+
 
 #############
 # 2: Styles #

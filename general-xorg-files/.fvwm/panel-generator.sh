@@ -139,9 +139,14 @@ barGen() {
     # Global variable for panel items
     curpanelitems="\n"
 
+    # Check struts for top
+    if [ "$4" = true ]; then
+        struttop="$2"
+    else
+        strutbot="$2"
+    fi
     # Use heredoc
 cat <<EOF
-EwmhBaseStruts 0 0 $panel 0
 Style $1 ${11}
 DestroyModuleConfig $1: *
 *$1: Geometry $2x$3$geomxoff$geomyoff
@@ -193,6 +198,8 @@ actionButton FvwmBar $panel_button 1 'keyboard' '' 0 6 17 'PipeRead "sh $[FVW
 actionButton FvwmBar $panel_button 1 'modeswitch' '' 0 6 17 'Menu ModeSwitcher Delete'
 
 # Only if fvwmcommandworks is true (fvwmcommandworks = 0), AND if psutil exists
+# The code in exit may seem weird, but "is None" means if it doesn't exist. So if it doesn't exist, it's True, which translates to 1, so it's exit(1) which is a failure in *nix.
+# If it does exist, then it's False, which translates to 0, so it's exit(0) which is a success in *nix.
 if [ $fvwmcommandworks = 0 ] && python3 -c "import importlib.util; exit(importlib.util.find_spec('psutil') is None)" > /dev/null 2>&1; then
     # CPU
     actionButton FvwmBar $panel_cpuramdisk 1 'cpu' '  0.0 %' 19 19 19 'Exec exec python3 $[FVWM_USERDIR]/statslong.py --cpu --notifysend'
@@ -231,3 +238,64 @@ fi
 echo "Module FvwmButtons FvwmBar"
 # Set some ENV vars
 echo "SetEnv FVWM_PANHEIGHT $panel"
+
+# Now, we have another panel (android-style nav buttons), but only if mode is touch
+if [ "$mode" = "touch" ]; then
+    # Calculate dimensions
+    navbar=`dpiScalerNoTouch $bnavbar`
+    navbutton=`dpiScalerNoTouch $bnavbutton`
+
+    barGen NavBar "$width" "$navbar" true false 0 0 "xft:$norfont" 1 "$width" 'Unmanaged'
+
+    # Add Spacer
+    addSpacer
+
+    # Open Main Menu
+    actionButton NavBar $navbutton 1 'mainmenu-navbar' '' 0 6 17 'Menu MenuFvwmRoot'
+
+    # Add Spacer
+    addSpacer
+
+    # Back Button
+    actionButton NavBar $navbutton 1 'back-navbar' '' 0 6 17 'Prev Focus'
+
+    # Add Spacer
+    addSpacer
+
+    # Home Button
+    actionButton NavBar $navbutton 1 'showdesktop-navbar' '' 0 6 17 'ShowDesktop'
+
+    # Add Spacer
+    addSpacer
+
+    # Forward Button
+    actionButton NavBar $navbutton 1 'forward-navbar' '' 0 6 17 'Next Focus'
+
+    # Add Spacer
+    addSpacer
+
+    # WindowSwitcher
+    actionButton NavBar $navbutton 1 'wswitcher-navbar' '' 0 6 17 'WindowList Root c c'
+
+    # Add Spacer
+    addSpacer
+
+    # Generate spacer
+    spacerGen NavBar 6
+
+    # "Echo" all elements
+    # Use printf as dash does not support echo -e (echo -e is just echo in dash) and normal echo does not support newline
+    # Use "%b" as format string so that printf doesn't treat the % as a format string and %b processes escapes like \n (newline)
+    printf '%b\n' "$curpanelitems"
+
+    # Initialize the module, set the ewmhbasestruts, and make the height the height of the navbar
+    echo "Module FvwmButtons NavBar"
+    echo "EwmhBaseStruts 0 0 $panel $navbar"
+    echo "SetEnv FVWM_NAVHEIGHT $navbar"
+else
+    # In desktop, kill the module, reset ewmhbasestruts, and make the height 0
+    echo "KillModule FvwmButtons NavBar"
+    echo "EwmhBaseStruts 0 0 $panel 0"
+    echo "SetEnv FVWM_NAVHEIGHT 0"
+fi
+

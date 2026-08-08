@@ -64,7 +64,7 @@ All (Maximized, !State 1, !Transient) WindowStyle Maximizable, Title, Borders
 UpdateStyles
 # Unmaximize ecery window that was maximized by phone mode.
 All (State 2) Maximize False
-# Still-maximized windows get maximized again so that it can update with ewmhbaemsestructs
+# Still-maximized windows get maximized again so that it can update with ewmhbasestructs
 All (Maximized) Maximize True 100 100
 # Set all previously !Title windows to Maximizable and border (previousky we excluded)
 All (State 1) WindowStyle Maximizable, Borders
@@ -87,8 +87,7 @@ Wait Keyboard
 # Set the style of the keyboard
 All (Keyboard) WindowStyle StaysOnTop, Sticky, BorderWidth 0, !Borders, !Closable, !Title, NeverFocus
 UpdateStyles
-All (Keyboard) ResizeMove 100 35 0 -0
-All (Keyboard) Move 0 -0
+All (Keyboard) ResizeMove 100 35 0 -$FVWM_NAVHEIGHT
 All (Keyboard) WindowStyle FixedPosition, FixedSize
 All (Keyboard) Iconify
 # We will add a InitialMapCommand Close to prevent any new keyboard windows from being opened
@@ -116,13 +115,11 @@ if [ $current = $next ] && [ -z $init ] ; then
 elif [ $current = "phone" ] && [ $next = "tablet" ]; then
     # Switch off the styles and then infostoreadd the tablet mode
     disablePhone
-    disableTouchKBD
     echo "SetEnv FVWM_CURRENTMODE tablet"
 # Check if current is tablet and next is phone
 elif [ $current = "tablet" ] && [ $next = "phone" ]; then
     # Switch on the styles, infostoreadd phone
     enablePhone
-    enableTouchKBD
     echo "SetEnv FVWM_CURRENTMODE phone"
 elif [ $next = "phone" ]; then
     # Switch on the styles and do touch UI mode
@@ -137,11 +134,14 @@ elif [ $next = "phone" ]; then
     echo "SetEnv FVWM_CURRENTMODE phone"
 elif [ $next = "tablet" ]; then
     # Do tablet mode only
-    # It's just touch UI abnd setting panel modify though
+    # It's just touch UI and setting panel modify though, but we also have to maximize all maximized windows to resize them
     mode='touch'
     panel_modify='set'
     . $FVWM_USERDIR/dpigen.sh
     . $FVWM_USERDIR/panel-generator.sh
+    enableTouchKBD
+    # Still-maximized windows get maximized again so that it can update with ewmhbasestructs
+    echo "All (Maximized) Maximize True 100 100"
     echo "SetEnv FVWM_CURRENTMODE tablet"
 else
     # Assume next is desktop, just run both scripts and set panel_modify
@@ -153,6 +153,11 @@ else
         # Additionally disable phone
         disablePhone
         disableTouchKBD
+    elif [ $current = tablet ]; then
+        # Only disable the touch keyboard
+        disableTouchKBD
+        # Still-maximized windows get maximized again so that it can update with ewmhbasestructs
+        echo "All (Maximized) Maximize True 100 100"
     fi
     echo "SetEnv FVWM_CURRENTMODE desktop"
 fi

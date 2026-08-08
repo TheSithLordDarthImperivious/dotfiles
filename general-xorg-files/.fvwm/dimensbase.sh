@@ -6,10 +6,14 @@
 bpanel=37
 bpanel_button=44
 bpanel_cpuramdisk=84
-bpanel_net=0
+bpanel_net=112
 bpanel_clock=96
 bpanel_xclock_padding=8
 bpanel_wintitle_padding=16
+
+# Navbar
+bnavbar=56
+bnavbutton=96
 
 # Fonts
 bnorfontsize=12

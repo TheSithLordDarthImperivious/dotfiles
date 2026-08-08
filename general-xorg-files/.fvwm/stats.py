@@ -2,10 +2,16 @@
 # NEEDS FVWMCOMMAND OR THIS WILL NOT WORK!
 
 from time import sleep
+import importlib.util
 
 # Custom
 import statslib
 import fvwmcommand
+
+# Check if the module "psutil" does NOT exist
+if importlib.util.find_spec('psutil') is None:
+    # Exit immediately
+    exit(0)
 
 # Battery with Logo
 # This will also include the logo

@@ -11,12 +11,12 @@ else
 cat<<EOF
 DestroyFunc KbdHide
 AddToFunc KbdHide
-+ I EwmhBaseStruts 0 0 $FVWM_PANHEIGHT 0
++ I EwmhBaseStruts 0 0 $FVWM_PANHEIGHT $FVWM_NAVHEIGHT
 + I All (Maximized) ResizeMaximize keep 100da
 
 DestroyFunc KbdShow
 AddToFunc KbdShow
-+ I EwmhBaseStruts 0 0 $FVWM_PANHEIGHT $KBDHEIGHT
++ I EwmhBaseStruts 0 0 $FVWM_PANHEIGHT "$(($KBDHEIGHT+$FVWM_NAVHEIGHT))"
 + I All (Maximized) ResizeMaximize keep w-35
 EOF
     echo "All (Keyboard) Iconify"
