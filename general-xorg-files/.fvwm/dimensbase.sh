@@ -10,11 +10,12 @@ bpanel_net=112
 bpanel_clock=96
 bpanel_xclock_padding=8
 bpanel_wintitle_padding=16
+bpanel_edge_spacer=8
 
 # Navbar
-bnavbar=84
+bnavbar=68
 bnavbutton=96
-bnavfontsize=22
+bnavfontsize=18
 
 # Fonts
 bnorfontsize=12

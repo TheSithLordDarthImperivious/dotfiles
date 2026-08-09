@@ -8,7 +8,7 @@
 # This script only handles the resizing, not the state changes.
 
 if [ "$mode" = "touch" ]; then
-    morescale=1.3
+    morescale=1
 else
     morescale=1
 fi

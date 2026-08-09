@@ -29,6 +29,7 @@ panel_net=`dpiScaler $bpanel_net`
 panel_clock=`dpiScaler $bpanel_clock`
 panel_xclock_padding=`dpiScaler $bpanel_xclock_padding`
 panel_wintitle_padding=`dpiScaler $bpanel_wintitle_padding`
+panel_edge_spacer=`dpiScaler $bpanel_edge_spacer`
 
 # Also scale the norfont (via fontScaler)
 norfontsize=`fontScaler $bnorfontsize`
@@ -114,6 +115,16 @@ addSpacer() {
     curpanelitems="${curpanelitems}insert_spacer\n"
 }
 
+# Custom Spacer Function
+# First Arg: Panel Name, Second arg: Length, Third Arg: Width
+customSpacer() {
+    # Assemble string
+    # Use POSIX sh integer arithmetic to subtract the button width from the spacer width, and set it to the new value
+    curspacerwidth=$(($curspacerwidth - $2))
+    # Construct String, append to curpanelitems
+    curpanelitems="$curpanelitems*$1: ($2x$3, Padding 0 0)\n"
+}
+
 # "Class" for Panel
 # First Arg: Name, Second arg: Geometry x, Third arg: Geometry y, Fourth Arg: Top, Fifth Arg: Left, Sixth Arg: Base Colorset, Seventh Arg: Frame, Eighth Arg: Font, Ninth Arg: Rows, Tenth Arg: Columns, Eleventh Arg: Style
 # Note: Columns should equal geometry x for horizontal, Rows should equal geometry y for vertical.
@@ -176,6 +187,9 @@ spacerGen() {
 
 # ELEMENTS
 
+# Custom Spacer
+customSpacer FvwmBar $panel_edge_spacer 1
+
 # Rofi
 actionButton FvwmBar $panel_button 1 'launcher' '' 18 6 17 'Exec exec rofi -normal-window -dpi 0 -show drun'
 
@@ -220,6 +234,9 @@ swallowedWin FvwmBar $panel_clock 1 'FvwmBarClock' xclock "Exec exec xclock -d -
 # Power Button
 actionButton FvwmBar $panel_button 1 'poweropts' '' 27 28 29 "Menu PowerOptions Root c c"
 
+# Custom Spacer
+customSpacer FvwmBar $panel_edge_spacer 1
+
 # Generate spacer
 spacerGen FvwmBar 1 "`actionButtonSpacer 'wintitle' 'Desktop' 0 0 0 'Current Menu MenuWindowOps Delete' $panel_wintitle_padding 0`"
 
@@ -257,32 +274,32 @@ if [ "$mode" = "touch" ]; then
     # Add Spacer
     addSpacer
 
-    # Open Main Menu
-    actionButton NavBar $navbutton 1 'mainmenu-navbar' '' 0 6 17 'Menu MenuFvwmRoot'
-
-    # Add Spacer
-    addSpacer
-
     # Back Button
     actionButton NavBar $navbutton 1 'back-navbar' '' 0 6 17 'Prev Focus'
 
     # Add Spacer
     addSpacer
 
-    # Home Button
-    actionButton NavBar $navbutton 1 'homebutton-navbar' '' 0 6 17 'All (!Iconic, !Keyboard) Iconify'
+    # Open Main Menu
+    actionButton NavBar $navbutton 1 'mainmenu-navbar' '' 0 6 17 'Menu MenuFvwmRoot'
 
     # Add Spacer
     addSpacer
 
-    # Forward Button
-    actionButton NavBar $navbutton 1 'forward-navbar' '' 0 6 17 'Next Focus'
+    # Home Button
+    actionButton NavBar $navbutton 1 'homebutton-navbar' '' 0 6 17 'ShowDesktop'
 
     # Add Spacer
     addSpacer
 
     # WindowSwitcher
     actionButton NavBar $navbutton 1 'wswitcher-navbar' '' 0 6 17 'WindowList Root c c'
+
+    # Add Spacer
+    addSpacer
+
+    # Forward Button
+    actionButton NavBar $navbutton 1 'forward-navbar' '' 0 6 17 'Next Focus'
 
     # Add Spacer
     addSpacer

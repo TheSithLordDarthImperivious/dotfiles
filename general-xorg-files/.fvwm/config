@@ -148,16 +148,13 @@ AddToFunc TitleChange
 # Function: ShowDesktop
 #
 # This function will toggle showing desktop.
-# All windows get minimized except for non-iconifiable windows
+# All windows get minimized and give state 4 except for non-iconifiable windows
 DestroyFunc ShowDesktop
 AddToFunc   ShowDesktop
-+ I All (State 3) WindowStyle Iconifiable
-+ I All (State 3) Iconify
-+ I All (State 3) State 3 False
-+ I TestRc (NoMatch) All (!Iconic, !Iconifiable) State 3 True
-+ I TestRc (Match) All (State 3) Iconify
-+ I TestRc (Match)  WindowStyle !Iconifiable
-
++ I All (State 4) Iconify
++ I All (State 4) State 4 False
++ I TestRc (NoMatch) All (!Iconic, Iconifiable, !Keyboard) State 4 True
++ I TestRc (Match) All (State 4) Iconify
 
 
 #############
@@ -786,9 +783,9 @@ AddToFunc TileBottomRight
 + I ThisWindow (Maximized, !Shaded, !Iconic) Move -0 -0
 
 # Make Rofi always on top, place at center, never move, never resize, never maximize, never iconify, Sticky (show on all desktops)
-Style Rofi StaysOnTop, PositionPlacement Center, FixedPosition, FixedSize, !Maximizable, !Iconifiable, Sticky
+Style Rofi StaysOnTop, PositionPlacement Center, FixedPosition, FixedSize, !Maximizable, !Iconifiable, Sticky, State 3
 
 # Make on-screen keyboard (matchbox) never have ClickToFocus
-Style "Keyboard"    !ClickToFocusRaises, !FPClickToFocus, !FPAllowRaiseClickFunction, !Maximizable, StaysOnTop
+Style "Keyboard"    !ClickToFocusRaises, !FPClickToFocus, !FPAllowRaiseClickFunction, !Maximizable, StaysOnTop, State 3
 
 #BugOpts RaiseOverUnmanaged
