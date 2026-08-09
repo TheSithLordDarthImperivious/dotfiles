@@ -8,6 +8,6 @@ cd ../general-setup-files
 cd ../general-xorg-files
 . $PWD/install-general-xorg-symlink.sh
 cd ../setup-192dpi
-ln -sf $PWD/.Xresources $HOME/.Xresources
-ln -sf $PWD/rofi $HOME/.config/rofi
-ln -sf $PWD/picom $HOME/.config/picom
+ln -sfT $PWD/.Xresources $HOME/.Xresources
+ln -sfT $PWD/rofi $HOME/.config/rofi
+ln -sfT $PWD/picom $HOME/.config/picom
