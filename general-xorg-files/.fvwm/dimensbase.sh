@@ -12,8 +12,9 @@ bpanel_xclock_padding=8
 bpanel_wintitle_padding=16
 
 # Navbar
-bnavbar=56
+bnavbar=84
 bnavbutton=96
+bnavfontsize=22
 
 # Fonts
 bnorfontsize=12

@@ -41,13 +41,15 @@ AddToFunc TestMax
 + I WindowStyle !Maximizable
 
 # Make all maximizable, non-transient windows have no titlebar or borders
-All (Maximizable, !Transient) WindowStyle !Title, !Borders
+All (Maximizable, !Transient) WindowStyle !Title
 # Update styles so that the title and borders can take effect before maximizing
 UpdateStyles
 # Enable State 2 (maximized by phone mode flag) on maximizable, but not maximized windows, and non-transient windows
 All (Maximizable, !Maximized, !Transient) State 2 True
-# Force re-maximization of previously maximized windows
+# Force all maximixable windows to be maximized
 All (Maximizable, !Transient) Maximize True 100 100
+# Resize all maximized windows to 100% of the new ewmh working area from ewmhbasestruts, but keep windows in maximized state.
+All (Maximized) ResizeMaximize 100da 100da
 # Make all current maximized windows (including State 2 ones) not be maximizable (restorable)
 All (Maximized) WindowStyle !Maximizable
 # Make it so that the function is run when any window is opened, except transient ones.
@@ -64,8 +66,8 @@ All (Maximized, !State 1, !Transient) WindowStyle Maximizable, Title, Borders
 UpdateStyles
 # Unmaximize ecery window that was maximized by phone mode.
 All (State 2) Maximize False
-# Still-maximized windows get maximized again so that it can update with ewmhbasestructs
-All (Maximized) Maximize True 100 100
+# Still-maximized windows get resizemaximized so that they get resized but stays in the maximized state so that it can update with ewmhbasestructs
+All (Maximized) ResizeMaximize 100da 100da
 # Set all previously !Title windows to Maximizable and border (previousky we excluded)
 All (State 1) WindowStyle Maximizable, Borders
 # Disable all State 2
@@ -87,7 +89,7 @@ Wait Keyboard
 # Set the style of the keyboard
 All (Keyboard) WindowStyle StaysOnTop, Sticky, BorderWidth 0, !Borders, !Closable, !Title, NeverFocus
 UpdateStyles
-All (Keyboard) ResizeMove 100 35 0 -$FVWM_NAVHEIGHT
+All (Keyboard) ResizeMove 100 35 0 -0
 All (Keyboard) WindowStyle FixedPosition, FixedSize
 All (Keyboard) Iconify
 # We will add a InitialMapCommand Close to prevent any new keyboard windows from being opened

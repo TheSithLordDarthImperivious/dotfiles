@@ -160,7 +160,7 @@ EOF
 
 # The Panel Itself
 # Add xft: prefix manually
-#barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" '!Borders, !Title, WindowListSkip, StaysOnTop, Sticky, FixedPosition, FixedSize, !Maximizable, !Iconifiable, !Closable'
+#barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" '!Borders, !Title, WindowListSkip, StaysOnTop, Sticky, FixedPosition, FixedSize, !Maximizable, !Iconifiable, !Closable, State 3'
 barGen FvwmBar "$width" $panel true true 0 0 "xft:$norfont" 1 "$width" 'Unmanaged'
 
 # Spacer
@@ -245,7 +245,14 @@ if [ "$mode" = "touch" ]; then
     navbar=`dpiScalerNoTouch $bnavbar`
     navbutton=`dpiScalerNoTouch $bnavbutton`
 
-    barGen NavBar "$width" "$navbar" true false 0 0 "xft:$norfont" 1 "$width" 'Unmanaged'
+    # Also scale the navfont (via fontScaler)
+    navfontsize=`fontScaler $bnavfontsize`
+
+    # Create the font (same as normal font)
+    # But no xft: needed
+    navfont=`fontGen "$fontname" "$navfontsize" 'True' 'False'`
+
+    barGen NavBar "$width" "$navbar" true false 0 0 "xft:$navfont" 1 "$width" 'Unmanaged'
 
     # Add Spacer
     addSpacer
@@ -263,7 +270,7 @@ if [ "$mode" = "touch" ]; then
     addSpacer
 
     # Home Button
-    actionButton NavBar $navbutton 1 'showdesktop-navbar' '' 0 6 17 'ShowDesktop'
+    actionButton NavBar $navbutton 1 'homebutton-navbar' '' 0 6 17 'All (!Iconic, !Keyboard) Iconify'
 
     # Add Spacer
     addSpacer
@@ -298,4 +305,3 @@ else
     echo "EwmhBaseStruts 0 0 $panel 0"
     echo "SetEnv FVWM_NAVHEIGHT 0"
 fi
-
